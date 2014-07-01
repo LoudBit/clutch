@@ -1,0 +1,20 @@
+extends _layout
+
+block content
+  section(ng-controller="ColorCtrl")
+    h1 Colors
+
+    h2(style="color:{{rgb.hex}}") RGB
+    p rgb({{rgb.rgb.r}}, {{rgb.rgb.g}}, {{rgb.rgb.b}}) : {{rgb.hex}}
+
+    h2(style="color:{{lch.hex}}") Lch
+    p lch({{lch.lch.l}}, {{lch.lch.c}}, {{lch.lch.h}}) : {{lch.hex}}
+
+    ul
+      li(ng-repeat="color in spectrum", style="color:{{color.hex}}")
+        {{color.hex}} :: rgb({{color.rgb.r}}, {{color.rgb.g}}, {{color.rgb.b}}) :: lch({{color.lch.l}}, {{color.lch.c}}, {{color.lch.h}})
+
+    table
+      tr(ng-repeat="row in grid")
+        td(ng-repeat="color in row", style="color:{{color.hex}}")
+          code {{color.hex}}

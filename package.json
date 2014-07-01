@@ -1,0 +1,28 @@
+{
+  "name": "clutch",
+  "version": "0.0.0",
+  "description": "",
+  "author": "Mr. Darcy Murphy <darcy.murphy@loudbit.com>",
+  "license": "MIT",
+  "repository": "git@github.com:LoudBit/clutch.git",
+  "dependencies": {
+    "jade": "~0.35.0",
+    "lodash": "~2.4.1",
+    "stylus": "^0.46.3"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-connect": "~0.5.0",
+    "grunt-contrib-haml": "~0.1.1",
+    "grunt-contrib-jade": "~0.8.0",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-sass": "~0.5.1",
+    "grunt-contrib-stylus": "^0.17.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-rework": "0.0.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

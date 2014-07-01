@@ -1,0 +1,165 @@
+button(shine, light, color, dark, shadow) {
+  color: shine;
+  background-color: color;
+  background-image: -moz-linear-gradient(light, color);
+  background-image:      linear-gradient(light, color);
+  // box-shadow: inset 0 1px 1px light, inset 0 -1px 1px dark;
+  box-shadow: inset 0 1px 1px rgba(shine, 0.5), inset 0 -1px 1px rgba(shadow,0.5), 0 1px 2px rgba(warmGreyShadow, 0.25);
+  text-shadow: 0 -1px 2px dark;
+
+  // &:hover {
+  //   color: text;
+  //   background-color: bg;
+  //   background-image: -moz-linear-gradient(rgba(shine, 0.5), bg);
+  //   background-image:      linear-gradient(rgba(shine, 0.5), bg);
+  //   box-shadow: inset 0 1px 1px shine, inset 0 -1px 1px shadow, 0 1px 2px rgba(warm-grey-shadow, 0.25);
+  //   text-shadow: 0 -1px 1px shadow;
+  // }
+
+  &:active {
+    background-color: color;
+    background-image: -moz-linear-gradient(color, light);
+    background-image:      linear-gradient(color, light);
+    box-shadow: inset 0 1px 1px rgba(shadow, 0.5), inset 0 -1px 1px rgba(shine, 0.5);
+    // text-shadow: 0 -1px 1px shadow;
+  }
+
+}
+
+button-line-height = copy-line-height;
+button-padding = copy-line-height * 0.375;
+button-margin = copy-line-height * 0.125;
+
+// not intended for a tags, only buttons should be buttons
+.bit .button {
+  margin: 0 4px;
+  padding: 0 button-padding;
+
+  font-weight: 600;
+  font-size: small-font-size;
+  line-height: copy-line-height;
+
+  border-radius: 4px;
+
+  button(greyShine, greyLight, grey, greyDark, greyShadow);
+}
+
+
+// small
+small-button-line-height = copy-line-height * 0.75;
+small-button-padding = copy-line-height * 0.25;
+small-button-margin = copy-line-height * 0.125;
+.bit .button.small {
+  font-size: tiny-font-size;
+  line-height: small-button-line-height;
+  margin-top: small-button-margin;
+  margin-bottom: small-button-margin;
+  padding: 0 small-button-padding;
+  text-transform: uppercase;
+}
+
+// medium
+medium-button-line-height = copy-line-height * 1.25;
+medium-button-padding = copy-line-height * 0.5;
+medium-button-margin = copy-line-height * 0.375;
+.bit .button.medium {
+  font-size: copy-font-size;
+  line-height: medium-button-line-height;
+  margin-top: medium-button-margin;
+  margin-bottom: medium-button-margin;
+  padding: 0 medium-button-padding;
+}
+
+// large
+large-button-line-height = heading-line-height;
+large-button-padding = heading-line-height * 0.5;
+large-button-margin = heading-line-height * 0.375;
+.bit .button.large {
+  font-size: subheading-font-size;
+  line-height: large-button-line-height;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0 large-button-padding;
+}
+
+
+.bit .button.subheading {
+  font-size: subheading-font-size;
+  line-height: heading-line-height;
+}
+
+// heading
+.bit .button.heading {
+  font-size: heading-font-size;
+  line-height: heading-line-height;
+}
+
+// red
+.bit .button.red {
+  button(redShine, redLight, red, redDark, redShadow);
+}
+
+// orange
+.bit .button.orange {
+  button(orangeShine, orangeLight, orange, orangeDark, orangeShadow);
+}
+
+// yellow
+.bit .button.yellow {
+  button(yellowShine, yellowLight, yellow, yellowDark, yellowShadow);
+}
+
+// olive
+.bit .button.olive {
+  button(oliveShine, oliveLight, olive, oliveDark, oliveShadow);
+}
+
+// green
+.bit .button.green {
+  button(greenShine, greenLight, green, greenDark, greenShadow);
+}
+
+// teal
+.bit .button.teal {
+  button(tealShine, tealLight, teal, tealDark, tealShadow);
+}
+
+// cyan
+.bit .button.cyan {
+  button(cyanShine, cyanLight, cyan, cyanDark, cyanShadow);
+}
+
+// blue
+.bit .button.blue {
+  button(blueShine, blueLight, blue, blueDark, blueShadow);
+}
+
+// purple
+.bit .button.purple {
+  button(purpleShine, purpleLight, purple, purpleDark, purpleShadow);
+}
+
+// magenta
+.bit .button.magenta {
+  button(magentaShine, magentaLight, magenta, magentaDark, magentaShadow);
+}
+
+// black
+.bit .button.black {
+  button(greyLight, greyDark, greyDarker, greyShadow, greyVoid);
+}
+
+// white
+.bit .button.white {
+  button(grey, greyBright, greyShine, greyShine, greyShine);
+}
+
+// warmGrey
+.bit .button.warmGrey {
+  button(warmGreyShine, warmGreyLight, warmGrey, warmGreyDark, warmGreyShadow);
+}
+
+// coolGrey
+.bit .button.coolGrey {
+  button(coolGreyShine, coolGreyLight, coolGrey, coolGreyDark, coolGreyShadow);
+}

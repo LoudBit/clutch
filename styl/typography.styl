@@ -1,0 +1,114 @@
+heading-font-family = "American Typewriter", serif;
+copy-font-family = "Avenir Next", "Avenir", Verdana, sans-serif;
+
+// heading-font-family = "Archer", sans-serif;
+// copy-font-family = "Gotham", sans-serif;
+
+// heading-font-family = "Verdana", sans-serif;
+// copy-font-family = "Georgia", serif;
+
+// heading-font-family = sans-serif;
+// copy-font-family = serif;
+
+// heading-font-family = serif;
+// copy-font-family = sans-serif;
+
+
+// title-font-size      = 48px;
+// heading-font-size    = 36px;
+// subheading-font-size = 24px;
+// lead-font-size       = 18px;
+// copy-font-size       = 16px;
+// small-font-size      = 14px;
+// tiny-font-size       = 10px;
+
+title-font-size      = 36px;
+heading-font-size    = 24px;
+subheading-font-size = 20px;
+lead-font-size       = 18px;
+copy-font-size       = 16px;
+small-font-size      = 12px;
+tiny-font-size       = 10px;
+
+copy-line-height = copy-font-size * 1.5;
+title-line-height = copy-line-height * 2;
+heading-line-height = copy-line-height * 2;
+subheading-line-height = copy-line-height * 1;
+
+//
+
+body { font: copy-font-size/1.5 copy-font-family; }
+
+h1, h2, h3, h4, h5, h6 { margin: 0; font-family: heading-font-family; }
+
+p { margin: 0 0 copy-line-height; }
+
+.title {
+  font-family: heading-font-family;
+  font-size: title-font-size;
+  line-height: title-line-height;
+  font-weight: 500;
+}
+
+h1, .heading {
+  font-weight: 500;
+  font-size: heading-font-size;
+  line-height: heading-line-height;
+  font-family: heading-font-family;
+  margin-bottom: 0;
+}
+
+h2, .subheading {
+  font-family: heading-font-family;
+  font-size: subheading-font-size;
+  line-height: subheading-line-height;
+  font-variant: small-caps;
+  font-style: italic;
+  font-weight: 300;
+}
+
+h3, .lead {
+  font-style: italic;
+  font-size: lead-font-size;
+  font-weight: 400;
+  line-height: copy-line-height;
+}
+
+h4, p, .copy {
+  font-weight: 400;
+  font-size: copy-font-size;
+  line-height: copy-line-height;
+}
+
+h5, .small {
+  font-weight: 400;
+  font-size: small-font-size;
+  line-height: copy-line-height;
+}
+
+h6, .tiny {
+  font-weight: 300;
+  font-size: tiny-font-size;
+  line-height: copy-line-height;
+  text-transform: uppercase;
+}
+
+h6 { font-weight: 400; }
+
+.subheading + .lead {
+  margin-top: copy-line-height;
+}
+
+hr {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid warm-grey;
+  padding: 0 0 copy-line-height;
+  background: transparent;
+}
+
+
+// utilities
+.text-left    { text-align: left; }
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
