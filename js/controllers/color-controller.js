@@ -1,13 +1,15 @@
 /* jshint debug: true */
-clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', function($scope, Color, Spectrum, Grid) {
+clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', 'Anchor', function($scope, Color, Spectrum, Grid, Anchor) {
 
-  $scope.rgb = Color.rgb({r:255, g:0, b:0})
+  $scope.anchor = Anchor
 
-  $scope.lch = Color.lch({l:50, c:50, h:0})
+  // $scope.rgb = Color.rgb({r:255, g:0, b:0})
 
-  $scope.spectrum = Spectrum.create()
+  // $scope.lch = Color.lch({l:50, c:50, h:0})
 
-  $scope.grid = Grid.create()
+  // $scope.spectrum = Spectrum.create()
+
+  // $scope.grid = Grid.create()
 
   return this
 }])

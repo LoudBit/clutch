@@ -24,7 +24,11 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       var color = {}
       if (!input) throw new Error('Give me an lch object.')
 
-      color.lch = input
+      color.lch = {
+        l: parseInt(input.l, 10),
+        c: parseInt(input.c, 10),
+        h: parseInt(input.h, 10)
+      }
       color.rgb = xyz.toRGB(lab.toXYZ(lch.toLAB(color.lch)))
       color.hex = rgb.toHEX(color.rgb)
 

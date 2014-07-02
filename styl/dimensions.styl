@@ -1,5 +1,44 @@
 base = 4px;
 
+heading-font-family = "American Typewriter", serif;
+copy-font-family = "Avenir Next", "Avenir", Verdana, sans-serif;
+
+// heading-font-family = "Archer", sans-serif;
+// copy-font-family = "Gotham", sans-serif;
+
+// heading-font-family = "Verdana", sans-serif;
+// copy-font-family = "Georgia", serif;
+
+// heading-font-family = sans-serif;
+// copy-font-family = serif;
+
+// heading-font-family = serif;
+// copy-font-family = sans-serif;
+
+
+// title-font-size      = 48px;
+// heading-font-size    = 36px;
+// subheading-font-size = 24px;
+// lead-font-size       = 18px;
+// copy-font-size       = 16px;
+// small-font-size      = 14px;
+// tiny-font-size       = 10px;
+
+title-font-size      = 36px;
+heading-font-size    = 24px;
+subheading-font-size = 20px;
+lead-font-size       = 18px;
+copy-font-size       = 16px;
+small-font-size      = 12px;
+tiny-font-size       = 10px;
+
+copy-line-height = copy-font-size * 1.5;
+title-line-height = copy-line-height * 2;
+heading-line-height = copy-line-height * 2;
+subheading-line-height = copy-line-height * 1;
+
+
+
 .x { min-width: base; }
 .y { min-height: base; }
 
@@ -54,37 +93,6 @@ base = 4px;
 // .y-1140px { height: 1140px; }
 // .y-1280px { height: 1280px; }
 
-// fibonnaci increase...
-// 38.2
-.x-4px    { width: 4px; }
-.x-8px    { width: 8px; }
-.x-12px   { width: 12px; }
-.x-20px   { width: 20px; }
-.x-32px   { width: 32px; }
-.x-52px   { width: 52px; }
-.x-84px   { width: 84px; }
-.x-136px  { width: 136px; }
-.x-220px  { width: 220px; }
-.x-356px  { width: 356px; }
-.x-576px  { width: 576px; }
-.x-932px  { width: 932px; }
-.x-1508px { width: 1508px; }
-
-.y-4px    { height: 4px; }
-.y-8px    { height: 8px; }
-.y-12px   { height: 12px; }
-.y-20px   { height: 20px; }
-.y-32px   { height: 32px; }
-.y-52px   { height: 52px; }
-.y-84px   { height: 84px; }
-.y-136px  { height: 136px; }
-.y-220px  { height: 220px; }
-.y-356px  { height: 356px; }
-.y-576px  { height: 576px; }
-.y-932px  { height: 932px; }
-.y-1508px { height: 1508px; }
-
-
 .x-4    { width: 4px; }
 .x-8    { width: 8px; }
 .x-16   { width: 16px; }
@@ -108,13 +116,13 @@ base = 4px;
 .y-2048 { height: 2048px; }
 
 // em based heights and widths
-.x-0.5em  { width: 0.5em; }
-.x-1em    { width: 1em; }
-.x-2em    { width: 2em; }
+.x-0.5em  { width: copy-line-height/2; }
+.x-1em    { width: copy-line-height; }
+.x-2em    { width: copy-line-height*2; }
 
-.y-0.5em  { height: 0.5em; }
-.y-1em    { height: 1em; }
-.y-2em    { height: 2em; }
+.y-0.5em  { height: copy-line-height/2; }
+.y-1em    { height: copy-line-height; }
+.y-2em    { height: copy-line-height*2; }
 
 // push/pull
 .push-5   { margin-left: 5%; }

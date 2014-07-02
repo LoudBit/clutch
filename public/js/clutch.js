@@ -27070,15 +27070,17 @@ var styleDirective = valueFn({
 var clutch = angular.module('clutch', [])
 
 /* jshint debug: true */
-clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', function($scope, Color, Spectrum, Grid) {
+clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', 'Anchor', function($scope, Color, Spectrum, Grid, Anchor) {
 
-  $scope.rgb = Color.rgb({r:255, g:0, b:0})
+  $scope.anchor = Anchor
 
-  $scope.lch = Color.lch({l:50, c:50, h:0})
+  // $scope.rgb = Color.rgb({r:255, g:0, b:0})
 
-  $scope.spectrum = Spectrum.create()
+  // $scope.lch = Color.lch({l:50, c:50, h:0})
 
-  $scope.grid = Grid.create()
+  // $scope.spectrum = Spectrum.create()
+
+  // $scope.grid = Grid.create()
 
   return this
 }])
@@ -27244,6 +27246,44 @@ clutch.controller('ColorColorColorController', ['$scope', 'Hue', function($scope
 
 }])
 
+/* jshint debug: true */
+clutch.controller('UICtrl', ['$scope', 'Anchor', function($scope, Anchor) {
+
+  $scope.sections = [{
+    name: 'Color',
+    slug: 'color'
+  }, {
+    name: 'Spectrum',
+    slug: 'spectrum'
+  }, {
+    name: 'Grid',
+    slug: 'grid'
+  }]
+
+  $scope.selected = 'color'
+
+  $scope.select = function(slug) {
+    $scope.selected = slug
+  }
+
+  $scope.anchor = Anchor
+
+  $scope.$watch('anchor.color.lch.l', function(newVal, oldVal){
+    Anchor.update({l:newVal})
+  })
+
+  $scope.$watch('anchor.color.lch.c', function(newVal, oldVal){
+    Anchor.update({c:newVal})
+  })
+
+  $scope.$watch('anchor.color.lch.h', function(newVal, oldVal){
+    Anchor.update({h:newVal})
+  })
+
+  return this
+
+}])
+
 // lab color to rgb filter?
 clutch.filter('rgb', function() {
   'use strict';
@@ -27251,6 +27291,40 @@ clutch.filter('rgb', function() {
     return 'rgb(' + args[0] + ', ' + args[1] + ', ' + args[2] + ')'
   }
 })
+
+clutch.factory('Anchor', ['Color', function(Color) {
+
+  function stylize(color) {
+    var pad = 1 + color.lch.c/50
+    var margin = ' ' + (pad * -1) + 'em'
+    var styl = {
+      background: color.hex,
+      bottom:     color.lch.l + '%',
+      left:       (color.lch.h/360*100) + '%',
+      padding:    pad + 'em',
+      margin:     '0 0' + margin + margin
+    }
+    return styl
+  }
+
+  var initialColor = Color.lch({
+    l: Math.round( Math.random() * 100 ),
+    c: Math.round( Math.random() * 100 ),
+    h: Math.round( Math.random() * 360 )
+  })
+
+  var anchor = {
+    color: initialColor,
+    update: function(newLch) {
+      anchor.color = Color.lch(_.extend(anchor.color.lch, newLch))
+      anchor.styles = stylize(anchor.color)
+    },
+    styles: stylize(initialColor)
+  }
+
+  return anchor
+
+}])
 
 // Grid has many Spectrums
 // Spectrum has many Colors
@@ -27278,7 +27352,11 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       var color = {}
       if (!input) throw new Error('Give me an lch object.')
 
-      color.lch = input
+      color.lch = {
+        l: parseInt(input.l, 10),
+        c: parseInt(input.c, 10),
+        h: parseInt(input.h, 10)
+      }
       color.rgb = xyz.toRGB(lab.toXYZ(lch.toLAB(color.lch)))
       color.hex = rgb.toHEX(color.rgb)
 
