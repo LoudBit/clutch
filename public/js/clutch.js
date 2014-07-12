@@ -27070,15 +27070,17 @@ var styleDirective = valueFn({
 var clutch = angular.module('clutch', [])
 
 /* jshint debug: true */
-clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', function($scope, Color, Spectrum, Grid) {
+clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', 'Anchor', function($scope, Color, Spectrum, Grid, Anchor) {
 
-  $scope.rgb = Color.rgb({r:255, g:0, b:0})
+  $scope.anchor = Anchor
 
-  $scope.lch = Color.lch({l:50, c:50, h:0})
+  // $scope.rgb = Color.rgb({r:255, g:0, b:0})
 
-  $scope.spectrum = Spectrum.create()
+  // $scope.lch = Color.lch({l:50, c:50, h:0})
 
-  $scope.grid = Grid.create()
+  // $scope.spectrum = Spectrum.create()
+
+  // $scope.grid = Grid.create()
 
   return this
 }])
@@ -27244,6 +27246,44 @@ clutch.controller('ColorColorColorController', ['$scope', 'Hue', function($scope
 
 }])
 
+/* jshint debug: true */
+clutch.controller('UICtrl', ['$scope', 'Anchor', function($scope, Anchor) {
+
+  $scope.sections = [{
+    name: 'Color',
+    slug: 'color'
+  }, {
+    name: 'Spectrum',
+    slug: 'spectrum'
+  }, {
+    name: 'Grid',
+    slug: 'grid'
+  }]
+
+  $scope.selected = 'color'
+
+  $scope.select = function(slug) {
+    $scope.selected = slug
+  }
+
+  $scope.anchor = Anchor
+
+  $scope.$watch('anchor.color.lch.l', function(newVal, oldVal){
+    Anchor.update({l:newVal})
+  })
+
+  $scope.$watch('anchor.color.lch.c', function(newVal, oldVal){
+    Anchor.update({c:newVal})
+  })
+
+  $scope.$watch('anchor.color.lch.h', function(newVal, oldVal){
+    Anchor.update({h:newVal})
+  })
+
+  return this
+
+}])
+
 // lab color to rgb filter?
 clutch.filter('rgb', function() {
   'use strict';
@@ -27251,6 +27291,40 @@ clutch.filter('rgb', function() {
     return 'rgb(' + args[0] + ', ' + args[1] + ', ' + args[2] + ')'
   }
 })
+
+clutch.factory('Anchor', ['Color', function(Color) {
+
+  function stylize(color) {
+    var pad = 1 + color.lch.c/50
+    var margin = ' ' + (pad * -1) + 'em'
+    var styl = {
+      background: color.hex,
+      bottom:     color.lch.l + '%',
+      left:       (color.lch.h/360*100) + '%',
+      padding:    pad + 'em',
+      margin:     '0 0' + margin + margin
+    }
+    return styl
+  }
+
+  var initialColor = Color.lch({
+    l: Math.round( Math.random() * 100 ),
+    c: Math.round( Math.random() * 100 ),
+    h: Math.round( Math.random() * 360 )
+  })
+
+  var anchor = {
+    color: initialColor,
+    update: function(newLch) {
+      anchor.color = Color.lch(_.extend(anchor.color.lch, newLch))
+      anchor.styles = stylize(anchor.color)
+    },
+    styles: stylize(initialColor)
+  }
+
+  return anchor
+
+}])
 
 // Grid has many Spectrums
 // Spectrum has many Colors
@@ -27278,7 +27352,11 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       var color = {}
       if (!input) throw new Error('Give me an lch object.')
 
-      color.lch = input
+      color.lch = {
+        l: parseInt(input.l, 10),
+        c: parseInt(input.c, 10),
+        h: parseInt(input.h, 10)
+      }
       color.rgb = xyz.toRGB(lab.toXYZ(lch.toLAB(color.lch)))
       color.hex = rgb.toHEX(color.rgb)
 
@@ -27330,92 +27408,6 @@ clutch.factory('Grid', ['Spectrum', function(Spectrum) {
 
 }])
 
-clutch.factory('Hue', function(){
-  'use strict';
-
-  var phi = 1.6180339888
-
-  function round(x) {
-    return x
-    // return Number(parseFloat(x).toFixed(3))
-  }
-
-  // creates a scale of light, medium, dark color, and light medium dark shades of those
-  function scale(offsets, full) {
-    var o     = (offsets && offsets.l) || 0,
-    // var o = 0,
-        max = 50*2 + o,
-        range = [],
-        lightness
-
-    // mid tones
-    range.push( round(50 + o) )
-
-    _.times(7, function(i){
-      if (full && !i) return;
-      if (!full && i % 2 < 1 ) return;
-      lightness = max
-
-      _.times(i+1, function(){
-        lightness = lightness/phi
-      })
-
-      range.push(round(max - lightness))
-      range.unshift(round(lightness))
-    })
-
-    range.push(100)
-    range.unshift(0)
-
-    return range
-  }
-
-  var Hue = {
-
-    lightness: scale(),
-
-    scale: scale,
-
-    parse: function(color) {
-      var lch = chroma.css(color).lch()
-      return {
-        l: round(lch[0]),
-        c: round(lch[1]),
-        h: round(lch[2])
-      }
-    },
-
-    round: round,
-
-    toObj: function(lch) {
-      lch = lch || { l:0, c:0, h:0 }
-      lch.l = round(lch.l)
-      lch.c = round(lch.c)
-      lch.h = round(lch.h)
-      lch.name = lch.name || lch.h
-      return lch
-    },
-
-    build: function(lch, offsets) {
-      var range = []
-      _.forEachRight(scale(offsets), function(l){
-        range.push( chroma.lch(l, lch.c, lch.h).hex() )
-      })
-      return range
-    },
-
-    create: function(lch, offsets) {
-      lch = this.toObj(lch)
-      lch.scale = this.build(lch, offsets)
-      return lch
-    }
-
-  }
-
-  return Hue
-
-})
-
 clutch.factory('LAB', function(){
 
   var refX =  95.047
@@ -27458,120 +27450,6 @@ clutch.factory('LAB', function(){
   }
 })
 
-// clutch.factory('Lab', function(){
-//   'use strict';
-
-//   function toNumbers(lab) {
-//     return {
-//       l: parseInt(lab.l, 10),
-//       a: parseInt(lab.a, 10),
-//       b: parseInt(lab.b, 10)
-//     }
-//   }
-
-//   var scales = {
-//     // l: [100, 95, 90, 75, 66, 50, 33, 25, 10, 5, 0],
-//     // a: [-128, -115, -102, -64, -44, 0, 41, 64, 102, 115, 127],
-//     // b: [-128, -115, -102, -64, -44, 0, 41, 64, 102, 115, 127]
-//     l: [ 100,  90,  80,  70,  60,  50,  40,  30,  20,  10, 0],
-//     a: [-100, -90, -80, -70, -60, -50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
-//     b: [-100, -90, -80, -70, -60, -50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-//   }
-
-//   var lab = {
-//     scales: scales,
-
-//     toNumbers: toNumbers,
-
-//     buildSpectrum: function() {
-//       var spectrum = [], row, cells
-//       scales.l.forEach(function(l){
-//         row = []
-//         scales.a.forEach(function(a){
-//           cells = []
-//           scales.b.forEach(function(b){
-//             cells.push( chroma.lab(l, a, b).rgb() )
-//           })
-//           row.push(cells)
-//         })
-//         spectrum.push(row)
-//       })
-//       return spectrum
-//     },
-
-//     gridLA: function(b) {
-//       var spectrum = [], row = [], cells =[]
-//       scales.l.forEach(function(l){
-//         cells = []
-//         scales.a.forEach(function(a){
-//           cells.push( chroma.lab(l, a, b).rgb() )
-//         })
-//         row.push(cells)
-//       })
-//       spectrum.push(row)
-//       return spectrum
-//     },
-
-//     gridAB: function(l) {
-//       var spectrum = [], row = [], cells =[]
-//       scales.a.forEach(function(a){
-//         cells = []
-//         scales.b.forEach(function(b){
-//           cells.push( chroma.lab(l, a, b).rgb() )
-//         })
-//         row.push(cells)
-//       })
-//       spectrum.push(row)
-//       return spectrum
-//     },
-
-//     gridLB: function(a) {
-//       var spectrum = [], row = [], cells =[]
-//       scales.l.forEach(function(l){
-//         cells = []
-//         scales.b.forEach(function(b){
-//           cells.push( chroma.lab(l, a, b).rgb() )
-//         })
-//         row.push(cells)
-//       })
-//       spectrum.push(row)
-//       return spectrum
-//     },
-
-//     lScale: function(lab) {
-//       var scale = []
-//       scales.l.forEach(function(l){
-//         scale.push( chroma.lab(l, lab.a, lab.b).rgb() )
-//       })
-//       return scale
-//     },
-
-//     aScale: function(lab) {
-//       var scale = []
-//       scales.a.forEach(function(a){
-//         scale.push( chroma.lab(lab.l, a, lab.b).rgb() )
-//       })
-//       return scale
-//     },
-
-//     bScale: function(lab) {
-//       var scale = []
-//       scales.b.forEach(function(b){
-//         scale.push( chroma.lab(parseInt(lab.l,10), lab.a, b).rgb() )
-//       })
-//       return scale
-//     },
-
-//     toHEX: function(lab) {
-//       return chroma.lab(lab.l, lab.a, lab.b).hex()
-//     }
-//   }
-
-//   return lab
-
-// })
-
-
 clutch.factory('LCH', function(){
   return {
     toLAB: function(lch) {
@@ -27584,119 +27462,6 @@ clutch.factory('LCH', function(){
     }
   }
 })
-
-// gooey.factory('Lch', function(){
-//   'use strict';
-
-//   function toNumbers(lch) {
-//     return {
-//       l: parseInt(lch.l, 10),
-//       c: parseInt(lch.c, 10),
-//       h: parseInt(lch.h, 10)
-//     }
-//   }
-
-//   // TODO: add an offset
-//   function buildScale(min, max, by, off) {
-//     var scale = []
-//     var i
-
-//     off =  parseInt(off, 10) || 0
-//     min = (parseInt(min, 10) || 0) + off
-//     max = (parseInt(max, 10) || 100) + off
-//     by  =  parseInt(by,  10) || 1
-
-//     for (i = min; i <= max; i += by) {
-//       scale.push(i)
-//     }
-
-//     return scale
-//   }
-
-//   var scales = {
-//     l: [5, 10, 15, 25, 33, 50, 66, 75, 85, 90, 95],
-//     c: [5, 10, 15, 25, 33, 50, 66, 75, 85, 90, 95],
-//     h: buildScale(0, 360-10, 10, 0)
-//   }
-
-//   var Lch = {
-//     scales: scales,
-
-//     toNumbers: toNumbers,
-
-//     toHEX: function(lch) {
-//       return chroma.lch(lch.l, lch.c, lch.h).hex()
-//     },
-
-//     buildScales: function(lch) {
-//       // var scales = {
-//       //   l: buildScale(0, 100, 1),
-//       //   c: buildScale(0, 100, 1, lch.oc),
-//       //   h: buildScale(0, 360-5, 5, lch.oh)
-//       // }
-//       return scales
-//     },
-
-//     // build one of each
-//     grids: function(lch) {
-//       var grids = {
-//         l: {
-//           ch: [],
-//           scale: []
-//         },
-//         c: {
-//           lh: [],
-//           scale: []
-//         },
-//         h: {
-//           lc: [],
-//           scale: []
-//         },
-//         palette: []
-//       }
-
-//       var lightnessRow = []
-//       // var cells = []
-//       // var cell
-
-//       scales.l.forEach(function(l, li){
-//         // reset each loop
-//         lightnessRow = []
-
-//         // placing empty arrays for gaps
-//         // if (li == 3 || li == 8) grids.palette.unshift(['transparent'])
-
-//         // build the stuff we need off of this loop
-//         if (grids.l.scale.length < scales.l.length) {
-//           grids.l.scale.push( chroma.lch(l, lch.c, lch.h).hex() )
-//         }
-
-//         scales.c.forEach(function(c){
-//           if (grids.c.scale.length < scales.c.length) {
-//             grids.c.scale.push( chroma.lch(lch.l, c, lch.h).hex() )
-//           }
-//         })
-
-//         scales.h.forEach(function(h){
-//           if (grids.h.scale.length < scales.h.length) {
-//             grids.h.scale.push( chroma.lch(lch.l, lch.c, h).hex() )
-//           }
-//           lightnessRow.push( chroma.lch(l, lch.c, h).hex() )
-//         })
-
-//         // close off
-//         grids.palette.unshift(lightnessRow)
-
-//       })
-
-//       return grids
-//     }
-
-//   }
-
-//   return Lch
-
-// })
 
 clutch.factory('RGB', function(){
 
