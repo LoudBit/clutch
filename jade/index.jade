@@ -2,7 +2,7 @@ extends _layout
 
 block content
 
-  article(ng-controller="UICtrl")
+  article.flex-vert(ng-controller="UICtrl")
 
     section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
       #anchor(ng-style="anchor.styles")
