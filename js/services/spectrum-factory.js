@@ -1,4 +1,4 @@
-clutch.factory('Spectrum', ['Color', function(color) {
+clutch.factory('Spectrum', ['Anchor', 'Color', function(Anchor, Color) {
 
   function stylize(color) {
     var styl = {
@@ -12,11 +12,10 @@ clutch.factory('Spectrum', ['Color', function(color) {
 
     lch = lch && _.defaults(lch, defaults) || defaults
     hue = 360 / Spectrum.range
-
     hueOffset = lch.h % hue
 
     for (i = 0; i < Spectrum.range; i++) {
-      spectrum.push( color.lch({
+      spectrum.push(Color.lch({
         l: lch.l,
         c: lch.c,
         h: hue * i + hueOffset
@@ -25,7 +24,6 @@ clutch.factory('Spectrum', ['Color', function(color) {
 
     return spectrum
   }
-
 
   var defaults = {
     l: 50,
@@ -47,8 +45,8 @@ clutch.factory('Spectrum', ['Color', function(color) {
     }
   }
 
-  Spectrum.colors = createSpectrum()
-  Spectrum.styles = stylize(Spectrum.colors[0])
+  Spectrum.colors = createSpectrum(Anchor.color.lch)
+  Spectrum.styles = stylize(Anchor.color)
 
   return Spectrum
 
