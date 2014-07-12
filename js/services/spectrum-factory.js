@@ -1,40 +1,41 @@
-// Grid has many Spectrums
-// Spectrum has many Colors
-// Color has many objects
-
-// Going from RGB to LCH and back again
-// Observer= 2°, Illuminant= D65
-
 clutch.factory('Spectrum', ['Color', function(color) {
 
+  function createSpectrum(lch) {
+    var i, hue, hueOffset, spectrum = []
+
+    lch = lch && _.defaults(lch, defaults) || defaults
+    hue = 360 / Spectrum.range
+
+    hueOffset = lch.h % hue
+
+    for (i = 0; i < Spectrum.range; i++) {
+      spectrum.push( color.lch({
+        l: lch.l,
+        c: lch.c,
+        h: hue * i + hueOffset
+      }))
+    }
+
+    return spectrum
+  }
+
   var defaults = {
-    x: 12,
     l: 50,
     c: 50,
     h: 0
   }
 
-  return {
-
-    create: function(x) {
-      var i
-      var spectrum = []
-      var hue
-
-      x = x && _.defaults(x, defaults) || defaults
-      hue = 360 / x.x
-
-      for (i = 0; i < x.x; i++) {
-        spectrum.push( color.lch({
-          l: x.l,
-          c: x.c,
-          h: hue * i + x.h
-        }))
-      }
-
-      return spectrum
+  var Spectrum = {
+    range: 12,
+    colors: [],
+    create: createSpectrum,
+    update: function(lch) {
+      Spectrum.colors = createSpectrum(lch)
     }
-
   }
+
+  Spectrum.colors = createSpectrum()
+
+  return Spectrum
 
 }])

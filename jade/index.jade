@@ -2,33 +2,56 @@ extends _layout
 
 block content
 
-  article(ng-controller="ColorCtrl")
-    section
+  article(ng-controller="UICtrl")
+
+    section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
       #anchor(ng-style="anchor.styles")
 
-    section#ui.group(ng-controller="UICtrl")
+    section(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
+      #spectrum
+        .spec(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex")
+
+
+    section#ui.group
       section.column.x-25
         ul.tabs
-          li(ng-repeat="section in sections", ng-class="{selected:section.slug == selected}", ng-click="select(section.slug)")
+          li(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
             {{section.name}}
+
       section.column.x-75
-        form.group(ng-show="selected == 'color'")
-          .col.x-33
+        form.group(ng-if="UI.selected == 'color'")
+          .col.x-25
             label Lightness {{anchor.color.lch.l}}
             br
             input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
-          .col.x-33
+          .col.x-25
             label Chromaticity {{anchor.color.lch.c}}
             br
             input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
-          .col.x-33
+          .col.x-25
             label Hue {{anchor.color.lch.h}}
             br
             input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
 
-        form.ui-(ng-show="selected == 'spectrum'")
-          h1 Spectrum
-        form.ui-(ng-show="selected == 'grid'")
+        form.ui-(ng-if="UI.selected == 'spectrum'")
+          .col.x-25
+            label Lightness {{anchor.color.lch.l}}
+            br
+            input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
+          .col.x-25
+            label Chromaticity {{anchor.color.lch.c}}
+            br
+            input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
+          .col.x-25
+            label Hue {{anchor.color.lch.h}}
+            br
+            input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
+          .col.x-25
+            label Range {{spectrum.range}}
+            br
+            input(type="range", min="2", max="36", ng-model="spectrum.range")
+
+        form.ui-(ng-if="UI.selected == 'grid'")
           h1 Grid
 
 

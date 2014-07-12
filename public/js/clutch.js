@@ -27074,210 +27074,63 @@ clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', 'Anchor',
 
   $scope.anchor = Anchor
 
-  // $scope.rgb = Color.rgb({r:255, g:0, b:0})
-
-  // $scope.lch = Color.lch({l:50, c:50, h:0})
-
-  // $scope.spectrum = Spectrum.create()
-
-  // $scope.grid = Grid.create()
-
   return this
-}])
-
-clutch.controller('ColorColorColorController', ['$scope', 'Hue', function($scope, Hue) {
-  'use strict';
-
-  var hues = []
-
-  function spectrum(lch, off) {
-    lch = lch || { l: 50, c: $scope.chromaticity, h: 0 }
-    off = off || { l:  0, c:  0, h: 0 }
-    return [
-      // Core Colors
-      { l: lch.l, c: lch.c, h:   0+off.h, name: 'Magenta' },
-      { l: lch.l, c: lch.c, h:  30+off.h, name: 'Red' },
-      { l: lch.l, c: lch.c, h:  60+off.h, name: 'Orange' },
-      { l: lch.l, c: lch.c, h:  90+off.h, name: 'Yellow' },
-      { l: lch.l, c: lch.c, h: 120+off.h, name: 'Olive' },
-      { l: lch.l, c: lch.c, h: 150+off.h, name: 'Green' },
-      { l: lch.l, c: lch.c, h: 180+off.h, name: 'Teal' },
-      { l: lch.l, c: lch.c, h: 210+off.h, name: 'Cyan' },
-      { l: lch.l, c: lch.c, h: 240+off.h, name: 'LightBlue' },
-      { l: lch.l, c: lch.c, h: 270+off.h, name: 'Blue' },
-      { l: lch.l, c: lch.c, h: 300+off.h, name: 'Indigo' },
-      { l: lch.l, c: lch.c, h: 330+off.h, name: 'Purple' },
-
-      // Greys
-      { l: lch.l, c:     0, h:   0+off.h, name:'Grey' },
-      { l: lch.l, c: 3.444, h:  60+off.h, name:'WarmGrey' },
-      { l: lch.l, c: 3.444, h: 240+off.h, name:'CoolGrey' },
-    ]
-  }
-
-  function buildHues() {
-    hues = []
-
-    _.each(spectrum(), function(hue){
-      hues.push( Hue.create(hue) )
-    })
-
-    _.extend($scope, {
-      hues: hues,
-      background: 'transparent',
-      stylus: generateStylus(hues),
-      scss: generateScss(hues)
-    })
-  }
-
-  function generateStylus(hues) {
-    hues = hues || $scope.hues
-    var text = []
-    hues.forEach(function(hue){
-      text.push( '// ' + hue.name + '\n');
-      hue.scale.forEach(function(color, index){
-        var prefix = (index <= 3) ? 0 : (index >= 6) ? 2 : 1;
-        var suffix = (index % 3)
-        text.push( $scope.shades.prefixes[prefix] + hue.name.toLowerCase() + $scope.shades.suffixes[suffix] + ' = ' + color + ';\n');
-      })
-      text.push( '\n\n' );
-    })
-    return text.join('')
-  }
-
-  function generateScss(hues) {
-    hues = hues || $scope.hues
-    var text = []
-    hues.forEach(function(hue){
-      text.push( '// ' + hue.name + '\n');
-      // console.log(hue.name, hue.scale)
-      hue.scale.forEach(function(color, index){
-        var prefix = (index <= 2) ? 0 : (index >= 6) ? 2 : 1;
-        var suffix = (index % 3)
-        text.push( '$' + $scope.shades.prefixes[prefix] + hue.name.toLowerCase() + $scope.shades.suffixes[suffix] + ': ' + color + ';\n');
-      })
-      text.push( '\n\n' );
-    })
-    return text.join('')
-  }
-
-
-  _.extend($scope, {
-
-    anchor: { l: 0, c: 0, h: 0 },
-    anchorInput: '',
-    background: 'transparent',
-    chromaticity: Hue.lightness[Math.round(Hue.lightness.length/2 - 1)],
-    chromaticityScale: Hue.scale({ l: 0, c: 0, h: 0 }, true),
-    Hue: Hue,
-    hues: hues,
-    offsets: { l: 0, c: 0, h: 0 },
-    scale: Hue.lightness,
-    shades: {
-      prefixes: [
-        'light-',
-        '',
-        'dark-'
-      ],
-      suffixes: [
-        '-highlight',
-        '',
-        '-shadow'
-      ]
-    },
-
-    stylus: '',
-
-    anchorIt: function() {
-      // debugger
-      if (!$scope.anchorInput) {
-        buildHues()
-        return
-      }
-
-      var lch = Hue.parse($scope.anchorInput)
-
-      var offsets = {
-        l: Hue.round(lch.l - 50),
-        c: 0,
-        h: Hue.round(lch.h % 30)
-      }
-
-      hues = []
-
-      _.each(spectrum(lch, offsets), function(hue){
-        hues.push( Hue.create(hue, offsets) )
-      })
-
-      _.extend($scope, {
-        anchor: lch,
-        background: chroma.css($scope.anchorInput).hex(),
-        anchorInput: chroma.css($scope.anchorInput).hex(),
-        hues: hues,
-        offsets: offsets,
-        scale: Hue.scale(offsets, false),
-        stylus: generateStylus(hues),
-        scss: generateScss(hues)
-      })
-
-    },
-
-    setBackground: function(hue) {
-      $scope.background = hue
-    },
-
-    textColor: function(hue, index) {
-      var half = hue.scale.length * 0.5
-      var last = hue.scale.length - 1
-      if (index < half) {
-        return hue.scale[last]
-      } else {
-        return hue.scale[0]
-      }
-    }
-
-  })
-
-
-  $scope.$watch('chromaticity', function(){
-    // debugger;
-    buildHues()
-  })
 
 }])
 
 /* jshint debug: true */
-clutch.controller('UICtrl', ['$scope', 'Anchor', function($scope, Anchor) {
-
-  $scope.sections = [{
-    name: 'Color',
-    slug: 'color'
-  }, {
-    name: 'Spectrum',
-    slug: 'spectrum'
-  }, {
-    name: 'Grid',
-    slug: 'grid'
-  }]
-
-  $scope.selected = 'color'
-
-  $scope.select = function(slug) {
-    $scope.selected = slug
-  }
+clutch.controller('SpectrumCtrl', ['$scope',  'Anchor', 'Spectrum', function($scope, Anchor, Spectrum) {
 
   $scope.anchor = Anchor
 
-  $scope.$watch('anchor.color.lch.l', function(newVal, oldVal){
-    Anchor.update({l:newVal})
+  $scope.spectrum = Spectrum
+
+  return this
+
+}])
+
+/* jshint debug: true */
+clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($scope, UI, Anchor, Spectrum) {
+
+  // Ideal
+  $scope.UI = UI
+
+  $scope.anchor = Anchor
+
+  $scope.spectrum = Spectrum
+
+  $scope.$watch('anchor.color.lch.l', function(newVal, oldVal, scope){
+    if (newVal != oldVal) {
+      Anchor.update({l:newVal})
+      if (UI.selected == 'spectrum') {
+        Spectrum.update({l:newVal})
+      }
+    }
   })
 
   $scope.$watch('anchor.color.lch.c', function(newVal, oldVal){
-    Anchor.update({c:newVal})
+    if (newVal != oldVal) {
+      Anchor.update({c:newVal})
+      if (UI.selected == 'spectrum') {
+        Spectrum.update({c:newVal})
+      }
+    }
   })
 
   $scope.$watch('anchor.color.lch.h', function(newVal, oldVal){
-    Anchor.update({h:newVal})
+    if (newVal != oldVal) {
+      Anchor.update({h:newVal})
+      if (UI.selected == 'spectrum') {
+        // need this to be an offset instead
+        Spectrum.update({h:newVal})
+      }
+    }
+  })
+
+  $scope.$watch('spectrum.range', function(newVal, oldVal){
+    if (newVal != oldVal && UI.selected == 'spectrum') {
+      Spectrum.update()
+    }
   })
 
   return this
@@ -27313,26 +27166,27 @@ clutch.factory('Anchor', ['Color', function(Color) {
     h: Math.round( Math.random() * 360 )
   })
 
-  var anchor = {
+  // Anchor
+  var Anchor = {
+
     color: initialColor,
+
     update: function(newLch) {
-      anchor.color = Color.lch(_.extend(anchor.color.lch, newLch))
-      anchor.styles = stylize(anchor.color)
+      Anchor.color = Color.lch(_.extend(Anchor.color.lch, newLch))
+      Anchor.styles = stylize(Anchor.color)
     },
+
     styles: stylize(initialColor)
+
   }
 
-  return anchor
+  return Anchor
 
 }])
 
 // Grid has many Spectrums
 // Spectrum has many Colors
 // Color has many objects
-
-// Going from RGB to LCH and back again
-// Observer= 2°, Illuminant= D65
-
 clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch) {
 
   return {
@@ -27344,6 +27198,10 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       color.rgb = input
       color.hex = rgb.toHEX(color.rgb)
       color.lch = lab.toLCH(xyz.toLAB(rgb.toXYZ(color.rgb)))
+      color.styles = {
+        fg: { color: color.hex },
+        bg: { background: color.hex }
+      }
 
       return color
     },
@@ -27352,13 +27210,13 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       var color = {}
       if (!input) throw new Error('Give me an lch object.')
 
-      color.lch = {
-        l: parseInt(input.l, 10),
-        c: parseInt(input.c, 10),
-        h: parseInt(input.h, 10)
-      }
+      color.lch = input
       color.rgb = xyz.toRGB(lab.toXYZ(lch.toLAB(color.lch)))
       color.hex = rgb.toHEX(color.rgb)
+      color.styles = {
+        fg: { color: color.hex },
+        bg: { background: color.hex }
+      }
 
       return color
     }
@@ -27453,6 +27311,13 @@ clutch.factory('LAB', function(){
 clutch.factory('LCH', function(){
   return {
     toLAB: function(lch) {
+      // doing the parseInt'ing here to prevent over-aggressive model updates
+      lch = {
+        l: parseInt(lch.l, 10),
+        c: parseInt(lch.c, 10),
+        h: parseInt(lch.h, 10)
+      }
+
       var h = lch.h * (Math.PI/180)
       return {
         l: lch.l,
@@ -27502,44 +27367,72 @@ clutch.factory('RGB', function(){
   }
 })
 
-// Grid has many Spectrums
-// Spectrum has many Colors
-// Color has many objects
-
-// Going from RGB to LCH and back again
-// Observer= 2°, Illuminant= D65
-
 clutch.factory('Spectrum', ['Color', function(color) {
 
+  function createSpectrum(lch) {
+    var i, hue, hueOffset, spectrum = []
+
+    lch = lch && _.defaults(lch, defaults) || defaults
+    hue = 360 / Spectrum.range
+
+    hueOffset = lch.h % hue
+
+    for (i = 0; i < Spectrum.range; i++) {
+      spectrum.push( color.lch({
+        l: lch.l,
+        c: lch.c,
+        h: hue * i + hueOffset
+      }))
+    }
+
+    return spectrum
+  }
+
   var defaults = {
-    x: 12,
     l: 50,
     c: 50,
     h: 0
   }
 
-  return {
+  var Spectrum = {
+    range: 12,
+    colors: [],
+    create: createSpectrum,
+    update: function(lch) {
+      Spectrum.colors = createSpectrum(lch)
+    }
+  }
 
-    create: function(x) {
-      var i
-      var spectrum = []
-      var hue
+  Spectrum.colors = createSpectrum()
 
-      x = x && _.defaults(x, defaults) || defaults
-      hue = 360 / x.x
+  return Spectrum
 
-      for (i = 0; i < x.x; i++) {
-        spectrum.push( color.lch({
-          l: x.l,
-          c: x.c,
-          h: hue * i + x.h
-        }))
-      }
+}])
 
-      return spectrum
+clutch.factory('UI', [function() {
+
+  var UI = {
+
+    sections: [{
+      name: 'Color',
+      slug: 'color'
+    }, {
+      name: 'Spectrum',
+      slug: 'spectrum'
+    }, {
+      name: 'Grid',
+      slug: 'grid'
+    }],
+
+    selected: 'color',
+
+    select: function(slug) {
+      UI.selected = slug
     }
 
   }
+
+  return UI
 
 }])
 
