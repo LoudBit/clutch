@@ -19,6 +19,14 @@ clutch.factory('Spectrum', ['Color', function(color) {
     return spectrum
   }
 
+  function stylize(color) {
+    var styl = {
+      bottom:     color.lch.l + '%'
+    }
+
+    return styl
+  }
+
   var defaults = {
     l: 50,
     c: 50,
@@ -31,10 +39,13 @@ clutch.factory('Spectrum', ['Color', function(color) {
     create: createSpectrum,
     update: function(lch) {
       Spectrum.colors = createSpectrum(lch)
-    }
+      Spectrum.styles = stylize(Spectrum.colors[0])
+    },
+    styles: {}
   }
 
   Spectrum.colors = createSpectrum()
+  Spectrum.styles = stylize(Spectrum.colors[0])
 
   return Spectrum
 

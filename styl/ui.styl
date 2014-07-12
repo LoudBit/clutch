@@ -34,10 +34,26 @@
   position: absolute;
 }
 
+#spectrum {
+  display: -webkit-flex;
+  display: flex;
+
+  position: absolute;
+  width: 100%;
+}
+
 #spectrum .spec {
   display: inline-block;
   box-sizing: border-box;
   height: copy-line-height;
   width: copy-line-height;
   border-radius: copy-line-height*4;
+
+  webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-basis: 0;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
 }

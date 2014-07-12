@@ -8,8 +8,8 @@ block content
       #anchor(ng-style="anchor.styles")
 
     section(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
-      #spectrum
-        .spec(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex")
+      #spectrum.bits(ng-style="spectrum.styles")
+        .spec.bit(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex")
 
 
     section#ui.group
