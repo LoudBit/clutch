@@ -2,51 +2,51 @@ extends _layout
 
 block content
 
-  article.flex-vert(ng-controller="UICtrl")
+  article(ng-controller="UICtrl")
 
-    section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
-      #anchor(ng-style="anchor.styles")
+    #palette
+      section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
+        #anchor(ng-style="anchor.styles")
+      section(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
+        #spectrum.bits(ng-style="spectrum.styles")
+          .spec.bit(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex")
 
-    section(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
-      #spectrum.bits(ng-style="spectrum.styles")
-        .spec.bit(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex")
 
-
+    //- would like to make this responsive one day, based on landscape v. portrait
     section#ui.group
-      section.column.x-25
-        ul.tabs
-          li(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
-            {{section.name}}
+      ul.tabs
+        li(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
+          {{section.name}}
 
       section.column.x-75
         form.group(ng-if="UI.selected == 'color'")
-          .col.x-25
+          .form-input
             label Lightness {{anchor.color.lch.l}}
             br
             input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
-          .col.x-25
+          .form-input
             label Chromaticity {{anchor.color.lch.c}}
             br
             input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
-          .col.x-25
+          .form-input
             label Hue {{anchor.color.lch.h}}
             br
             input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
 
         form.ui-(ng-if="UI.selected == 'spectrum'")
-          .col.x-25
+          .form-input
             label Lightness {{anchor.color.lch.l}}
             br
             input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
-          .col.x-25
+          .form-input
             label Chromaticity {{anchor.color.lch.c}}
             br
             input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
-          .col.x-25
+          .form-input
             label Hue {{anchor.color.lch.h}}
             br
             input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
-          .col.x-25
+          .form-input
             label Range {{spectrum.range}}
             br
             input(type="range", min="2", max="36", ng-model="spectrum.range")
