@@ -7,9 +7,8 @@ block content
     #palette
       section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
         #anchor(ng-style="anchor.styles")
-      section(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
-        #spectrum.bits
-          .spec.bit(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex")
+      section#spectrum(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
+        .spec(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex")
 
 
     //- would like to make this responsive one day, based on landscape v. portrait
