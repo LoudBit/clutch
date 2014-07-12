@@ -27183,6 +27183,19 @@ clutch.factory('Anchor', ['Color', function(Color) {
 // Color has many objects
 clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch) {
 
+  function background(color) {
+    var pad = 1 + color.lch.c/50
+    var margin = ' ' + (pad * -1) + 'em'
+    var styl = {
+      background: color.hex,
+      bottom:     color.lch.l + '%',
+      left:       (color.lch.h/360*100) + '%',
+      padding:    pad + 'em',
+      margin:     '0 0' + margin + margin
+    }
+    return styl
+  }
+
   return {
 
     rgb: function(input) {
@@ -27194,7 +27207,7 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       color.lch = lab.toLCH(xyz.toLAB(rgb.toXYZ(color.rgb)))
       color.styles = {
         fg: { color: color.hex },
-        bg: { background: color.hex }
+        bg: background(color)
       }
 
       return color
@@ -27207,9 +27220,10 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       color.lch = input
       color.rgb = xyz.toRGB(lab.toXYZ(lch.toLAB(color.lch)))
       color.hex = rgb.toHEX(color.rgb)
+
       color.styles = {
         fg: { color: color.hex },
-        bg: { background: color.hex }
+        bg: background(color)
       }
 
       return color
@@ -27363,6 +27377,13 @@ clutch.factory('RGB', function(){
 
 clutch.factory('Spectrum', ['Color', function(color) {
 
+  function stylize(color) {
+    var styl = {
+      bottom: color.lch.l + '%'
+    }
+    return styl
+  }
+
   function createSpectrum(lch) {
     var i, hue, hueOffset, spectrum = []
 
@@ -27382,13 +27403,6 @@ clutch.factory('Spectrum', ['Color', function(color) {
     return spectrum
   }
 
-  function stylize(color) {
-    var styl = {
-      bottom:     color.lch.l + '%'
-    }
-
-    return styl
-  }
 
   var defaults = {
     l: 50,
@@ -27404,7 +27418,10 @@ clutch.factory('Spectrum', ['Color', function(color) {
       Spectrum.colors = createSpectrum(lch)
       Spectrum.styles = stylize(Spectrum.colors[0])
     },
-    styles: {}
+    styles: {
+      spectrum: {},
+      color: {}
+    }
   }
 
   Spectrum.colors = createSpectrum()

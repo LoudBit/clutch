@@ -1,13 +1,11 @@
 #ui {
-  width: 256px;
-
   background: rgba(0,0,0,0.8);
   padding: 16px;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-
+  width: 256px;
 
   ul.tabs {
     list-style: none;
@@ -24,7 +22,6 @@
     }
 
     li.selected { color: white; }
-
   }
 
 }
@@ -55,11 +52,11 @@
 }
 
 #spectrum .spec {
-  display: inline-block;
   box-sizing: border-box;
   height: copy-line-height;
   width: copy-line-height;
   border-radius: copy-line-height*4;
+  position: absolute;
 
   webkit-box-flex: 1;
   -webkit-flex-grow: 1;
