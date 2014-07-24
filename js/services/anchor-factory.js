@@ -24,8 +24,13 @@ clutch.factory('Anchor', ['Color', function(Color) {
 
     color: initialColor,
 
-    update: function(newLch) {
+    updateLch: function(newLch) {
       Anchor.color = Color.lch(_.extend(Anchor.color.lch, newLch))
+      Anchor.styles = stylize(Anchor.color)
+    },
+
+    updateRGB: function(newRGB) {
+      Anchor.color = Color.rgb(_.extend(Anchor.color.rgb, newRGB))
       Anchor.styles = stylize(Anchor.color)
     },
 

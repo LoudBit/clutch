@@ -34,50 +34,70 @@ block content
             input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
 
       form.group(ng-if="UI.selected == 'color'")
-        .form-input
-          label.row
-            b.col.x-75 Lightness
-            .col.x-25.text-right {{anchor.color.lch.l}}
-          br
-          input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
-        .form-input
-          label
-            b.col.x-75 Chromaticity
-            .col.x-25.text-right {{anchor.color.lch.c}}
-          br
-          input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
-        .form-input
-          label
-            b.col.x-75 Hue
-            .col.x-25.text-right {{anchor.color.lch.h}}
-          br
-          input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
+        .group
+          ul.tabs
+            li.col.x-50.text-center(ng-class="{selected:UI.color.tabs == 'lch'}", ng-click="UI.color.tabs = 'lch'")
+              b Lch
+            li.col.x-50.text-center(ng-class="{selected:UI.color.tabs == 'rgb'}", ng-click="UI.color.tabs = 'rgb'")
+              b RGB
+        .group(ng-if="UI.color.tabs == 'lch'")
+          .form-input
+            label.group
+              b.col.x-75 Lightness
+              .col.x-25.text-right {{anchor.color.lch.l}}
+            input(type="range", min="0", max="100", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
+          .form-input
+            label.group
+              b.col.x-75 Chromaticity
+              .col.x-25.text-right {{anchor.color.lch.c}}
+            input(type="range", min="0", max="100", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
+          .form-input
+            label.group
+              b.col.x-75 Hue
+              .col.x-25.text-right {{anchor.color.lch.h}}
+            input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
+
+        .group(ng-if="UI.color.tabs == 'rgb'")
+          .form-input
+            label.row
+              b.col.x-75 Red
+              .col.x-25.text-right {{anchor.color.rgb.r}}
+            input(type="range", min="0", max="255", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
+          .form-input
+            label.group
+              b.col.x-75 Green
+              .col.x-25.text-right {{anchor.color.rgb.g}}
+            input(type="range", min="0", max="255", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
+          .form-input
+            label.group
+              b.col.x-75 Blue
+              .col.x-25.text-right {{anchor.color.rgb.b}}
+            input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
+          .group
+            h1 {{anchor.color.hex}}
+
 
       form.group(ng-if="UI.selected == 'spectrum'")
         .form-input
-          label
+          label.group
             b.col.x-75 Lightness
             .col.x-25.text-right {{anchor.color.lch.l}}
-          br
-          input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
+          input(type="range", min="0", max="100", ng-model="anchor.color.lch.l", ng-change="spectrum.update()")
         .form-input
-          label
+          label.group
             b.col.x-75 Chromaticity
             .col.x-25.text-right {{anchor.color.lch.c}}
-          br
-          input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
+          input(type="range", min="0", max="100", ng-model="anchor.color.lch.c", ng-change="spectrum.update()")
         .form-input
-          label
+          label.group
             b.col.x-75 Hue
             .col.x-25.text-right {{anchor.color.lch.h}}
-          br
-          input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
+          input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="spectrum.update()")
         .form-input
-          label
+          label.group
             b.col.x-75 Range
             .col.x-25.text-right {{spectrum.range}}
-          br
-          input(type="range", min="2", max="16", ng-model="spectrum.range")
+          input(type="range", min="2", max="16", ng-model="spectrum.range", ng-change="spectrum.update()")
 
       form.group(ng-if="UI.selected == 'grid'")
         h1 Grid

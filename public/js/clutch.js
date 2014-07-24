@@ -27081,6 +27081,9 @@ clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', 'Anchor',
 /* jshint debug: true */
 clutch.controller('SpectrumCtrl', ['$scope',  'Anchor', 'Spectrum', function($scope, Anchor, Spectrum) {
 
+  // rebuild the Spectrum each time the Controller is initialized
+  Spectrum.update()
+
   $scope.anchor = Anchor
 
   $scope.spectrum = Spectrum
@@ -27097,34 +27100,6 @@ clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($sco
   $scope.anchor = Anchor
 
   $scope.spectrum = Spectrum
-
-  // Not sure how best to reduce the repetition here
-  $scope.$watch('anchor.color.lch.l', function(newVal, oldVal, scope){
-    if (newVal != oldVal) {
-      Anchor.update({l:newVal})
-      Spectrum.update(Anchor.color.lch)
-    }
-  })
-
-  $scope.$watch('anchor.color.lch.c', function(newVal, oldVal){
-    if (newVal != oldVal) {
-      Anchor.update({c:newVal})
-      Spectrum.update(Anchor.color.lch)
-    }
-  })
-
-  $scope.$watch('anchor.color.lch.h', function(newVal, oldVal){
-    if (newVal != oldVal) {
-      Anchor.update({h:newVal})
-      Spectrum.update(Anchor.color.lch)
-    }
-  })
-
-  $scope.$watch('spectrum.range', function(newVal, oldVal){
-    if (newVal != oldVal && UI.selected == 'spectrum') {
-      Spectrum.update(Anchor.color.lch)
-    }
-  })
 
   return this
 
@@ -27164,8 +27139,13 @@ clutch.factory('Anchor', ['Color', function(Color) {
 
     color: initialColor,
 
-    update: function(newLch) {
+    updateLch: function(newLch) {
       Anchor.color = Color.lch(_.extend(Anchor.color.lch, newLch))
+      Anchor.styles = stylize(Anchor.color)
+    },
+
+    updateRGB: function(newRGB) {
+      Anchor.color = Color.rgb(_.extend(Anchor.color.rgb, newRGB))
       Anchor.styles = stylize(Anchor.color)
     },
 
@@ -27338,7 +27318,7 @@ clutch.factory('LCH', function(){
 clutch.factory('RGB', function(){
 
   function hex(str) {
-    str = str.toString(16)
+    str = Number(str).toString(16)
     if (str.length === 1) str = '0'+str
     return str
   }
@@ -27411,8 +27391,9 @@ clutch.factory('Spectrum', ['Anchor', 'Color', function(Anchor, Color) {
     range: 12,
     colors: [],
     create: createSpectrum,
-    update: function(lch) {
-      Spectrum.colors = createSpectrum(lch)
+    update: function() {
+      Anchor.updateLch()
+      Spectrum.colors = createSpectrum(Anchor.color.lch)
       Spectrum.styles = stylize(Spectrum.colors[0])
     },
     styles: {
@@ -27442,6 +27423,10 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
 
     selected: 'color',
 
+    color: {
+      tabs: 'lch'
+    },
+
     select: function(slug) {
       UI.selected = slug
     },
@@ -27469,6 +27454,8 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
   return UI
 
 }])
+
+
 
 clutch.factory('XYZ', function(){
 
