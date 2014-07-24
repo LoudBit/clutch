@@ -1,7 +1,7 @@
 clutch.factory('RGB', function(){
 
   function hex(str) {
-    str = str.toString(16)
+    str = Number(str).toString(16)
     if (str.length === 1) str = '0'+str
     return str
   }
