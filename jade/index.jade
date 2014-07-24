@@ -74,7 +74,7 @@ block content
               .col.x-25.text-right {{anchor.color.rgb.b}}
             input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
           .group
-            h1 {{anchor.color.hex}}
+            h1.text-center {{anchor.color.hex}}
 
 
       form.group(ng-if="UI.selected == 'spectrum'")
