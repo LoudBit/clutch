@@ -1,11 +1,20 @@
 // Grid has many Spectrums
 // Spectrum has many Colors
 // Color has many objects
-
-// Going from RGB to LCH and back again
-// Observer= 2°, Illuminant= D65
-
 clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch) {
+
+  function background(color) {
+    var pad = 1 + color.lch.c/50
+    var margin = ' ' + (pad * -1) + 'em'
+    var styl = {
+      background: color.hex,
+      bottom:     color.lch.l + '%',
+      left:       (color.lch.h/360*100) + '%',
+      padding:    pad + 'em',
+      margin:     '0 0' + margin + margin
+    }
+    return styl
+  }
 
   return {
 
@@ -16,6 +25,10 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       color.rgb = input
       color.hex = rgb.toHEX(color.rgb)
       color.lch = lab.toLCH(xyz.toLAB(rgb.toXYZ(color.rgb)))
+      color.styles = {
+        fg: { color: color.hex },
+        bg: background(color)
+      }
 
       return color
     },
@@ -24,13 +37,14 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
       var color = {}
       if (!input) throw new Error('Give me an lch object.')
 
-      color.lch = {
-        l: parseInt(input.l, 10),
-        c: parseInt(input.c, 10),
-        h: parseInt(input.h, 10)
-      }
+      color.lch = input
       color.rgb = xyz.toRGB(lab.toXYZ(lch.toLAB(color.lch)))
       color.hex = rgb.toHEX(color.rgb)
+
+      color.styles = {
+        fg: { color: color.hex },
+        bg: background(color)
+      }
 
       return color
     }

@@ -19,15 +19,20 @@ clutch.factory('Anchor', ['Color', function(Color) {
     h: Math.round( Math.random() * 360 )
   })
 
-  var anchor = {
+  // Anchor
+  var Anchor = {
+
     color: initialColor,
+
     update: function(newLch) {
-      anchor.color = Color.lch(_.extend(anchor.color.lch, newLch))
-      anchor.styles = stylize(anchor.color)
+      Anchor.color = Color.lch(_.extend(Anchor.color.lch, newLch))
+      Anchor.styles = stylize(Anchor.color)
     },
+
     styles: stylize(initialColor)
+
   }
 
-  return anchor
+  return Anchor
 
 }])

@@ -2,33 +2,87 @@ extends _layout
 
 block content
 
-  article(ng-controller="ColorCtrl")
-    section
-      #anchor(ng-style="anchor.styles")
+  article#clutch(ng-controller="UICtrl", ng-style="UI.styles.clutch()")
 
-    section#ui.group(ng-controller="UICtrl")
-      section.column.x-25
-        ul.tabs
-          li(ng-repeat="section in sections", ng-class="{selected:section.slug == selected}", ng-click="select(section.slug)")
-            {{section.name}}
-      section.column.x-75
-        form.group(ng-show="selected == 'color'")
-          .col.x-33
-            label Lightness {{anchor.color.lch.l}}
-            br
-            input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
-          .col.x-33
-            label Chromaticity {{anchor.color.lch.c}}
-            br
-            input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
-          .col.x-33
-            label Hue {{anchor.color.lch.h}}
-            br
-            input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
+    #palette
+      section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
+        #anchor(ng-style="anchor.styles")
+      section#spectrum(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
+        .spec(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
 
-        form.ui-(ng-show="selected == 'spectrum'")
-          h1 Spectrum
-        form.ui-(ng-show="selected == 'grid'")
-          h1 Grid
+
+    //- would like to make this responsive one day, based on landscape v. portrait
+    section#ui.group
+      ul.tabs.row
+        li.col.x-50.text-center(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
+          {{section.name}}
+
+      h1.text-center {{anchor.color.hex}}
+      .row
+        .form-input.x-33.col.text-center
+          label Black
+            br
+            input(type="radio", name="bg", value="black", ng-model="UI.styles.background")
+        .form-input.x-33.col.text-center
+          label Anchor
+            br
+            input(type="radio", name="bg", value="anchor", ng-model="UI.styles.background")
+        .form-input.x-33.col.text-center
+          label White
+            br
+            input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
+
+      br
+      hr
+      br
+
+      form.group(ng-if="UI.selected == 'color'")
+        .form-input
+          label.row
+            b.col.x-75 Lightness
+            .col.x-25.text-right {{anchor.color.lch.l}}
+          br
+          input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
+        .form-input
+          label
+            b.col.x-75 Chromaticity
+            .col.x-25.text-right {{anchor.color.lch.c}}
+          br
+          input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
+        .form-input
+          label
+            b.col.x-75 Hue
+            .col.x-25.text-right {{anchor.color.lch.h}}
+          br
+          input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
+
+      form.ui-(ng-if="UI.selected == 'spectrum'")
+        .form-input
+          label
+            b.col.x-75 Lightness
+            .col.x-25.text-right {{anchor.color.lch.l}}
+          br
+          input(type="range", min="0", max="100", ng-model="anchor.color.lch.l")
+        .form-input
+          label
+            b.col.x-75 Chromaticity
+            .col.x-25.text-right {{anchor.color.lch.c}}
+          br
+          input(type="range", min="0", max="100", ng-model="anchor.color.lch.c")
+        .form-input
+          label
+            b.col.x-75 Hue
+            .col.x-25.text-right {{anchor.color.lch.h}}
+          br
+          input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
+        .form-input
+          label
+            b.col.x-75 Range
+            .col.x-25.text-right {{spectrum.range}}
+          br
+          input(type="range", min="2", max="16", ng-model="spectrum.range")
+
+      form.ui-(ng-if="UI.selected == 'grid'")
+        h1 Grid
 
 

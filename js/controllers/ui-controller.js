@@ -1,35 +1,38 @@
 /* jshint debug: true */
-clutch.controller('UICtrl', ['$scope', 'Anchor', function($scope, Anchor) {
+clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($scope, UI, Anchor, Spectrum) {
 
-  $scope.sections = [{
-    name: 'Color',
-    slug: 'color'
-  }, {
-    name: 'Spectrum',
-    slug: 'spectrum'
-  }, {
-    name: 'Grid',
-    slug: 'grid'
-  }]
-
-  $scope.selected = 'color'
-
-  $scope.select = function(slug) {
-    $scope.selected = slug
-  }
+  $scope.UI = UI
 
   $scope.anchor = Anchor
 
-  $scope.$watch('anchor.color.lch.l', function(newVal, oldVal){
-    Anchor.update({l:newVal})
+  $scope.spectrum = Spectrum
+
+  // Not sure how best to reduce the repetition here
+  $scope.$watch('anchor.color.lch.l', function(newVal, oldVal, scope){
+    if (newVal != oldVal) {
+      Anchor.update({l:newVal})
+      Spectrum.update(Anchor.color.lch)
+    }
   })
 
   $scope.$watch('anchor.color.lch.c', function(newVal, oldVal){
-    Anchor.update({c:newVal})
+    if (newVal != oldVal) {
+      Anchor.update({c:newVal})
+      Spectrum.update(Anchor.color.lch)
+    }
   })
 
   $scope.$watch('anchor.color.lch.h', function(newVal, oldVal){
-    Anchor.update({h:newVal})
+    if (newVal != oldVal) {
+      Anchor.update({h:newVal})
+      Spectrum.update(Anchor.color.lch)
+    }
+  })
+
+  $scope.$watch('spectrum.range', function(newVal, oldVal){
+    if (newVal != oldVal && UI.selected == 'spectrum') {
+      Spectrum.update(Anchor.color.lch)
+    }
   })
 
   return this
