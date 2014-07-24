@@ -27092,7 +27092,6 @@ clutch.controller('SpectrumCtrl', ['$scope',  'Anchor', 'Spectrum', function($sc
 /* jshint debug: true */
 clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($scope, UI, Anchor, Spectrum) {
 
-  // Ideal
   $scope.UI = UI
 
   $scope.anchor = Anchor
@@ -27429,7 +27428,7 @@ clutch.factory('Spectrum', ['Anchor', 'Color', function(Anchor, Color) {
 
 }])
 
-clutch.factory('UI', [function() {
+clutch.factory('UI', ['Anchor', function(Anchor) {
 
   var UI = {
 
@@ -27448,6 +27447,20 @@ clutch.factory('UI', [function() {
 
     select: function(slug) {
       UI.selected = slug
+    },
+
+    styles: {
+      clutch: function() {
+        var bg
+        if ( UI.styles.background == 'anchor' )
+          bg = Anchor.color.hex
+        else
+          bg = UI.styles.background
+        return {
+          'background-color': bg
+        }
+      },
+      background: 'black'
     }
 
   }

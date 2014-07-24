@@ -1,7 +1,6 @@
 /* jshint debug: true */
 clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($scope, UI, Anchor, Spectrum) {
 
-  // Ideal
   $scope.UI = UI
 
   $scope.anchor = Anchor
