@@ -17,6 +17,7 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
     },
 
     styles: {
+
       clutch: function() {
         var bg
         if ( UI.styles.background == 'anchor' )
@@ -27,7 +28,10 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
           'background-color': bg
         }
       },
-      background: 'black'
+
+      // I find that defaulting to the anchor colour gives the best first impresssion
+      background: 'anchor'
+
     }
 
   }

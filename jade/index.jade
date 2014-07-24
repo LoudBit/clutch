@@ -13,12 +13,13 @@ block content
 
     //- would like to make this responsive one day, based on landscape v. portrait
     section#ui.group
-      ul.tabs.row
-        li.col.x-50.text-center(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
-          {{section.name}}
 
-      h1.text-center {{anchor.color.hex}}
-      .row
+      .group.separated
+        ul.tabs
+          li.col.x-50.text-center(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
+            b {{section.name}}
+
+      .group.separated
         .form-input.x-33.col.text-center
           label Black
             br
@@ -31,10 +32,6 @@ block content
           label White
             br
             input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
-
-      br
-      hr
-      br
 
       form.group(ng-if="UI.selected == 'color'")
         .form-input
@@ -56,7 +53,7 @@ block content
           br
           input(type="range", min="0", max="360", ng-model="anchor.color.lch.h")
 
-      form.ui-(ng-if="UI.selected == 'spectrum'")
+      form.group(ng-if="UI.selected == 'spectrum'")
         .form-input
           label
             b.col.x-75 Lightness
@@ -82,7 +79,6 @@ block content
           br
           input(type="range", min="2", max="16", ng-model="spectrum.range")
 
-      form.ui-(ng-if="UI.selected == 'grid'")
+      form.group(ng-if="UI.selected == 'grid'")
         h1 Grid
-
 
