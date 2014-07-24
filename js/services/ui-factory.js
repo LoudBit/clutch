@@ -12,6 +12,10 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
 
     selected: 'color',
 
+    color: {
+      tabs: 'lch'
+    },
+
     select: function(slug) {
       UI.selected = slug
     },
@@ -39,3 +43,5 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
   return UI
 
 }])
+
+

@@ -35,8 +35,9 @@ clutch.factory('Spectrum', ['Anchor', 'Color', function(Anchor, Color) {
     range: 12,
     colors: [],
     create: createSpectrum,
-    update: function(lch) {
-      Spectrum.colors = createSpectrum(lch)
+    update: function() {
+      Anchor.updateLch()
+      Spectrum.colors = createSpectrum(Anchor.color.lch)
       Spectrum.styles = stylize(Spectrum.colors[0])
     },
     styles: {
