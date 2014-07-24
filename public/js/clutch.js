@@ -27438,9 +27438,6 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
     }, {
       name: 'Spectrum',
       slug: 'spectrum'
-    }, {
-      name: 'Grid',
-      slug: 'grid'
     }],
 
     selected: 'color',

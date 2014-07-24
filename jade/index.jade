@@ -14,7 +14,7 @@ block content
     //- would like to make this responsive one day, based on landscape v. portrait
     section#ui.group
       ul.tabs.row
-        li.col.x-33.text-center(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
+        li.col.x-50.text-center(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
           {{section.name}}
 
       h1.text-center {{anchor.color.hex}}
