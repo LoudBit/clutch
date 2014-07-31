@@ -31,8 +31,8 @@ clutch.factory('LAB', function(){
         h = 360 - ( Math.abs( h ) / Math.PI ) * 180
 
       return {
-        l: Math.round( lab.l ),
-        c: Math.round( Math.sqrt( Math.pow(lab.a, 2) + Math.pow(lab.b, 2) )),
+        l: ( lab.l ).toFixed(3),
+        c: ( Math.sqrt( Math.pow(lab.a, 2) + Math.pow(lab.b, 2) )).toFixed(3),
         h: Math.round( h )
       }
     }

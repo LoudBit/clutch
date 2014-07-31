@@ -27105,11 +27105,11 @@ clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($sco
 
 }])
 
-// lab color to rgb filter?
-clutch.filter('rgb', function() {
-  'use strict';
-  return function(args) {
-    return 'rgb(' + args[0] + ', ' + args[1] + ', ' + args[2] + ')'
+clutch.filter('toFixed', function() {
+  return function(input, digits) {
+    input = parseFloat(input)
+    digits = parseFloat(digits) || 3
+    return input.toFixed(digits)
   }
 })
 
@@ -27286,8 +27286,8 @@ clutch.factory('LAB', function(){
         h = 360 - ( Math.abs( h ) / Math.PI ) * 180
 
       return {
-        l: Math.round( lab.l ),
-        c: Math.round( Math.sqrt( Math.pow(lab.a, 2) + Math.pow(lab.b, 2) )),
+        l: ( lab.l ).toFixed(3),
+        c: ( Math.sqrt( Math.pow(lab.a, 2) + Math.pow(lab.b, 2) )).toFixed(3),
         h: Math.round( h )
       }
     }
@@ -27298,11 +27298,11 @@ clutch.factory('LAB', function(){
 clutch.factory('LCH', function(){
   return {
     toLAB: function(lch) {
-      // doing the parseInt'ing here to prevent over-aggressive model updates
+      // parsing here to prevent over-aggressive model updates
       lch = {
-        l: parseInt(lch.l, 10),
-        c: parseInt(lch.c, 10),
-        h: parseInt(lch.h, 10)
+        l: parseFloat(lch.l),
+        c: parseFloat(lch.c),
+        h: parseFloat(lch.h)
       }
 
       var h = lch.h * (Math.PI/180)
@@ -27435,7 +27435,7 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
 
       clutch: function() {
         var bg
-        if ( UI.styles.background == 'anchor' )
+        if ( UI.styles.background == 'color' )
           bg = Anchor.color.hex
         else
           bg = UI.styles.background
@@ -27444,8 +27444,8 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
         }
       },
 
-      // I find that defaulting to the anchor colour gives the best first impresssion
-      background: 'anchor'
+      // I find that defaulting to the color colour gives the best first impresssion
+      background: 'color'
 
     }
 

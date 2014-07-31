@@ -14,46 +14,38 @@ block content
     //- would like to make this responsive one day, based on landscape v. portrait
     section#ui.group
 
-      .group.separated
-        ul.tabs
-          li.col.x-50.text-center(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
-            b {{section.name}}
+      .radio-buttons
+        label.radio-button(ng-class="{selected:UI.styles.background == 'black'}") Black
+          input(type="radio", name="bg", value="black", ng-model="UI.styles.background")
+        label.radio-button(ng-class="{selected:UI.styles.background == 'color'}") Color
+          input(type="radio", name="bg", value="color", ng-model="UI.styles.background")
+        label.radio-button(ng-class="{selected:UI.styles.background == 'white'}") White
+          input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
 
-      .group.separated
-        .form-input.x-33.col.text-center
-          label Black
-            br
-            input(type="radio", name="bg", value="black", ng-model="UI.styles.background")
-        .form-input.x-33.col.text-center
-          label Anchor
-            br
-            input(type="radio", name="bg", value="anchor", ng-model="UI.styles.background")
-        .form-input.x-33.col.text-center
-          label White
-            br
-            input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
+      ul.tabs
+        li.tab(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
+          {{section.name}}
 
       form.group(ng-if="UI.selected == 'color'")
-        .group
-          ul.tabs
-            li.col.x-50.text-center(ng-class="{selected:UI.color.tabs == 'lch'}", ng-click="UI.color.tabs = 'lch'")
-              b Lch
-            li.col.x-50.text-center(ng-class="{selected:UI.color.tabs == 'rgb'}", ng-click="UI.color.tabs = 'rgb'")
-              b RGB
+        ul.tabs
+          li.tab(ng-class="{selected:UI.color.tabs == 'lch'}", ng-click="UI.color.tabs = 'lch'")
+            | Lch
+          li.tab(ng-class="{selected:UI.color.tabs == 'rgb'}", ng-click="UI.color.tabs = 'rgb'")
+            | RGB
         .group(ng-if="UI.color.tabs == 'lch'")
           .form-input
             label.group
-              b.col.x-75 Lightness
-              .col.x-25.text-right {{anchor.color.lch.l}}
-            input(type="range", min="0", max="100", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
+              .col.x-75 Lightness
+              .col.x-25.text-right {{anchor.color.lch.l | toFixed:3}}
+            input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
           .form-input
             label.group
-              b.col.x-75 Chromaticity
-              .col.x-25.text-right {{anchor.color.lch.c}}
-            input(type="range", min="0", max="100", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
+              .col.x-75 Chromaticity
+              .col.x-25.text-right {{anchor.color.lch.c | toFixed:3}}
+            input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
           .form-input
             label.group
-              b.col.x-75 Hue
+              .col.x-75 Hue
               .col.x-25.text-right {{anchor.color.lch.h}}
             input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
 
@@ -80,22 +72,22 @@ block content
       form.group(ng-if="UI.selected == 'spectrum'")
         .form-input
           label.group
-            b.col.x-75 Lightness
-            .col.x-25.text-right {{anchor.color.lch.l}}
+            .col.x-75 Lightness
+            .col.x-25.text-right {{anchor.color.lch.l | toFixed:3}}
           input(type="range", min="0", max="100", ng-model="anchor.color.lch.l", ng-change="spectrum.update()")
         .form-input
           label.group
-            b.col.x-75 Chromaticity
-            .col.x-25.text-right {{anchor.color.lch.c}}
+            .col.x-75 Chromaticity
+            .col.x-25.text-right {{anchor.color.lch.c | toFixed:3}}
           input(type="range", min="0", max="100", ng-model="anchor.color.lch.c", ng-change="spectrum.update()")
         .form-input
           label.group
-            b.col.x-75 Hue
+            .col.x-75 Hue
             .col.x-25.text-right {{anchor.color.lch.h}}
           input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="spectrum.update()")
         .form-input
           label.group
-            b.col.x-75 Range
+            .col.x-75 Range
             .col.x-25.text-right {{spectrum.range}}
           input(type="range", min="2", max="16", ng-model="spectrum.range", ng-change="spectrum.update()")
 
