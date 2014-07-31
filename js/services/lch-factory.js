@@ -1,11 +1,11 @@
 clutch.factory('LCH', function(){
   return {
     toLAB: function(lch) {
-      // doing the parseInt'ing here to prevent over-aggressive model updates
+      // parsing here to prevent over-aggressive model updates
       lch = {
-        l: parseInt(lch.l, 10),
-        c: parseInt(lch.c, 10),
-        h: parseInt(lch.h, 10)
+        l: parseFloat(lch.l),
+        c: parseFloat(lch.c),
+        h: parseFloat(lch.h)
       }
 
       var h = lch.h * (Math.PI/180)
