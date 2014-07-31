@@ -14,23 +14,17 @@ block content
     //- would like to make this responsive one day, based on landscape v. portrait
     section#ui.group
 
+      .radio-buttons
+        label.radio-button(ng-class="{selected:UI.styles.background == 'black'}") Black
+          input(type="radio", name="bg", value="black", ng-model="UI.styles.background")
+        label.radio-button(ng-class="{selected:UI.styles.background == 'anchor'}") Anchor
+          input(type="radio", name="bg", value="anchor", ng-model="UI.styles.background")
+        label.radio-button(ng-class="{selected:UI.styles.background == 'white'}") White
+          input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
+
       ul.tabs
         li.tab(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
           {{section.name}}
-
-      .group.separated
-        .form-input.x-33.col.text-center
-          label Black
-            br
-            input(type="radio", name="bg", value="black", ng-model="UI.styles.background")
-        .form-input.x-33.col.text-center
-          label Anchor
-            br
-            input(type="radio", name="bg", value="anchor", ng-model="UI.styles.background")
-        .form-input.x-33.col.text-center
-          label White
-            br
-            input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
 
       form.group(ng-if="UI.selected == 'color'")
         ul.tabs
