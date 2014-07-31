@@ -14,10 +14,9 @@ block content
     //- would like to make this responsive one day, based on landscape v. portrait
     section#ui.group
 
-      .group.separated
-        ul.tabs
-          li.tab(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
-            {{section.name}}
+      ul.tabs
+        li.tab(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
+          {{section.name}}
 
       .group.separated
         .form-input.x-33.col.text-center
@@ -34,12 +33,11 @@ block content
             input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
 
       form.group(ng-if="UI.selected == 'color'")
-        .group
-          ul.tabs
-            li.tab(ng-class="{selected:UI.color.tabs == 'lch'}", ng-click="UI.color.tabs = 'lch'")
-              | Lch
-            li.tab(ng-class="{selected:UI.color.tabs == 'rgb'}", ng-click="UI.color.tabs = 'rgb'")
-              | RGB
+        ul.tabs
+          li.tab(ng-class="{selected:UI.color.tabs == 'lch'}", ng-click="UI.color.tabs = 'lch'")
+            | Lch
+          li.tab(ng-class="{selected:UI.color.tabs == 'rgb'}", ng-click="UI.color.tabs = 'rgb'")
+            | RGB
         .group(ng-if="UI.color.tabs == 'lch'")
           .form-input
             label.group
