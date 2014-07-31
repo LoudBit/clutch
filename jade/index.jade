@@ -35,17 +35,17 @@ block content
         .group(ng-if="UI.color.tabs == 'lch'")
           .form-input
             label.group
-              b.col.x-75 Lightness
+              .col.x-75 Lightness
               .col.x-25.text-right {{anchor.color.lch.l | toFixed:3}}
             input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
           .form-input
             label.group
-              b.col.x-75 Chromaticity
+              .col.x-75 Chromaticity
               .col.x-25.text-right {{anchor.color.lch.c | toFixed:3}}
             input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
           .form-input
             label.group
-              b.col.x-75 Hue
+              .col.x-75 Hue
               .col.x-25.text-right {{anchor.color.lch.h}}
             input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
 
@@ -72,22 +72,22 @@ block content
       form.group(ng-if="UI.selected == 'spectrum'")
         .form-input
           label.group
-            b.col.x-75 Lightness
+            .col.x-75 Lightness
             .col.x-25.text-right {{anchor.color.lch.l}}
           input(type="range", min="0", max="100", ng-model="anchor.color.lch.l", ng-change="spectrum.update()")
         .form-input
           label.group
-            b.col.x-75 Chromaticity
+            .col.x-75 Chromaticity
             .col.x-25.text-right {{anchor.color.lch.c}}
           input(type="range", min="0", max="100", ng-model="anchor.color.lch.c", ng-change="spectrum.update()")
         .form-input
           label.group
-            b.col.x-75 Hue
+            .col.x-75 Hue
             .col.x-25.text-right {{anchor.color.lch.h}}
           input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="spectrum.update()")
         .form-input
           label.group
-            b.col.x-75 Range
+            .col.x-75 Range
             .col.x-25.text-right {{spectrum.range}}
           input(type="range", min="2", max="16", ng-model="spectrum.range", ng-change="spectrum.update()")
 
