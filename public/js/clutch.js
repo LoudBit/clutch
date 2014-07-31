@@ -27435,7 +27435,7 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
 
       clutch: function() {
         var bg
-        if ( UI.styles.background == 'anchor' )
+        if ( UI.styles.background == 'color' )
           bg = Anchor.color.hex
         else
           bg = UI.styles.background
@@ -27444,8 +27444,8 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
         }
       },
 
-      // I find that defaulting to the anchor colour gives the best first impresssion
-      background: 'anchor'
+      // I find that defaulting to the color colour gives the best first impresssion
+      background: 'color'
 
     }
 
