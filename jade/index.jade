@@ -27,29 +27,27 @@ block content
           {{section.name}}
 
       form.group(ng-if="UI.selected == 'color'")
-        ul.tabs
-          li.tab(ng-class="{selected:UI.color.tabs == 'lch'}", ng-click="UI.color.tabs = 'lch'")
-            | Lch
-          li.tab(ng-class="{selected:UI.color.tabs == 'rgb'}", ng-click="UI.color.tabs = 'rgb'")
-            | RGB
-        .group(ng-if="UI.color.tabs == 'lch'")
+
+        section.group
           .form-input
             label.group
-              .col.x-75 Lightness
+              b.col.x-75 Lightness
               .col.x-25.text-right {{anchor.color.lch.l | toFixed:3}}
             input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
           .form-input
             label.group
-              .col.x-75 Chromaticity
+              b.col.x-75 Chromaticity
               .col.x-25.text-right {{anchor.color.lch.c | toFixed:3}}
             input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
           .form-input
             label.group
-              .col.x-75 Hue
+              b.col.x-75 Hue
               .col.x-25.text-right {{anchor.color.lch.h}}
             input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
 
-        .group(ng-if="UI.color.tabs == 'rgb'")
+        hr
+
+        section.group
           .form-input
             label.row
               b.col.x-75 Red
@@ -65,8 +63,8 @@ block content
               b.col.x-75 Blue
               .col.x-25.text-right {{anchor.color.rgb.b}}
             input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
-          .group
-            h1.text-center {{anchor.color.hex}}
+          .form-input
+            input(type="text", ng-model="anchor.color.hex", ng-change="anchor.updateHex(anchor.color.hex)")
 
 
       form.group(ng-if="UI.selected == 'spectrum'")

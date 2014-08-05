@@ -34,6 +34,18 @@ clutch.factory('Anchor', ['Color', function(Color) {
       Anchor.styles = stylize(Anchor.color)
     },
 
+    updateHex: function(newHex) {
+      var cssRx = /^\#?([a-f0-9]{6})$/i
+      var match = newHex.match(cssRx)
+      if (match) {
+        this.updateRGB({
+          r: parseInt(match[1].substr(0,2), 16),
+          g: parseInt(match[1].substr(2,2), 16),
+          b: parseInt(match[1].substr(4,2), 16)
+        })
+      }
+    },
+
     styles: stylize(initialColor)
 
   }
