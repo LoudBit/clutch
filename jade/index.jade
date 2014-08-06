@@ -51,17 +51,20 @@ block content
           .form-input
             label.row
               b.col.x-75 Red
-              .col.x-25.text-right {{anchor.color.rgb.r}}
+              .col.x-25.text-right
+                input.text-right.mono(type="text", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
             input(type="range", min="0", max="255", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
           .form-input
             label.group
               b.col.x-75 Green
-              .col.x-25.text-right {{anchor.color.rgb.g}}
+              .col.x-25.text-right
+                input.text-right.mono(type="text", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
             input(type="range", min="0", max="255", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
           .form-input
             label.group
               b.col.x-75 Blue
-              .col.x-25.text-right {{anchor.color.rgb.b}}
+              .col.x-25.text-right
+                input.text-right.mono(type="text", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
             input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
           .form-input
             .col.x-50
