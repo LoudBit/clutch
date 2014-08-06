@@ -27068,6 +27068,20 @@ var styleDirective = valueFn({
 
 /* jshint devel: true, unused: false */
 var clutch = angular.module('clutch', [])
+  .config(["$provide", function ($provide) {
+
+    // Configure Trackjs exception reporting
+    $provide.decorator("$exceptionHandler", ["$delegate", "$window", function($delegate, $window) {
+      return function (exception, cause) {
+        if ($window.trackJs) {
+          $window.trackJs.track(exception);
+        }
+        // (Optional) Pass the error through to the delegate formats it for the console
+        $delegate(exception, cause);
+      };
+    }]);
+
+  }]);
 
 /* jshint debug: true */
 clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', 'Anchor', function($scope, Color, Spectrum, Grid, Anchor) {
@@ -27147,6 +27161,18 @@ clutch.factory('Anchor', ['Color', function(Color) {
     updateRGB: function(newRGB) {
       Anchor.color = Color.rgb(_.extend(Anchor.color.rgb, newRGB))
       Anchor.styles = stylize(Anchor.color)
+    },
+
+    updateHex: function(newHex) {
+      var cssRx = /^\#?([a-f0-9]{6})$/i
+      var match = newHex.match(cssRx)
+      if (match) {
+        this.updateRGB({
+          r: parseInt(match[1].substr(0,2), 16),
+          g: parseInt(match[1].substr(2,2), 16),
+          b: parseInt(match[1].substr(4,2), 16)
+        })
+      }
     },
 
     styles: stylize(initialColor)
@@ -27381,6 +27407,15 @@ clutch.factory('Spectrum', ['Anchor', 'Color', function(Anchor, Color) {
     return spectrum
   }
 
+  // necessary because I'm using an input[type="number"] on the front end, and this is easier than a getter/setter
+  function setRange() {
+    var _range = parseInt(Spectrum.range, 10)
+    if (isNaN(_range)) { _range = 12 }
+    if (_range < 1) { _range = 1 }
+    if (_range > 16) {_range = 16}
+    Spectrum.range = _range
+  }
+
   var defaults = {
     l: 50,
     c: 50,
@@ -27392,6 +27427,7 @@ clutch.factory('Spectrum', ['Anchor', 'Color', function(Anchor, Color) {
     colors: [],
     create: createSpectrum,
     update: function() {
+      setRange()
       Anchor.updateLch()
       Spectrum.colors = createSpectrum(Anchor.color.lch)
       Spectrum.styles = stylize(Spectrum.colors[0])
