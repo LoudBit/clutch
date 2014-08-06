@@ -64,7 +64,10 @@ block content
               .col.x-25.text-right {{anchor.color.rgb.b}}
             input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
           .form-input
-            input(type="text", ng-model="anchor.color.hex", ng-change="anchor.updateHex(anchor.color.hex)")
+            .col.x-50
+              span RGB Hex
+            .col.r.x-50.text-right
+              input.text-right.mono(type="text", ng-model="anchor.color.hex", ng-change="anchor.updateHex(anchor.color.hex)")
 
 
       form.group(ng-if="UI.selected == 'spectrum'")
