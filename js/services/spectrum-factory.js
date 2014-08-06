@@ -25,6 +25,15 @@ clutch.factory('Spectrum', ['Anchor', 'Color', function(Anchor, Color) {
     return spectrum
   }
 
+  // necessary because I'm using an input[type="number"] on the front end, and this is easier than a getter/setter
+  function setRange() {
+    var _range = parseInt(Spectrum.range, 10)
+    if (isNaN(_range)) { _range = 12 }
+    if (_range < 1) { _range = 1 }
+    if (_range > 16) {_range = 16}
+    Spectrum.range = _range
+  }
+
   var defaults = {
     l: 50,
     c: 50,
@@ -36,6 +45,7 @@ clutch.factory('Spectrum', ['Anchor', 'Color', function(Anchor, Color) {
     colors: [],
     create: createSpectrum,
     update: function() {
+      setRange()
       Anchor.updateLch()
       Spectrum.colors = createSpectrum(Anchor.color.lch)
       Spectrum.styles = stylize(Spectrum.colors[0])
