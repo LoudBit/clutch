@@ -1,7 +1,3 @@
-// logic for a spectrum export will go here.
-// it'll provide the select and the options
-// when the select changes it'll update the export code to be copied by the user
-
 clutch.directive('spectrumExport', ['Spectrum', function(Spectrum) {
 
   function link ( scope, element, attr ) {
@@ -28,6 +24,13 @@ clutch.directive('spectrumExport', ['Spectrum', function(Spectrum) {
         })
         return output.join('\n')
       },
+      sass:   function() {
+        var output = []
+        scope.spectrum.colors.forEach(function(color, i){
+          output.push(['$color-', i+1, ': ', color.hex].join(''))
+        })
+        return output.join('\n')
+      },
       stylus: function() {
         var output = []
         scope.spectrum.colors.forEach(function(color, i){
@@ -37,12 +40,17 @@ clutch.directive('spectrumExport', ['Spectrum', function(Spectrum) {
       }
     }
 
-    scope.exportType = scope.exportType || 'cssFG'
-    scope.exportData = scope.exportData || exports[scope.exportType]()
-
-    scope.doStuff = function() {
+    function updateExport () {
       scope.exportData = exports[scope.exportType]()
     }
+
+    scope.exportType = scope.exportType || 'cssFG'
+    scope.exportData = scope.exportData || exports[scope.exportType]()
+    scope.updateExport = updateExport()
+
+    scope.$watch('spectrum.colors[0]', function () {
+      updateExport()
+    })
 
   }
 
