@@ -2,7 +2,7 @@ extends _layout
 
 block content
 
-  article#clutch(ng-controller="UICtrl", ng-style="UI.styles.clutch()", ng-cloak)
+  article#clutch(ng-controller="UICtrl", ng-style="UI.styles.clutch()", ng-cloak, ng-class="{fullscreen:fullscreen}")
 
     #palette
       section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")

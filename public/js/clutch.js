@@ -27066,7 +27066,7 @@ var styleDirective = valueFn({
   }
 }.call(this));
 
-/* jshint devel: true, unused: false */
+/* jshint unused: false */
 var clutch = angular.module('clutch', [])
   .config(['$provide', function ($provide) {
 
@@ -27110,6 +27110,11 @@ clutch.controller('SpectrumCtrl', ['$scope',  'Anchor', 'Spectrum', function($sc
 
 /* jshint debug: true */
 clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($scope, UI, Anchor, Spectrum) {
+
+  if (window.navigator.standalone) {
+    console.info('app loaded full screen')
+    $scope.fullscreen = true
+  }
 
   $scope.UI = UI
 
