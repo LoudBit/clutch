@@ -27170,13 +27170,13 @@ clutch.directive('spectrumExport', ['Spectrum', function(Spectrum) {
       }
     }
 
-    function updateExport () {
+    function updateExport() {
       scope.exportData = exports[scope.exportType]()
     }
 
     scope.exportType = scope.exportType || 'cssFG'
     scope.exportData = scope.exportData || exports[scope.exportType]()
-    scope.updateExport = updateExport()
+    scope.updateExport = updateExport
 
     scope.$watch('spectrum.colors[0]', function () {
       updateExport()
