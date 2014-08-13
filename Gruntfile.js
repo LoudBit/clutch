@@ -15,6 +15,17 @@ module.exports = function(grunt) {
       }
     },
 
+    connect: {
+      dev: {
+        options: {
+          port: 3333,
+          base: 'public',
+          livereload: 35729,
+          open: true
+        }
+      }
+    },
+
     jade: {
       build: {
         files: [{
@@ -31,17 +42,6 @@ module.exports = function(grunt) {
       files: ['js/**/*.js'],
       options: {
         jshintrc: true
-      }
-    },
-
-    connect: {
-      dev: {
-        options: {
-          port: 3333,
-          base: 'public',
-          livereload: 35729,
-          open: true
-        }
       }
     },
 
