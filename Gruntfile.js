@@ -23,11 +23,52 @@ module.exports = function(grunt) {
           livereload: 35729,
           open: true
         }
+      },
+      stage: {
+        options: {
+          port: 3333,
+          base: 'public',
+          open: true,
+          keepalive: true
+        }
       }
     },
 
     jade: {
-      build: {
+      dev: {
+        options: {
+          data: {
+            ENV: { dev: true }
+          }
+        },
+        files: [{
+          expand: true,
+          cwd:    'jade/',
+          src:    ['**/*.jade'],
+          dest:   'public/',
+          ext:    '.html',
+        }]
+      },
+      stage: {
+        options: {
+          data: {
+            ENV: { dev: false, stage: true, prod: false }
+          }
+        },
+        files: [{
+          expand: true,
+          cwd:    'jade/',
+          src:    ['**/*.jade'],
+          dest:   'public/',
+          ext:    '.html',
+        }]
+      },
+      prod: {
+        options: {
+          data: {
+            ENV: { dev: false, stage: false, prod: true }
+          }
+        },
         files: [{
           expand: true,
           cwd:    'jade/',
@@ -46,11 +87,19 @@ module.exports = function(grunt) {
     },
 
     stylus: {
-      build: {
+      dev: {
         options: {
         },
         files: {
           'public/css/gooey.css': 'styl/gooey.styl'
+        }
+      }
+    },
+
+    uglify: {
+      prod: {
+        files: {
+          'public/js/clutch.min.js': ['public/js/clutch.js']
         }
       }
     },
@@ -73,7 +122,7 @@ module.exports = function(grunt) {
       },
       jade: {
         files: 'jade/**/*.jade',
-        tasks: ['jade:build'],
+        tasks: ['jade:dev'],
         options: {
           atBegin: true,
           interrupt: true
@@ -81,7 +130,7 @@ module.exports = function(grunt) {
       },
       stylus: {
         files: 'styl/**/*.styl',
-        tasks: ['stylus:build'],
+        tasks: ['stylus:dev'],
         options: {
           atBegin: true,
           interrupt: true
@@ -96,10 +145,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jade')
   grunt.loadNpmTasks('grunt-contrib-jshint')
   grunt.loadNpmTasks('grunt-contrib-stylus')
+  grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-rework')
 
-  grunt.registerTask('default', ['jshint', 'jade:build', 'stylus:build', 'concat:js'])
-  grunt.registerTask('dev', ['default', 'connect:dev', 'watch'])
+  grunt.registerTask('default', ['jshint', 'stylus:dev', 'concat:js'])
+  grunt.registerTask('dev',     ['default', 'jade:dev', 'connect:dev', 'watch'])
+  grunt.registerTask('stage',   ['default', 'jade:stage', 'uglify', 'connect:stage'])
+  grunt.registerTask('prod',    ['default', 'jade:prod', 'uglify'])
 
 }
