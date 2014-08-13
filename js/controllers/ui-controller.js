@@ -7,6 +7,13 @@ clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($sco
 
   $scope.spectrum = Spectrum
 
+  $scope.exportingSpectrum = false
+
+  $scope.showExport = function() {
+    $scope.exportingSpectrum = true
+    // console.log('show me the export');
+  }
+
   return this
 
 }])
