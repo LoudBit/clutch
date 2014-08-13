@@ -1,4 +1,4 @@
-/* jshint devel: true, unused: false */
+/* jshint unused: false */
 var clutch = angular.module('clutch', [])
   .config(['$provide', function ($provide) {
 
