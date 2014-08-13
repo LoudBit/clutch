@@ -6,9 +6,9 @@ block content
 
     #palette
       section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
-        #anchor(ng-style="anchor.styles")
+        #anchor.color(ng-style="anchor.styles")
       section#spectrum(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
-        .spec(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
+        .color(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
 
 
     //- would like to make this responsive one day, based on landscape v. portrait
