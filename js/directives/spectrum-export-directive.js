@@ -37,7 +37,7 @@ clutch.directive('spectrumExport', ['Spectrum', function(Spectrum) {
       }
     }
 
-    scope.exportType = scope.exportType || "cssFG"
+    scope.exportType = scope.exportType || 'cssFG'
     scope.exportData = scope.exportData || exports[scope.exportType]()
 
     scope.doStuff = function() {
