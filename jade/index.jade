@@ -9,6 +9,9 @@ block content
         #anchor.color(ng-style="anchor.styles")
       section#spectrum(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
         .color(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
+      section#spectrum(ng-if="UI.selected == 'grid'", ng-controller="GridCtrl")
+        .row(ng-repeat="row in grid.colors")
+          .color(ng-repeat="color in row", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
 
 
     //- would like to make this responsive one day, based on landscape v. portrait
@@ -33,7 +36,7 @@ block content
         include ./ui/spectrum.jade
 
       form.group(ng-if="UI.selected == 'grid'")
-        h1 Grid
+        include ./ui/grid.jade
 
       footer.group.text-center
         hr

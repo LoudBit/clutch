@@ -5,36 +5,62 @@
 // Going from RGB to LCH and back again
 // Observer= 2°, Illuminant= D65
 
-clutch.factory('Grid', ['Spectrum', function(Spectrum) {
+clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
 
-  var defaults = {
-    x: 12,
-    y: 10,
-    l: 0
+  function stylize() {
+    var styl = []
+
+    styl.push(_.map(Grid.colors, function(row){
+      return _.map(row, function(color){
+        return {
+          bottom: color.lch.l + '%'
+        }
+      })
+    }))
+
+    return styl
   }
 
-  return {
+  function createGrid(lch) {
+    var i, l, lOffset, grid = []
 
-    create: function(x) {
-      var i, l, grid = []
+    lch = lch && _.defaults(lch, defaults) || defaults
+    l = 100 / Grid.rows
+    lOffset = lch.l % l
 
-      if (!x)
-        x = defaults
-      else
-        x = _.defaults(x, defaults)
-
-      l = 100 / x.y
-
-      for (i = 0; i < x.y; i++) {
-        grid.push( Spectrum.create({
-          x: x.x,
-          l: 100 - (l * i + x.l)
-        }))
-      }
-
-      return grid
+    for (i = 0; i < Grid.rows; i++) {
+      grid.unshift(Spectrum.create({
+        l: lch.l * i + lOffset,
+        c: lch.c,
+        h: lch.h
+      }))
     }
 
+    console.log(grid);
+
+    return grid
   }
+
+  var defaults = {
+    l: 50,
+    c: 50,
+    h: 0
+  }
+
+  var Grid = {
+    rows: 3,
+    colors: [[]],
+    create: createGrid,
+    update: function() {
+      Anchor.updateLch()
+      Grid.colors = createGrid(Anchor.color.lch)
+      Grid.styles = stylize()
+    }
+  }
+
+  Grid.colors = createGrid(Anchor.color.lch)
+  Grid.styles = stylize()
+
+  return Grid
 
 }])

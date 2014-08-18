@@ -1,5 +1,5 @@
 /* jshint debug: true */
-clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($scope, UI, Anchor, Spectrum) {
+clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', 'Grid', function($scope, UI, Anchor, Spectrum, Grid) {
 
   if (window.navigator.standalone) {
     console.info('app loaded full screen')
@@ -11,6 +11,8 @@ clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($sco
   $scope.anchor = Anchor
 
   $scope.spectrum = Spectrum
+
+  $scope.grid = Grid
 
   return this
 
