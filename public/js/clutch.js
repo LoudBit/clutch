@@ -27327,13 +27327,6 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
 
 }])
 
-// Grid has many Spectrums
-// Spectrum has many Colors
-// Color has many objects
-
-// Going from RGB to LCH and back again
-// Observer= 2°, Illuminant= D65
-
 clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
 
   function stylize() {
@@ -27341,6 +27334,7 @@ clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
 
     styl.push(_.map(Grid.colors, function(row){
       return _.map(row, function(color){
+        console.log(color.hex, color.lch.l, color.lch.c, color.lch.h)
         return {
           bottom: color.lch.l + '%'
         }
@@ -27354,40 +27348,54 @@ clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
     var i, l, lOffset, grid = []
 
     lch = lch && _.defaults(lch, defaults) || defaults
-    l = 100 / Grid.rows
+    l = 100 / Grid.lightnesses.length
     lOffset = lch.l % l
 
-    for (i = 0; i < Grid.rows; i++) {
+    for (i = 0; i < Grid.lightnesses.length; i++) {
+
       grid.unshift(Spectrum.create({
-        l: lch.l * i + lOffset,
+        l: Grid.lightnesses[i],
         c: lch.c,
         h: lch.h
       }))
     }
 
-    console.log(grid);
-
     return grid
+  }
+
+  function lightnesses(lch) {
+    var l = 100 / Grid.lightnesses.length
+    var lOffset = lch.l % l
+    var lightnesses = []
+
+    _.times(Grid.rows, function(i) {
+      lightnesses.push(l * i + lOffset)
+    })
+
+    return lightnesses
   }
 
   var defaults = {
     l: 50,
     c: 50,
-    h: 0
+    h: 180
   }
 
   var Grid = {
     rows: 3,
+    lightnesses: [75, 50, 25],
     colors: [[]],
     create: createGrid,
     update: function() {
       Anchor.updateLch()
       Grid.colors = createGrid(Anchor.color.lch)
+      Grid.lightnesses = lightnesses(Anchor.color.lch)
       Grid.styles = stylize()
     }
   }
 
   Grid.colors = createGrid(Anchor.color.lch)
+  Grid.lightnesses = lightnesses(Anchor.color.lch)
   Grid.styles = stylize()
 
   return Grid
