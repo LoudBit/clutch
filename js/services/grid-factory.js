@@ -15,20 +15,15 @@ clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
   }
 
   function createGrid(lch) {
-    var i, l, lOffset, grid = []
-
-    var defaults = {
-      l: 50,
-      c: 50,
-      h: 180
-    }
+    var i, l, lOffset,
+        grid = [],
+        defaults = { l: 50, c: 50, h: 180 }
 
     lch = lch && _.defaults(lch, defaults) || defaults
     l = 100 / Grid.lights.length
     lOffset = lch.l % l
 
     for (i = 0; i < Grid.lights.length; i++) {
-
       grid.unshift(Spectrum.create({
         l: Grid.lights[i],
         c: lch.c,
@@ -39,15 +34,21 @@ clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
     return grid
   }
 
-  function lights(lch) {
-    var l = 100 / Grid.lights.length
-    var lOffset = lch.l % l
-    var output = []
+  function updateGrid () {
+    Anchor.updateLch()
+    Grid.rows = parseInt(Grid.rows, 10)
+    Grid.lights = lights(Anchor.color.lch)
+    Grid.colors = createGrid(Anchor.color.lch)
+    Grid.styles = stylize()
+  }
 
+  function lights(lch) {
+    var l = 100 / Grid.lights.length,
+        lOffset = lch.l % l,
+        output = []
     _.times(Grid.rows, function(i) {
       output.push(l * i + lOffset)
     })
-
     return output
   }
 
@@ -56,18 +57,10 @@ clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
     lights: [75, 50, 25],
     colors: [[]],
     create: createGrid,
-    update: function() {
-      Anchor.updateLch()
-      Grid.rows = parseInt(Grid.rows, 10)
-      Grid.lights = lights(Anchor.color.lch)
-      Grid.colors = createGrid(Anchor.color.lch)
-      Grid.styles = stylize()
-    }
+    update: updateGrid
   }
 
-  Grid.lights = lights(Anchor.color.lch)
-  Grid.colors = createGrid(Anchor.color.lch)
-  Grid.styles = stylize()
+  updateGrid()
 
   return Grid
 

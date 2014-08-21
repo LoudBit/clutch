@@ -6,7 +6,7 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
       name: 'Color',
       slug: 'color'
     }, {
-      name: 'Rainbow',
+      name: 'Spectrum',
       slug: 'spectrum'
     }, {
       name: 'Grid',
