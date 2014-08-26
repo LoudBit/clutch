@@ -38,7 +38,7 @@ clutch.directive('gridExport', ['Grid', function(Grid) {
       }
     }
 
-    var rows = ["A", "B", "C", "D", "E", "F"]
+    var rows = ['A', 'B', 'C', 'D', 'E', 'F']
 
     scope.exportType = scope.exportType || 'cssFG'
     scope.exportData = scope.exportData || exports(scope.exportType)
