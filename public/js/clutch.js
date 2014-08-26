@@ -27147,12 +27147,12 @@ clutch.directive('gridExport', ['Grid', function(Grid) {
 
     function exports(format) {
       var output = []
-      var col = ' '
+      var col = ''
       scope.grid.colors.forEach(function(row, i){
         row.forEach(function(color, j){
           col = j+1
           col = col < 10 ? col + ' ' : col
-          output.push( outputThisShit[format](rows[i], col, color.hex) )
+          output.push( outputThisShit[format](String.fromCharCode(65+i), col, color.hex) )
         })
         output.push( '' )
       })
@@ -27181,13 +27181,11 @@ clutch.directive('gridExport', ['Grid', function(Grid) {
       }
     }
 
-    var rows = ['A', 'B', 'C', 'D', 'E', 'F']
-
     scope.exportType = scope.exportType || 'cssFG'
     scope.exportData = scope.exportData || exports(scope.exportType)
     scope.updateExport = updateExport
 
-    scope.$watch('spectrum.colors[0]', function () {
+    scope.$watch('grid.colors[0]', function () {
       updateExport()
     })
 
@@ -27427,10 +27425,14 @@ clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
   }
 
   function setRows() {
+    var min = 1
+    var max = 16
+    var def = 3
     var _rows = parseInt(Grid.rows, 10)
-    if (isNaN(_rows)) { _rows = 3 }
-    if (_rows < 1) { _rows = 1 }
-    if (_rows > 6) { _rows = 6 }
+
+    if (isNaN(_rows)) { _rows = def }
+    if (_rows < min)  { _rows = min }
+    if (_rows > max)  { _rows = max }
     Grid.rows = _rows
   }
 

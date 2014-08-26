@@ -4,12 +4,12 @@ clutch.directive('gridExport', ['Grid', function(Grid) {
 
     function exports(format) {
       var output = []
-      var col = ' '
+      var col = ''
       scope.grid.colors.forEach(function(row, i){
         row.forEach(function(color, j){
           col = j+1
           col = col < 10 ? col + ' ' : col
-          output.push( outputThisShit[format](rows[i], col, color.hex) )
+          output.push( outputThisShit[format](String.fromCharCode(65+i), col, color.hex) )
         })
         output.push( '' )
       })
@@ -38,13 +38,11 @@ clutch.directive('gridExport', ['Grid', function(Grid) {
       }
     }
 
-    var rows = ['A', 'B', 'C', 'D', 'E', 'F']
-
     scope.exportType = scope.exportType || 'cssFG'
     scope.exportData = scope.exportData || exports(scope.exportType)
     scope.updateExport = updateExport
 
-    scope.$watch('spectrum.colors[0]', function () {
+    scope.$watch('grid.colors[0]', function () {
       updateExport()
     })
 
