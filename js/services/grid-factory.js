@@ -34,16 +34,24 @@ clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
     return grid
   }
 
-  function updateGrid () {
+  function setRows() {
+    var _rows = parseInt(Grid.rows, 10)
+    if (isNaN(_rows)) { _rows = 3 }
+    if (_rows < 1) { _rows = 1 }
+    if (_rows > 6) { _rows = 6 }
+    Grid.rows = _rows
+  }
+
+  function updateGrid() {
     Anchor.updateLch()
-    Grid.rows = parseInt(Grid.rows, 10)
     Grid.lights = lights(Anchor.color.lch)
     Grid.colors = createGrid(Anchor.color.lch)
     Grid.styles = stylize()
   }
 
   function lights(lch) {
-    var l = 100 / Grid.lights.length,
+    setRows()
+    var l = 100 / Grid.rows,
         lOffset = lch.l % l,
         output = []
     _.times(Grid.rows, function(i) {
