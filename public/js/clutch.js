@@ -27094,6 +27094,19 @@ clutch.controller('ColorCtrl', ['$scope', 'Color', 'Spectrum', 'Grid', 'Anchor',
 
 }])
 
+clutch.controller('GridCtrl', ['$scope',  'Anchor', 'Grid', function($scope, Anchor, Grid) {
+
+  // rebuild the Grid each time the Controller is initialized
+  Grid.update()
+
+  $scope.anchor = Anchor
+
+  $scope.grid = Grid
+
+  return this
+
+}])
+
 /* jshint debug: true */
 clutch.controller('SpectrumCtrl', ['$scope',  'Anchor', 'Spectrum', function($scope, Anchor, Spectrum) {
 
@@ -27109,7 +27122,7 @@ clutch.controller('SpectrumCtrl', ['$scope',  'Anchor', 'Spectrum', function($sc
 }])
 
 /* jshint debug: true */
-clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($scope, UI, Anchor, Spectrum) {
+clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', 'Grid', function($scope, UI, Anchor, Spectrum, Grid) {
 
   if (window.navigator.standalone) {
     console.info('app loaded full screen')
@@ -27122,7 +27135,70 @@ clutch.controller('UICtrl', ['$scope', 'UI', 'Anchor', 'Spectrum', function($sco
 
   $scope.spectrum = Spectrum
 
+  $scope.grid = Grid
+
   return this
+
+}])
+
+clutch.directive('gridExport', ['Grid', function(Grid) {
+
+  function link ( scope, element, attr ) {
+
+    function exports(format) {
+      var output = []
+      var col = ''
+      scope.grid.colors.forEach(function(row, i){
+        row.forEach(function(color, j){
+          col = j+1
+          col = col < 10 ? col + ' ' : col
+          output.push( outputThisShit[format](String.fromCharCode(65+i), col, color.hex) )
+        })
+        output.push( '' )
+      })
+      return output.join('\n')
+    }
+
+    function updateExport() {
+      scope.exportData = exports(scope.exportType)
+    }
+
+    var outputThisShit = {
+      cssFG: function(row, num, hex) {
+        return ['.color-', row, num, ' { color: ', hex, '; }'].join('')
+      },
+      cssBG: function(row, num, hex) {
+        return ['.background-', row, num, ' { background-color: ', hex, '; }'].join('')
+      },
+      scss: function(row, num, hex) {
+        return ['$color-', row, num, ': ', hex, ';'].join('')
+      },
+      sass: function(row, num, hex) {
+        return ['$color-', row, num, ': ', hex].join('')
+      },
+      stylus: function(row, num, hex) {
+        return ['color-', row, num, ' = ', hex].join('')
+      }
+    }
+
+    scope.exportType = scope.exportType || 'cssFG'
+    scope.exportData = scope.exportData || exports(scope.exportType)
+    scope.updateExport = updateExport
+
+    scope.$watch('grid.colors[0]', function () {
+      updateExport()
+    })
+
+  }
+
+  return {
+    restrict: 'E',
+    templateUrl: 'ui/grid-export.html',
+    scope: {
+      grid: '=grid'
+    },
+    link: link
+  }
 
 }])
 
@@ -27312,44 +27388,83 @@ clutch.factory('Color', ['RGB', 'XYZ', 'LAB', 'LCH', function(rgb, xyz, lab, lch
 
 }])
 
-// Grid has many Spectrums
-// Spectrum has many Colors
-// Color has many objects
+clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
 
-// Going from RGB to LCH and back again
-// Observer= 2°, Illuminant= D65
+  function stylize() {
+    var styl = []
 
-clutch.factory('Grid', ['Spectrum', function(Spectrum) {
+    styl.push(_.map(Grid.colors, function(row){
+      return _.map(row, function(color){
+        return {
+          bottom: color.lch.l + '%'
+        }
+      })
+    }))
 
-  var defaults = {
-    x: 12,
-    y: 10,
-    l: 0
+    return styl
   }
 
-  return {
+  function createGrid(lch) {
+    var i, l, lOffset,
+        grid = [],
+        defaults = { l: 50, c: 50, h: 180 }
 
-    create: function(x) {
-      var i, l, grid = []
+    lch = lch && _.defaults(lch, defaults) || defaults
+    l = 100 / Grid.lights.length
+    lOffset = lch.l % l
 
-      if (!x)
-        x = defaults
-      else
-        x = _.defaults(x, defaults)
-
-      l = 100 / x.y
-
-      for (i = 0; i < x.y; i++) {
-        grid.push( Spectrum.create({
-          x: x.x,
-          l: 100 - (l * i + x.l)
-        }))
-      }
-
-      return grid
+    for (i = 0; i < Grid.lights.length; i++) {
+      grid.unshift(Spectrum.create({
+        l: Grid.lights[i],
+        c: lch.c,
+        h: lch.h
+      }))
     }
 
+    return grid
   }
+
+  function setRows() {
+    var min = 1,
+        max = 16,
+        def = 3,
+        _rows = parseInt(Grid.rows, 10)
+
+    if (isNaN(_rows)) { _rows = def }
+    if (_rows < min)  { _rows = min }
+    if (_rows > max)  { _rows = max }
+    Grid.rows = _rows
+  }
+
+  function updateGrid() {
+    Anchor.updateLch()
+    Grid.lights = lights(Anchor.color.lch)
+    Grid.colors = createGrid(Anchor.color.lch)
+    Grid.styles = stylize()
+  }
+
+  function lights(lch) {
+    setRows()
+    var l = 100 / Grid.rows,
+        lOffset = lch.l % l,
+        output = []
+    _.times(Grid.rows, function(i) {
+      output.push(l * i + lOffset)
+    })
+    return output
+  }
+
+  var Grid = {
+    rows: 3,
+    lights: [75, 50, 25],
+    colors: [[]],
+    create: createGrid,
+    update: updateGrid
+  }
+
+  updateGrid()
+
+  return Grid
 
 }])
 
@@ -27529,6 +27644,9 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
     }, {
       name: 'Spectrum',
       slug: 'spectrum'
+    }, {
+      name: 'Grid',
+      slug: 'grid'
     }],
 
     selected: 'color',

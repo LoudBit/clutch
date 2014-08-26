@@ -1,0 +1,36 @@
+section.group
+  .form-input
+    label.group
+      b.col.x-66 Lightness
+      .col.x-33.text-right
+        input.text-right.mono(type="text", ng-model="anchor.color.lch.l", ng-change="grid.update()")
+    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="grid.update()")
+  .form-input
+    label.group
+      b.col.x-66 Chromaticity
+      .col.x-33.text-right
+        input.text-right.mono(type="text", ng-model="anchor.color.lch.c", ng-change="grid.update()")
+    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.c", ng-change="grid.update()")
+  .form-input
+    label.group
+      b.col.x-66 Hue
+      .col.x-33.text-right
+        input.text-right.mono(type="text", ng-model="anchor.color.lch.h", ng-change="grid.update()")
+    input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="grid.update()")
+  .form-input
+    label.group
+      b.col.x-66 Colors
+      .col.x-33.text-right
+        input.text-right.mono(type="text", ng-model="spectrum.range", ng-change="grid.update()")
+    input(type="range", min="1", max="16", ng-model="spectrum.range", ng-change="grid.update()")
+  .form-input
+    label.group
+      b.col.x-66 Rows
+      .col.x-33.text-right
+        input.text-right.mono(type="text", ng-model="grid.rows", ng-change="grid.update()")
+    input(type="range", min="1", max="16", ng-model="grid.rows", ng-change="grid.update()")
+
+hr
+
+section.group
+  grid-export(grid="grid")

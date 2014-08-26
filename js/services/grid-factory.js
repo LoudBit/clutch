@@ -1,40 +1,79 @@
-// Grid has many Spectrums
-// Spectrum has many Colors
-// Color has many objects
+clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
 
-// Going from RGB to LCH and back again
-// Observer= 2°, Illuminant= D65
+  function stylize() {
+    var styl = []
 
-clutch.factory('Grid', ['Spectrum', function(Spectrum) {
+    styl.push(_.map(Grid.colors, function(row){
+      return _.map(row, function(color){
+        return {
+          bottom: color.lch.l + '%'
+        }
+      })
+    }))
 
-  var defaults = {
-    x: 12,
-    y: 10,
-    l: 0
+    return styl
   }
 
-  return {
+  function createGrid(lch) {
+    var i, l, lOffset,
+        grid = [],
+        defaults = { l: 50, c: 50, h: 180 }
 
-    create: function(x) {
-      var i, l, grid = []
+    lch = lch && _.defaults(lch, defaults) || defaults
+    l = 100 / Grid.lights.length
+    lOffset = lch.l % l
 
-      if (!x)
-        x = defaults
-      else
-        x = _.defaults(x, defaults)
-
-      l = 100 / x.y
-
-      for (i = 0; i < x.y; i++) {
-        grid.push( Spectrum.create({
-          x: x.x,
-          l: 100 - (l * i + x.l)
-        }))
-      }
-
-      return grid
+    for (i = 0; i < Grid.lights.length; i++) {
+      grid.unshift(Spectrum.create({
+        l: Grid.lights[i],
+        c: lch.c,
+        h: lch.h
+      }))
     }
 
+    return grid
   }
+
+  function setRows() {
+    var min = 1,
+        max = 16,
+        def = 3,
+        _rows = parseInt(Grid.rows, 10)
+
+    if (isNaN(_rows)) { _rows = def }
+    if (_rows < min)  { _rows = min }
+    if (_rows > max)  { _rows = max }
+    Grid.rows = _rows
+  }
+
+  function updateGrid() {
+    Anchor.updateLch()
+    Grid.lights = lights(Anchor.color.lch)
+    Grid.colors = createGrid(Anchor.color.lch)
+    Grid.styles = stylize()
+  }
+
+  function lights(lch) {
+    setRows()
+    var l = 100 / Grid.rows,
+        lOffset = lch.l % l,
+        output = []
+    _.times(Grid.rows, function(i) {
+      output.push(l * i + lOffset)
+    })
+    return output
+  }
+
+  var Grid = {
+    rows: 3,
+    lights: [75, 50, 25],
+    colors: [[]],
+    create: createGrid,
+    update: updateGrid
+  }
+
+  updateGrid()
+
+  return Grid
 
 }])
