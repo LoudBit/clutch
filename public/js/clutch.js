@@ -27425,10 +27425,10 @@ clutch.factory('Grid', ['Anchor', 'Spectrum', function(Anchor, Spectrum) {
   }
 
   function setRows() {
-    var min = 1
-    var max = 16
-    var def = 3
-    var _rows = parseInt(Grid.rows, 10)
+    var min = 1,
+        max = 16,
+        def = 3,
+        _rows = parseInt(Grid.rows, 10)
 
     if (isNaN(_rows)) { _rows = def }
     if (_rows < min)  { _rows = min }
