@@ -1,0 +1,12 @@
+.form-input
+  label.group
+    b.col.x-33 Export
+    .col.x-66.text-right
+      select(ng-model="exportType", ng-change="updateExport()")
+        option(value="cssFG") CSS Color
+        option(value="cssBG") CSS Background Color
+        option(value="scss") SCSS variables
+        option(value="sass") Sass variables
+        option(value="stylus") Stylus variables
+.form-input
+  textarea.dim.mono {{exportData}}
