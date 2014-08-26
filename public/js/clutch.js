@@ -27145,56 +27145,51 @@ clutch.directive('gridExport', ['Grid', function(Grid) {
 
   function link ( scope, element, attr ) {
 
-    // TODO: Rewrite this to suit grids
-    // var exports = {
-    //   cssFG:  function() {
-    //     var output = []
-    //     scope.spectrum.colors.forEach(function(color, i){
-    //       output.push(['.color-', i+1, ' { color: ', color.hex, '; }'].join(''))
-    //     })
-    //     return output.join('\n')
-    //   },
-    //   cssBG:  function() {
-    //     var output = []
-    //     scope.spectrum.colors.forEach(function(color, i){
-    //       output.push(['.background-', i+1, ' { background-color: ', color.hex, '; }'].join(''))
-    //     })
-    //     return output.join('\n')
-    //   },
-    //   scss:   function() {
-    //     var output = []
-    //     scope.spectrum.colors.forEach(function(color, i){
-    //       output.push(['$color-', i+1, ': ', color.hex, ';'].join(''))
-    //     })
-    //     return output.join('\n')
-    //   },
-    //   sass:   function() {
-    //     var output = []
-    //     scope.spectrum.colors.forEach(function(color, i){
-    //       output.push(['$color-', i+1, ': ', color.hex].join(''))
-    //     })
-    //     return output.join('\n')
-    //   },
-    //   stylus: function() {
-    //     var output = []
-    //     scope.spectrum.colors.forEach(function(color, i){
-    //       output.push(['color-', i+1, ' = ', color.hex].join(''))
-    //     })
-    //     return output.join('\n')
-    //   }
-    // }
+    function exports(format) {
+      var output = []
+      var col = ' '
+      scope.grid.colors.forEach(function(row, i){
+        row.forEach(function(color, j){
+          col = j+1
+          col = col < 10 ? col + ' ' : col
+          output.push( outputThisShit[format](rows[i], col, color.hex) )
+        })
+        output.push( '' )
+      })
+      return output.join('\n')
+    }
 
-    // function updateExport() {
-    //   scope.exportData = exports[scope.exportType]()
-    // }
+    function updateExport() {
+      scope.exportData = exports(scope.exportType)
+    }
+
+    var outputThisShit = {
+      cssFG: function(row, num, hex) {
+        return ['.color-', row, num, ' { color: ', hex, '; }'].join('')
+      },
+      cssBG: function(row, num, hex) {
+        return ['.background-', row, num, ' { background-color: ', hex, '; }'].join('')
+      },
+      scss: function(row, num, hex) {
+        return ['$color-', row, num, ': ', hex, ';'].join('')
+      },
+      sass: function(row, num, hex) {
+        return ['$color-', row, num, ': ', hex].join('')
+      },
+      stylus: function(row, num, hex) {
+        return ['color-', row, num, ' = ', hex].join('')
+      }
+    }
+
+    var rows = ["A", "B", "C", "D", "E", "F"]
 
     scope.exportType = scope.exportType || 'cssFG'
-    // scope.exportData = scope.exportData || exports[scope.exportType]()
-    // scope.updateExport = updateExport
+    scope.exportData = scope.exportData || exports(scope.exportType)
+    scope.updateExport = updateExport
 
-    // scope.$watch('spectrum.colors[0]', function () {
-    //   updateExport()
-    // })
+    scope.$watch('spectrum.colors[0]', function () {
+      updateExport()
+    })
 
   }
 
