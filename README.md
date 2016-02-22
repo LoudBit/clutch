@@ -1,6 +1,12 @@
 Clutch
 =====
 
+Generate harmonious color palettes.
+
+<hr />
+
+[![bitHound Overall Score](https://www.bithound.io/github/LoudBit/clutch/badges/score.svg)](https://www.bithound.io/github/LoudBit/clutch)
+[![bitHound Dependencies](https://www.bithound.io/github/LoudBit/clutch/badges/dependencies.svg)](https://www.bithound.io/github/LoudBit/clutch/master/dependencies/npm)
 
 ## Dev Setup
 
