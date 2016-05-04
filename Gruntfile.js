@@ -148,9 +148,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-rework')
 
-  grunt.registerTask('default', ['jshint', 'stylus:dev', 'concat:js'])
-  grunt.registerTask('dev',     ['default', 'jade:dev', 'connect:dev', 'watch'])
-  grunt.registerTask('stage',   ['default', 'jade:stage', 'uglify', 'connect:stage'])
-  grunt.registerTask('prod',    ['default', 'jade:prod', 'uglify'])
+  grunt.registerTask('default',                     ['jshint', 'stylus:dev', 'concat:js'])
+  grunt.registerTask('dev',     'Build & Watch',    ['default', 'jade:dev', 'connect:dev', 'watch'])
+  grunt.registerTask('stage',   'Build & Test',     ['default', 'jade:stage', 'uglify', 'connect:stage'])
+  grunt.registerTask('prod',    'Build for Deploy', ['default', 'jade:prod', 'uglify'])
 
 }
