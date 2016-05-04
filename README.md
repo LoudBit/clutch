@@ -14,4 +14,9 @@ Generate harmonious color palettes.
 2. `grunt dev`
 3. Write code.
 
-The `dev` task will compile the assets and serve them up at http://localhost:1337 with LiveReload in place.
+The `dev` task will compile the assets and serve them up at http://127.0.0.1:3333 with LiveReload in place.
+
+## Deploys
+
+1. `npm run deploy` which is just an alias to `grunt prod && cd public && surge`
+2. Hit `Enter` to send the stuff to surge.

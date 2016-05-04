@@ -24,6 +24,6 @@
     "grunt-rework": "0.0.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "grunt prod && cd public && surge"
   }
 }
