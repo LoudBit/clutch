@@ -6,7 +6,6 @@ module.exports = function(grunt) {
       js: {
         src: [
           'bower_components/angular/angular.js',
-          'bower_components/chroma-js/chroma.js',
           'node_modules/lodash/dist/lodash.js',
           'js/clutch.js',
           'js/*/*.js'

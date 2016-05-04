@@ -70,7 +70,6 @@
 
   "globals" : {
     "angular": true,
-    "chroma": true,
     "clutch": true,
     "console": true,
     "_": true
