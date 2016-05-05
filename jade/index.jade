@@ -19,8 +19,8 @@ block content
 
       .group
         .form-input
-          label.group Background
-          select(ng-model="UI.styles.background")
+          label.group(for="background") Background
+          select#background(ng-model="UI.styles.background")
             option(value="black") Black
             option(value="color") Color
             option(value="white") White
