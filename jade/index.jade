@@ -13,33 +13,27 @@ block content
         .row(ng-repeat="row in grid.colors")
           .color(ng-repeat="color in row", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
 
+    section#ui
+      .form-input
+        label(for="background") Background
+        select#background(ng-model="UI.styles.background")
+          option(value="black") Black
+          option(value="color") Color
+          option(value="white") White
+      .form-input
+        label(for="background") Generator
+        select#background(ng-model="UI.generator", ng-options="generator.slug as generator.name for generator in UI.generators")
 
-    //- would like to make this responsive one day, based on landscape v. portrait
-    section#ui.group
-
-      .group
-        .form-input
-          label.group(for="background") Background
-          select#background(ng-model="UI.styles.background")
-            option(value="black") Black
-            option(value="color") Color
-            option(value="white") White
-
-      .group
-        .form-input
-          label.group(for="background") Generator
-          select#background(ng-model="UI.generator", ng-options="generator.slug as generator.name for generator in UI.generators")
-
-      form.group(ng-if="UI.generator == 'color'")
+      form(ng-if="UI.generator == 'color'")
         include ./ui/color.jade
 
-      form.group(ng-if="UI.generator == 'spectrum'")
+      form(ng-if="UI.generator == 'spectrum'")
         include ./ui/spectrum.jade
 
-      form.group(ng-if="UI.generator == 'grid'")
+      form(ng-if="UI.generator == 'grid'")
         include ./ui/grid.jade
 
-      footer.group.text-center
+      footer.text-center
         hr
         h1 clutch
         p

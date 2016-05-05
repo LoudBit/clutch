@@ -1,26 +1,30 @@
-section.group
+section
   .form-input
-    label.group
-      b.col.x-66 Lightness
-      .col.x-33.text-right
+    label Lightness
+    | &nbsp;&middot;&nbsp;
+    label Chromaticity
+    | &nbsp;&middot;&nbsp;
+    label Hue
+
+  .form-input.shaded
+    .flex.row
+      .column
         input.text-right.mono(type="text", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
-    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
-  .form-input
-    label.group
-      b.col.x-66 Chromaticity
-      .col.x-33.text-right
+      .column
         input.text-right.mono(type="text", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
-    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
-  .form-input
-    label.group
-      b.col.x-66 Hue
-      .col.x-33.text-right
+      .column
         input.text-right.mono(type="text", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
+
+  .form-input.shaded
+    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
+  .form-input.shaded
+    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
+  .form-input.shaded
     input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
 
 hr
 
-section.group
+section
   .form-input
     label.row
       b.col.x-66 Red
@@ -28,13 +32,13 @@ section.group
         input.text-right.mono(type="text", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
     input(type="range", min="0", max="255", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
   .form-input
-    label.group
+    label
       b.col.x-66 Green
       .col.x-33.text-right
         input.text-right.mono(type="text", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
     input(type="range", min="0", max="255", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
   .form-input
-    label.group
+    label
       b.col.x-66 Blue
       .col.x-33.text-right
         input.text-right.mono(type="text", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
