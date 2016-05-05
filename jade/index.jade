@@ -5,11 +5,11 @@ block content
   article#clutch(ng-controller="UICtrl", ng-style="UI.styles.clutch()", ng-cloak, ng-class="{fullscreen:fullscreen}")
 
     #palette
-      section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
+      section(ng-if="UI.generator == 'color'", ng-controller="ColorCtrl")
         #anchor.color(ng-style="anchor.styles")
-      section#spectrum(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
+      section#spectrum(ng-if="UI.generator == 'spectrum'", ng-controller="SpectrumCtrl")
         .color(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
-      section#spectrum(ng-if="UI.selected == 'grid'", ng-controller="GridCtrl")
+      section#spectrum(ng-if="UI.generator == 'grid'", ng-controller="GridCtrl")
         .row(ng-repeat="row in grid.colors")
           .color(ng-repeat="color in row", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
 
@@ -25,18 +25,18 @@ block content
             option(value="color") Color
             option(value="white") White
 
+      .group
+        .form-input
+          label.group(for="background") Generator
+          select#background(ng-model="UI.generator", ng-options="generator.slug as generator.name for generator in UI.generators")
 
-      ul.tabs
-        li.tab(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
-          {{section.name}}
-
-      form.group(ng-if="UI.selected == 'color'")
+      form.group(ng-if="UI.generator == 'color'")
         include ./ui/color.jade
 
-      form.group(ng-if="UI.selected == 'spectrum'")
+      form.group(ng-if="UI.generator == 'spectrum'")
         include ./ui/spectrum.jade
 
-      form.group(ng-if="UI.selected == 'grid'")
+      form.group(ng-if="UI.generator == 'grid'")
         include ./ui/grid.jade
 
       footer.group.text-center
