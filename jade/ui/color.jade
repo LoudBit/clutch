@@ -1,19 +1,19 @@
 section
   .form-input
-    label Lightness
+    label(for="lightness") Lightness
     | &nbsp;&middot;&nbsp;
-    label Chromaticity
+    label(for="chromaticity")  Chromaticity
     | &nbsp;&middot;&nbsp;
-    label Hue
+    label(for="hue")  Hue
 
   .form-input.shaded
     .flex.row
       .column
-        input.text-right.mono(type="text", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
+        input.text-right.mono(type="text", id="lightness", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
       .column
-        input.text-right.mono(type="text", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
+        input.text-right.mono(type="text", id="chromaticity", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
       .column
-        input.text-right.mono(type="text", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
+        input.text-right.mono(type="text", id="hue", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
 
   .form-input.shaded
     input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
