@@ -24,6 +24,8 @@ block content
         label(for="background") Generator
         select#background(ng-model="UI.generator", ng-options="generator.slug as generator.name for generator in UI.generators")
 
+      hr
+        
       form(ng-if="UI.generator == 'color'")
         include ./ui/color.jade
 
