@@ -6,12 +6,12 @@ block content
 
     #palette
       section(ng-if="UI.generator == 'color'", ng-controller="ColorCtrl")
-        #anchor.color(ng-style="anchor.styles")
+        #anchor.color(title="{{anchor.color.hex}}", ng-style="anchor.styles")
       section#spectrum(ng-if="UI.generator == 'spectrum'", ng-controller="SpectrumCtrl")
-        .color(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
+        .color(title="{{spectrum.colors[$index].hex}}", ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", ng-class="{ anchor: color.hex == anchor.color.hex }")
       section#spectrum(ng-if="UI.generator == 'grid'", ng-controller="GridCtrl")
         .row(ng-repeat="row in grid.colors")
-          .color(ng-repeat="color in row", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
+          .color(title="{{row[$index].hex}}", ng-repeat="color in row", ng-style="color.styles.bg", ng-class="{ anchor: color.hex == anchor.color.hex }")
 
     section#ui
       .form-input
