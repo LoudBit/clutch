@@ -1,8 +1,9 @@
-.form-input
-  label.group
-    b.col.x-33 Export
-    .col.x-66.text-right
-      select(ng-model="exportType", ng-change="updateExport()")
+.form-input.shaded
+  .flex.row
+    .column.x-33
+      label(for="spectrum-export") Export
+    .column.x-66
+      select(id="spectrum-export", ng-model="exportType", ng-change="updateExport()")
         option(value="cssFG") CSS Color
         option(value="cssBG") CSS Background Color
         option(value="scss") SCSS variables
