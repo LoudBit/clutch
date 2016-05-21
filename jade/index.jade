@@ -2,43 +2,41 @@ extends _layout
 
 block content
 
+  //- TODO: this is absolutely positioned and it doesn't need to be. Fix it. 
   article#clutch(ng-controller="UICtrl", ng-style="UI.styles.clutch()", ng-cloak, ng-class="{fullscreen:fullscreen}")
 
     #palette
-      section(ng-if="UI.selected == 'color'", ng-controller="ColorCtrl")
-        #anchor.color(ng-style="anchor.styles")
-      section#spectrum(ng-if="UI.selected == 'spectrum'", ng-controller="SpectrumCtrl")
-        .color(ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
-      section#spectrum(ng-if="UI.selected == 'grid'", ng-controller="GridCtrl")
+      section(ng-if="UI.generator == 'color'", ng-controller="ColorCtrl")
+        #anchor.color(title="{{anchor.color.hex}}", ng-style="anchor.styles")
+      section#spectrum(ng-if="UI.generator == 'spectrum'", ng-controller="SpectrumCtrl")
+        .color(title="{{spectrum.colors[$index].hex}}", ng-repeat="color in spectrum.colors", ng-style="color.styles.bg", ng-class="{ anchor: color.hex == anchor.color.hex }")
+      section#spectrum(ng-if="UI.generator == 'grid'", ng-controller="GridCtrl")
         .row(ng-repeat="row in grid.colors")
-          .color(ng-repeat="color in row", ng-style="color.styles.bg", title="color.hex", ng-class="{ anchor: color.hex == anchor.color.hex }")
+          .color(title="{{row[$index].hex}}", ng-repeat="color in row", ng-style="color.styles.bg", ng-class="{ anchor: color.hex == anchor.color.hex }")
 
+    section#ui
+      .form-input
+        label(for="background") Background
+        select#background(ng-model="UI.styles.background")
+          option(value="black") Black
+          option(value="color") Color
+          option(value="white") White
+      .form-input
+        label(for="background") Generator
+        select#background(ng-model="UI.generator", ng-options="generator.slug as generator.name for generator in UI.generators")
 
-    //- would like to make this responsive one day, based on landscape v. portrait
-    section#ui.group
-
-      .radio-buttons
-        label.radio-button(ng-class="{selected:UI.styles.background == 'black'}") Black
-          input(type="radio", name="bg", value="black", ng-model="UI.styles.background")
-        label.radio-button(ng-class="{selected:UI.styles.background == 'color'}") Color
-          input(type="radio", name="bg", value="color", ng-model="UI.styles.background")
-        label.radio-button(ng-class="{selected:UI.styles.background == 'white'}") White
-          input(type="radio", name="bg", value="white", ng-model="UI.styles.background")
-
-      ul.tabs
-        li.tab(ng-repeat="section in UI.sections", ng-class="{selected:section.slug == UI.selected}", ng-click="UI.select(section.slug)")
-          {{section.name}}
-
-      form.group(ng-if="UI.selected == 'color'")
+      hr
+        
+      form(ng-if="UI.generator == 'color'")
         include ./ui/color.jade
 
-      form.group(ng-if="UI.selected == 'spectrum'")
+      form(ng-if="UI.generator == 'spectrum'")
         include ./ui/spectrum.jade
 
-      form.group(ng-if="UI.selected == 'grid'")
+      form(ng-if="UI.generator == 'grid'")
         include ./ui/grid.jade
 
-      footer.group.text-center
+      footer.text-center
         hr
         h1 clutch
         p

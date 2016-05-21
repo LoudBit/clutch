@@ -2,8 +2,8 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
 
   var UI = {
 
-    sections: [{
-      name: 'Color',
+    generators: [{
+      name: 'Single Color',
       slug: 'color'
     }, {
       name: 'Spectrum',
@@ -13,14 +13,10 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
       slug: 'grid'
     }],
 
-    selected: 'color',
+    generator: 'color',
 
     color: {
       tabs: 'lch'
-    },
-
-    select: function(slug) {
-      UI.selected = slug
     },
 
     styles: {
@@ -36,7 +32,7 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
         }
       },
 
-      // I find that defaulting to the color colour gives the best first impresssion
+      // I find that defaulting to the color background gives the most obvious first impresssion
       background: 'color'
 
     }
@@ -46,5 +42,3 @@ clutch.factory('UI', ['Anchor', function(Anchor) {
   return UI
 
 }])
-
-

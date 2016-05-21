@@ -1,34 +1,42 @@
-input {
-  width: auto;
+label {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+  text-transform: uppercase;
 }
+
+// -----
 
 form,
 input[type="number"],
 input[type="range"],
-input[type="text"],
 textarea {
   width: 100%;
 }
 
 .form-input {
-  padding: (copy-line-height/4) (copy-line-height/2);
+  margin: (copy-line-height/4) (copy-line-height/2);
+}
+
+.form-input.shaded {
+  background: rgba(0, 0, 0, 0.2);
+  padding: (copy-line-height/4) (copy-line-height/4);
 }
 
 input[type="number"],
 input[type="text"],
 textarea {
-  border-radius: 2px;
-  background: rgba(42,42,42, 0.25);
-  border: 1px solid transparent;
-  color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.05), inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
+  line-height: input-line-height;
+  font-weight: 100;
+  width: 100%;
 }
 
 input[type="number"]:focus,
 input[type="text"]:focus {
-  background: #2a2a2a;
   outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 input[type='range'] {
@@ -57,30 +65,31 @@ input[type='range']::-moz-focus-inner {
   outline: none;
 }
 
+
 // Selects
 select {
-  background-color: #303030;
-  // background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0,0,0,0.25);
+  background-color: rgba(0,0,0,0.2);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.5);
 
   border: 0px solid #262626;
   border-radius: 1px;
 
-  // height: copy-line-height;
-  line-height: copy-line-height;
+  line-height: heading-line-height;
   width: 100%;
+  padding: 0 base*2;
 
   color: #5e5e5e;
-  font-size: small-font-size;
+  font-size: copy-font-size;
   font-weight: 500;
   text-align: center;
   text-shadow: 0 -1px 1px #1b1b1b;
+
+  -webkit-appearance: none;
 }
 
 select:hover {
   color: rgba(255,255,255,0.5);
 }
-
 
 
 // Text Areas
