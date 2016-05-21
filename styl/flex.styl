@@ -1,6 +1,6 @@
 // Flexbox
 
-// flexbox container styles
+// containers
 .flex {
   display: flex;
   flex-wrap: nowrap;
@@ -8,9 +8,12 @@
   flex: 0 1 auto;
 }
 
+// rows
 .flex.row {
   flex-direction: row;
+  align-items: baseline;
 }
+
 .flex.row > .column {
   padding: 0 (copy-line-height/8);
 }
@@ -21,7 +24,7 @@
   padding-right: 0;
 }
 
-
+// columns
 .flex.column {
   flex-direction: column;
 }

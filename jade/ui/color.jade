@@ -2,10 +2,9 @@ section
   .form-input
     label(for="lightness") Lightness
     | &nbsp;&middot;&nbsp;
-    label(for="chromaticity")  Chromaticity
+    label(for="chromaticity") Chromaticity
     | &nbsp;&middot;&nbsp;
-    label(for="hue")  Hue
-
+    label(for="hue") Hue
   .form-input.shaded
     .flex.row
       .column
@@ -14,7 +13,6 @@ section
         input.text-right.mono(type="text", id="chromaticity", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
       .column
         input.text-right.mono(type="text", id="hue", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
-
   .form-input.shaded
     input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
   .form-input.shaded
@@ -26,25 +24,28 @@ hr
 
 section
   .form-input
-    label.row
-      b.col.x-66 Red
-      .col.x-33.text-right
-        input.text-right.mono(type="text", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
+    label(for="red") Red
+    | &nbsp;&middot;&nbsp;
+    label(for="green") Green
+    | &nbsp;&middot;&nbsp;
+    label(for="blue") Blue
+  .form-input.shaded
+    .flex.row
+      .column
+        input.text-right.mono(type="text", id="red", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
+      .column
+        input.text-right.mono(type="text", id="green", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
+      .column
+        input.text-right.mono(type="text", id="blue", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
+  .form-input.shaded
     input(type="range", min="0", max="255", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
-  .form-input
-    label
-      b.col.x-66 Green
-      .col.x-33.text-right
-        input.text-right.mono(type="text", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
+  .form-input.shaded
     input(type="range", min="0", max="255", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
-  .form-input
-    label
-      b.col.x-66 Blue
-      .col.x-33.text-right
-        input.text-right.mono(type="text", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
+  .form-input.shaded
     input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
-  .form-input
-    .col.x-66
-      b RGB Hex
-    .col.r.x-33.text-right
-      input.text-right.mono(type="text", ng-model="anchor.color.hex", ng-change="anchor.updateHex(anchor.color.hex)")
+  .form-input.shaded
+    .flex.row
+      .column.x-66
+        label(for="rgb-hex") RGB Hexadecimal
+      .column.x-33
+        input.text-right.mono(type="text", id="rgb-hex", ng-model="anchor.color.hex", ng-change="anchor.updateHex(anchor.color.hex)")
