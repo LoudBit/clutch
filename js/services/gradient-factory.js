@@ -1,8 +1,5 @@
 clutch.factory('Gradients', ['Color', function(Color) {
 
-  // This could be performance intensive.
-  // Be sure to test the performance impact during development.
-  // Should be extracted to a factory once it's ready.
   function createGradients(color) {
 
     function createHue (i) {
