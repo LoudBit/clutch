@@ -36,11 +36,11 @@ section
       .column
         input.text-right.mono(type="text", id="blue", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
   .form-input.shaded
-    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
+    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()", ng-style="anchor.gradients.rgb.r")
   .form-input.shaded
-    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
+    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()", ng-style="anchor.gradients.rgb.g")
   .form-input.shaded
-    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
+    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()", ng-style="anchor.gradients.rgb.b")
   .form-input.shaded
     .flex.row
       .column.x-66
