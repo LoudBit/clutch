@@ -84,31 +84,21 @@ clutch.factory('Gradients', ['Color', function(Color) {
       Color.rgb({ r: color.rgb.r, g: color.rgb.g, b: 255 }),
     ]
 
-    return {
-      r: {
+    function parseGardient(x) {
+      return {
         'background-image': [
           'linear-gradient(to right,',
-          r[0].hex, ' 0%, ',
-          r[1].hex, ' 50%, ',
-          r[2].hex, ' 100%)'
-        ].join('')
-      },
-      g: {
-        'background-image': [
-          'linear-gradient(to right,',
-          g[0].hex, ' 0%, ',
-          g[1].hex, ' 50%, ',
-          g[2].hex, ' 100%)'
-        ].join('')
-      },
-      b: {
-        'background-image': [
-          'linear-gradient(to right,',
-          b[0].hex, ' 0%, ',
-          b[1].hex, ' 50%, ',
-          b[2].hex, ' 100%)'
+          x[0].hex, ' 0%, ',
+          x[1].hex, ' 50%, ',
+          x[2].hex, ' 100%)'
         ].join('')
       }
+    }
+
+    return {
+      r: parseGardient(r),
+      g: parseGardient(g),
+      b: parseGardient(b)
     }
   }
 
