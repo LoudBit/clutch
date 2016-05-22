@@ -14,11 +14,11 @@ section
       .column
         input.text-right.mono(type="text", id="hue", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
   .form-input.shaded
-    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()")
+    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.l", ng-change="anchor.updateLch()", ng-style="anchor.gradients.lch.l")
   .form-input.shaded
-    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()")
+    input(type="range", min="0", max="100", step="0.001", ng-model="anchor.color.lch.c", ng-change="anchor.updateLch()", ng-style="anchor.gradients.lch.c")
   .form-input.shaded
-    input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()")
+    input(type="range", min="0", max="360", ng-model="anchor.color.lch.h", ng-change="anchor.updateLch()", ng-style="anchor.gradients.lch.h")
 
 section
   .form-input
@@ -36,11 +36,11 @@ section
       .column
         input.text-right.mono(type="text", id="blue", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
   .form-input.shaded
-    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()")
+    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.r", ng-change="anchor.updateRGB()", ng-style="anchor.gradients.rgb.r")
   .form-input.shaded
-    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()")
+    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.g", ng-change="anchor.updateRGB()", ng-style="anchor.gradients.rgb.g")
   .form-input.shaded
-    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()")
+    input(type="range", min="0", max="255", ng-model="anchor.color.rgb.b", ng-change="anchor.updateRGB()", ng-style="anchor.gradients.rgb.b")
   .form-input.shaded
     .flex.row
       .column.x-66

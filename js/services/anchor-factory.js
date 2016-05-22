@@ -1,4 +1,4 @@
-clutch.factory('Anchor', ['Color', function(Color) {
+clutch.factory('Anchor', ['Color', 'Gradients', function(Color, Gradients) {
 
   function stylize(color) {
     var pad = 1 + color.lch.c/50
@@ -27,11 +27,13 @@ clutch.factory('Anchor', ['Color', function(Color) {
     updateLch: function(newLch) {
       Anchor.color = Color.lch(_.extend(Anchor.color.lch, newLch))
       Anchor.styles = stylize(Anchor.color)
+      Anchor.gradients = Gradients.create(Anchor.color)
     },
 
     updateRGB: function(newRGB) {
       Anchor.color = Color.rgb(_.extend(Anchor.color.rgb, newRGB))
       Anchor.styles = stylize(Anchor.color)
+      Anchor.gradients = Gradients.create(Anchor.color)
     },
 
     updateHex: function(newHex) {
