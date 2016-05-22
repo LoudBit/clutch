@@ -146,7 +146,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus')
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-watch')
-  grunt.loadNpmTasks('grunt-rework')
 
   grunt.registerTask('default',                     ['jshint', 'stylus:dev', 'concat:js'])
   grunt.registerTask('dev',     'Build & Watch',    ['default', 'jade:dev', 'connect:dev', 'watch'])
