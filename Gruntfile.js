@@ -6,7 +6,6 @@ module.exports = function(grunt) {
       js: {
         src: [
           'bower_components/angular/angular.js',
-          'node_modules/lodash/dist/lodash.js',
           'js/clutch.js',
           'js/*/*.js'
         ],
@@ -79,7 +78,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      files: ['js/**/*.js'],
+      files: ['js/**/*.js', '!js/vendor/*.js'],
       options: {
         jshintrc: true
       }
