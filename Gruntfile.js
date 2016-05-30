@@ -1,3 +1,4 @@
+/* jshint maxstatements:12, node:true */
 module.exports = function(grunt) {
 
   grunt.initConfig({
