@@ -26,6 +26,7 @@
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
+    "@inkline/inkline": "^1.18.2",
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/stylelint-module": "^3.1.0",
