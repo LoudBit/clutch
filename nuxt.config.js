@@ -1,5 +1,6 @@
 export default {
   mode: 'universal',
+
   /*
    ** Headers of the page
    */
@@ -16,14 +17,12 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
+
   /*
    ** Customize the progress-bar color
    */
   loading: { color: '#fff' },
-  /*
-   ** Global CSS
-   */
-  css: [],
+
   /*
    ** Plugins to load before mounting the App
    */
@@ -37,10 +36,12 @@ export default {
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module'
   ],
+
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['@nuxtjs/style-resources'],
+
   /*
    ** Build configuration
    */
@@ -49,5 +50,9 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+
+  styleResources: {
+    scss: []
   }
 }

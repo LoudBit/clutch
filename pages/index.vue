@@ -35,14 +35,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #__layout,
 #__layout > main {
   min-height: 100vh;
 }
 
 .layout-aside-children {
-  background: #292929;
+  background: rgba(#292929, 0.8);
   color: #d0d0d0;
 }
 </style>
