@@ -1,27 +1,16 @@
 <template>
-  <i-layout>
-    <i-layout-header>
-      Header
-    </i-layout-header>
-
-    <i-layout vertical>
-      <i-layout-aside>
-        <p>Background Color: {{ bg }}</p>
-        <i-button @click="randomize">Randomize</i-button>
-      </i-layout-aside>
-
-      <i-layout-content v-bind:style="{ backgroundColor: bg }">
-        <div>
-          <logo />
-          <h1>clutch</h1>
-          <h2>color palette generator</h2>
-        </div>
-      </i-layout-content>
-    </i-layout>
-
-    <i-layout-footer>
-      Footer
-    </i-layout-footer>
+  <i-layout v-bind:style="{ backgroundColor: bg }" vertical>
+    <i-layout-aside>
+      <p>Background Color: {{ bg }}</p>
+      <i-button @click="randomize">Randomize</i-button>
+    </i-layout-aside>
+    <i-layout-content>
+      <div>
+        <logo />
+        <h1>clutch</h1>
+        <h2>color palette generator</h2>
+      </div>
+    </i-layout-content>
   </i-layout>
 </template>
 
@@ -45,3 +34,15 @@ export default {
   }
 }
 </script>
+
+<style>
+#__layout,
+#__layout > main {
+  min-height: 100vh;
+}
+
+.layout-aside-children {
+  background: #292929;
+  color: #d0d0d0;
+}
+</style>
