@@ -2,34 +2,42 @@
   <div class="container">
     <div>
       <logo />
-      <h1 class="title">
-        clutch
-      </h1>
-      <h2 class="subtitle">
-        color palette generator
-      </h2>
+      <h1 class="title">clutch</h1>
+      <h2 class="subtitle">color palette generator</h2>
+      <h2 class="subtitle">Background Color: {{ bg }}</h2>
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
+        <a href="https://nuxtjs.org/" target="_blank" class="button--green"
+          >Documentation</a
+        >
         <a
           href="https://github.com/nuxt/nuxt.js"
           target="_blank"
           class="button--grey"
+          >GitHub</a
         >
-          GitHub
-        </a>
+        <button @click="randomize" class="button--grey">Randomize</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import Logo from '~/components/Logo.vue'
 
 export default {
   components: {
     Logo
+  },
+  computed: {
+    bg() {
+      return this.$store.state.palette.background.hex
+    }
+  },
+  methods: {
+    ...mapMutations({
+      randomize: 'palette/randomize'
+    })
   }
 }
 </script>
