@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-bind:style="{ backgroundColor: bg }" class="container">
     <div>
       <logo />
       <h1 class="title">clutch</h1>

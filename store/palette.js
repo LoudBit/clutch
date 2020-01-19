@@ -1,5 +1,14 @@
+function Color() {
+  return {
+    name: 'New Color',
+    hex: `#${hex()}${hex()}${hex()}`
+  }
+}
+
 function hex() {
-  return Math.floor(Math.random() * Math.floor(256)).toString(16)
+  let str = Math.floor(Math.random() * Math.floor(256)).toString(16)
+  str = str.length === 1 ? `0${str}` : str
+  return str
 }
 
 export const state = () => ({
@@ -11,9 +20,6 @@ export const state = () => ({
 
 export const mutations = {
   randomize(state) {
-    state.background = {
-      name: 'Random',
-      hex: `#${hex()}${hex()}${hex()}`
-    }
+    state.background = new Color()
   }
 }
