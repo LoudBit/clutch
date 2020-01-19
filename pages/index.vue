@@ -1,13 +1,28 @@
 <template>
-  <div v-bind:style="{ backgroundColor: bg }" class="container">
-    <div>
-      <logo />
-      <h1 class="title">clutch</h1>
-      <h2 class="subtitle">color palette generator</h2>
-      <h2 class="subtitle">Background Color: {{ bg }}</h2>
-      <i-button @click="randomize" variant="primary">Randomize</i-button>
-    </div>
-  </div>
+  <i-layout>
+    <i-layout-header>
+      Header
+    </i-layout-header>
+
+    <i-layout vertical>
+      <i-layout-aside>
+        <p>Background Color: {{ bg }}</p>
+        <i-button @click="randomize">Randomize</i-button>
+      </i-layout-aside>
+
+      <i-layout-content v-bind:style="{ backgroundColor: bg }">
+        <div>
+          <logo />
+          <h1>clutch</h1>
+          <h2>color palette generator</h2>
+        </div>
+      </i-layout-content>
+    </i-layout>
+
+    <i-layout-footer>
+      Footer
+    </i-layout-footer>
+  </i-layout>
 </template>
 
 <script>
