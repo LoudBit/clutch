@@ -4,8 +4,13 @@
       <Palette></Palette>
     </i-layout-aside>
     <i-layout-content>
-      <div v-for="(color, index) in colors" v-bind:key="index" class="color">
-        <code>{{ color.hex }}</code>
+      <div class="color-wrapper">
+        <div
+          v-for="(color, index) in colors"
+          v-bind:key="index"
+          v-bind:style="color.style"
+          class="color"
+        ></div>
       </div>
     </i-layout-content>
   </i-layout>
@@ -30,14 +35,34 @@ export default {
 #__layout,
 #__layout > main {
   min-height: 100vh;
+  max-height: 100vh;
+}
+
+.layout-aside {
+  z-index: 1;
 }
 
 .layout-aside-children {
   background: rgba(#292929, 0.8);
   color: #d0d0d0;
+  overflow-y: auto;
+}
+
+.color-wrapper {
+  position: relative;
+  height: 100%;
 }
 
 .color {
+  box-sizing: border-box;
+  height: 24px;
+  width: 24px;
+  border-radius: 96px;
   position: absolute;
+}
+
+.color code {
+  background: transparent;
+  color: #fff;
 }
 </style>
