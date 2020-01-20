@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <i-input v-model="hex" />
-  </div>
+  <i-input v-model="hex" size="sm" />
 </template>
 
 <script>
