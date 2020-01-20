@@ -46,6 +46,23 @@ export default {
   background: rgba(#292929, 0.8);
   color: #d0d0d0;
   overflow-y: auto;
+  max-width: 320px;
+}
+
+.layout-aside-children .form-input > input {
+  background: rgba(#121212, 0.2);
+  border: 1px solid rgba(#121212, 0.8);
+  color: #d0d0d0;
+}
+
+.row {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.col,
+.column {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .color-wrapper {
