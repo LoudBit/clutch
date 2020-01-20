@@ -5,6 +5,15 @@ export const state = () => ({
   colors: []
 })
 
+export const getters = {
+  bg(state) {
+    return state.background
+  },
+  colors(state) {
+    return state.colors
+  }
+}
+
 export const mutations = {
   randomize(state) {
     state.background = Color.random()

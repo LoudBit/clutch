@@ -1,24 +1,28 @@
 <template>
-  <i-layout v-bind:style="{ backgroundColor: bg }" vertical>
+  <i-layout v-bind:style="{ backgroundColor: bg.hex }" vertical>
     <i-layout-aside>
       <Palette></Palette>
     </i-layout-aside>
-    <i-layout-content> </i-layout-content>
+    <i-layout-content>
+      <div v-for="(color, index) in colors" v-bind:key="index" class="color">
+        <code>{{ color.hex }}</code>
+      </div>
+    </i-layout-content>
   </i-layout>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Palette from '~/components/Palette.vue'
 
 export default {
   components: {
     Palette
   },
-  computed: {
-    bg() {
-      return this.$store.state.palette.background.hex
-    }
-  }
+  computed: mapGetters({
+    bg: 'palette/bg',
+    colors: 'palette/colors'
+  })
 }
 </script>
 
@@ -31,5 +35,9 @@ export default {
 .layout-aside-children {
   background: rgba(#292929, 0.8);
   color: #d0d0d0;
+}
+
+.color {
+  position: absolute;
 }
 </style>

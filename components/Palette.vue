@@ -4,7 +4,7 @@
     <i-button @click="randomize">Randomize</i-button>
     <ul>
       <li>
-        <code>{{ bg }}</code>
+        <code>{{ bg.hex }}</code>
       </li>
     </ul>
 
@@ -19,16 +19,14 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   computed: {
-    bg() {
-      return this.$store.state.palette.background.hex
-    },
-    colors() {
-      return this.$store.state.palette.colors
-    }
+    ...mapGetters({
+      bg: 'palette/bg',
+      colors: 'palette/colors'
+    })
   },
   methods: {
     ...mapMutations({
