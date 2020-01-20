@@ -33,6 +33,13 @@ export const mutations = {
   updateBG(state, bg) {
     state.background = bg
   },
+  updateColor(state, { color, index }) {
+    state.colors = [
+      ...state.colors.slice(0, index),
+      color,
+      ...state.colors.slice(index + 1)
+    ]
+  },
   addColor(state) {
     state.colors = [...state.colors, Color.random()]
   }

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <i-input v-model="hex" />
-  </div>
+  <i-input v-model="hex" />
 </template>
 
 <script>
@@ -12,10 +10,6 @@ export default {
     color: {
       type: Object,
       required: true
-    },
-    index: {
-      type: Number,
-      required: true
     }
   },
   computed: {
@@ -25,10 +19,9 @@ export default {
       },
       // TODO: validate the input
       set(value) {
-        const index = this.index
-        const color = Color.fromHex(value)
-        if (color) {
-          this.$store.commit('palette/updateColor', { color, index })
+        const bg = Color.fromHex(value)
+        if (bg) {
+          this.$store.commit('palette/updateBG', bg)
         }
       }
     }
