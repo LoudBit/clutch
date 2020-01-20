@@ -3,18 +3,41 @@
     <i-container>
       <i-row>
         <i-column>
-          <i-input v-model="hex" size="sm" />
+          <input v-model="hex" />
         </i-column>
       </i-row>
-      <i-row between-xs>
+      <i-row>
         <i-column>
-          <i-input v-model="r" type="number" size="sm" />
+          <input v-model="r" type="number" step="1" min="0" max="255" />
         </i-column>
         <i-column>
-          <i-input v-model="g" type="number" size="sm" />
+          <input v-model.number="g" type="number" step="1" min="0" max="255" />
         </i-column>
         <i-column>
-          <i-input v-model="b" type="number" size="sm" />
+          <input v-model.number="b" type="number" step="1" min="0" max="255" />
+        </i-column>
+      </i-row>
+      <i-row>
+        <i-column>
+          <input
+            v-model.number="l"
+            type="number"
+            min="0"
+            max="100"
+            step="0.001"
+          />
+        </i-column>
+        <i-column>
+          <input
+            v-model.number="c"
+            type="number"
+            min="0"
+            max="100"
+            step="0.001"
+          />
+        </i-column>
+        <i-column>
+          <input v-model.number="h" type="number" min="0" max="360" step="1" />
         </i-column>
       </i-row>
     </i-container>
@@ -43,12 +66,13 @@ export default {
       get() {
         return this.color.hex
       },
-      // TODO: validate the input
       set(value) {
-        const index = this.index
         const color = Color.fromHex(value)
         if (color) {
-          this.$store.commit('palette/updateColor', { color, index })
+          this.$store.commit('palette/updateColor', {
+            color,
+            index: this.index
+          })
         }
       }
     },
@@ -57,14 +81,16 @@ export default {
         return this.color.rgb.r
       },
       set(r) {
-        const index = this.index
         const color = Color.fromRGB({
           r,
           g: this.color.rgb.g,
           b: this.color.rgb.b
         })
         if (color) {
-          this.$store.commit('palette/updateColor', { color, index })
+          this.$store.commit('palette/updateColor', {
+            color,
+            index: this.index
+          })
         }
       }
     },
@@ -73,14 +99,16 @@ export default {
         return this.color.rgb.g
       },
       set(g) {
-        const index = this.index
         const color = Color.fromRGB({
           r: this.color.rgb.r,
           g,
           b: this.color.rgb.b
         })
         if (color) {
-          this.$store.commit('palette/updateColor', { color, index })
+          this.$store.commit('palette/updateColor', {
+            color,
+            index: this.index
+          })
         }
       }
     },
@@ -89,14 +117,71 @@ export default {
         return this.color.rgb.b
       },
       set(b) {
-        const index = this.index
         const color = Color.fromRGB({
           r: this.color.rgb.r,
           g: this.color.rgb.g,
           b
         })
         if (color) {
-          this.$store.commit('palette/updateColor', { color, index })
+          this.$store.commit('palette/updateColor', {
+            color,
+            index: this.index
+          })
+        }
+      }
+    },
+
+    l: {
+      get() {
+        return this.color.lch.l
+      },
+      set(l) {
+        const color = Color.fromLCH({
+          l,
+          c: this.color.lch.c,
+          h: this.color.lch.h
+        })
+        if (color) {
+          this.$store.commit('palette/updateColor', {
+            color,
+            index: this.index
+          })
+        }
+      }
+    },
+    c: {
+      get() {
+        return this.color.lch.c
+      },
+      set(c) {
+        const color = Color.fromLCH({
+          l: this.color.lch.l,
+          c,
+          h: this.color.lch.h
+        })
+        if (color) {
+          this.$store.commit('palette/updateColor', {
+            color,
+            index: this.index
+          })
+        }
+      }
+    },
+    h: {
+      get() {
+        return this.color.lch.h
+      },
+      set(h) {
+        const color = Color.fromLCH({
+          l: this.color.lch.l,
+          c: this.color.lch.c,
+          h
+        })
+        if (color) {
+          this.$store.commit('palette/updateColor', {
+            color,
+            index: this.index
+          })
         }
       }
     }

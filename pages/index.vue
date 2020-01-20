@@ -49,10 +49,14 @@ export default {
   max-width: 320px;
 }
 
-.layout-aside-children .form-input > input {
+.layout-aside-children input {
   background: rgba(#121212, 0.2);
   border: 1px solid rgba(#121212, 0.8);
+  border-radius: 2px;
   color: #d0d0d0;
+  width: 100%;
+  padding: 4px 8px;
+  font-size: 14px;
 }
 
 .row {
