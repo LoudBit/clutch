@@ -1,36 +1,23 @@
 <template>
   <i-layout v-bind:style="{ backgroundColor: bg }" vertical>
     <i-layout-aside>
-      <p>Background Color: {{ bg }}</p>
-      <i-button @click="randomize">Randomize</i-button>
+      <Palette></Palette>
     </i-layout-aside>
-    <i-layout-content>
-      <div>
-        <logo />
-        <h1>clutch</h1>
-        <h2>color palette generator</h2>
-      </div>
-    </i-layout-content>
+    <i-layout-content> </i-layout-content>
   </i-layout>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import Logo from '~/components/Logo.vue'
+import Palette from '~/components/Palette.vue'
 
 export default {
   components: {
-    Logo
+    Palette
   },
   computed: {
     bg() {
       return this.$store.state.palette.background.hex
     }
-  },
-  methods: {
-    ...mapMutations({
-      randomize: 'palette/randomize'
-    })
   }
 }
 </script>
