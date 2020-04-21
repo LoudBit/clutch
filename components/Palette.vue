@@ -2,7 +2,7 @@
   <i-container>
     <i-row>
       <i-column>
-        <h1>Background Color</h1>
+        <h6>Background Color</h6>
         <BG v-bind:color="bg"></BG>
         <i-button @click="randomize" size="sm" variant="dark"
           >Randomize</i-button
@@ -11,7 +11,7 @@
     </i-row>
     <i-row>
       <i-column>
-        <h2>Colors</h2>
+        <h6>Colors</h6>
         <i-button @click="addColor" size="sm" variant="dark"
           >Add Color</i-button
         >
