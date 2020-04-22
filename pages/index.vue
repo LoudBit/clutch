@@ -1,5 +1,5 @@
 <template>
-  <i-layout v-bind:style="{ backgroundColor: bg.hex }" vertical>
+  <i-layout :style="{ backgroundColor: bg.hex }" vertical>
     <i-layout-aside>
       <Palette></Palette>
     </i-layout-aside>
@@ -7,8 +7,8 @@
       <div class="color-wrapper">
         <div
           v-for="(color, index) in colors"
-          v-bind:key="index"
-          v-bind:style="color.style"
+          :key="index"
+          :style="color.style"
           class="color"
         ></div>
       </div>

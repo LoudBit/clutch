@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:style="colorStyles" class="Color">
+  <div :style="colorStyles" class="Color">
     <i-container>
       <i-row>
         <i-column>

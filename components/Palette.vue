@@ -3,8 +3,8 @@
     <i-row>
       <i-column>
         <h6>Background Color</h6>
-        <BG v-bind:color="bg"></BG>
-        <i-button @click="randomize" size="sm" variant="dark"
+        <BG :color="bg"></BG>
+        <i-button size="sm" variant="dark" @click="randomize"
           >Randomize</i-button
         >
       </i-column>
@@ -12,14 +12,14 @@
     <i-row>
       <i-column>
         <h6>Colors</h6>
-        <i-button @click="addColor" size="sm" variant="dark"
+        <i-button size="sm" variant="dark" @click="addColor"
           >Add Color</i-button
         >
         <Color
           v-for="(color, index) in colors"
-          v-bind:key="index"
-          v-bind:color="color"
-          v-bind:index="index"
+          :key="index"
+          :color="color"
+          :index="index"
         ></Color>
       </i-column>
     </i-row>
