@@ -5,6 +5,9 @@
         <i-column>
           <input v-model="hex" />
         </i-column>
+        <i-column>
+          <i-button size="sm" @click="removeColor(index)">Remove</i-button>
+        </i-column>
       </i-row>
       <i-row>
         <i-column>
@@ -45,6 +48,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import Color from '~/lib/color/index'
 
 export default {
@@ -185,6 +189,11 @@ export default {
         }
       }
     }
+  },
+  methods: {
+    ...mapMutations({
+      removeColor: 'palette/removeColor'
+    })
   }
 }
 </script>

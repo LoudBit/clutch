@@ -42,5 +42,8 @@ export const mutations = {
   },
   addColor(state) {
     state.colors = [...state.colors, Color.random()]
+  },
+  removeColor(state, ndx) {
+    state.colors.splice(ndx, 1)
   }
 }
