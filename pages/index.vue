@@ -5,12 +5,7 @@
     </i-layout-aside>
     <i-layout-content>
       <div class="color-wrapper">
-        <div
-          v-for="(color, index) in colors"
-          :key="index"
-          :style="color.style"
-          class="color"
-        ></div>
+        <div v-for="(color, index) in colors" :key="index" :style="color.style" class="color"></div>
       </div>
     </i-layout-content>
   </i-layout>

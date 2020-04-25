@@ -1,8 +1,16 @@
-import Color from '@/lib/color/index'
+import Color from '~/lib/color'
+import Scale from '~/lib/scale'
 
 export const state = () => ({
   background: Color.random(),
-  colors: []
+  colors: [],
+  scale: {
+    type: 'scale',
+    start: Color.fromHex('#000000'),
+    stop: Color.fromHex('#ffffff'),
+    steps: 2,
+    space: 'lch'
+  }
 })
 
 export const getters = {
@@ -23,6 +31,10 @@ export const getters = {
       return color
     })
     return colours
+  },
+  // TODO: move this
+  scale(state) {
+    return Scale(state.scale)
   }
 }
 
@@ -34,11 +46,7 @@ export const mutations = {
     state.background = bg
   },
   updateColor(state, { color, index }) {
-    state.colors = [
-      ...state.colors.slice(0, index),
-      color,
-      ...state.colors.slice(index + 1)
-    ]
+    state.colors = [...state.colors.slice(0, index), color, ...state.colors.slice(index + 1)]
   },
   addColor(state) {
     state.colors = [...state.colors, Color.random()]
