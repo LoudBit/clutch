@@ -13,7 +13,6 @@
         <h1>Scale</h1>
         <div v-for="(color, index) in scale" :key="index" :color="color" :index="index">
           {{ color.hex }}
-          {{ color.lch.l }}, {{ color.lch.c }}, {{ color.lch.h }}
         </div>
       </i-column>
     </i-row>
@@ -23,6 +22,15 @@
         <h6>Colors</h6>
         <i-button size="sm" variant="dark" @click="addColor">Add Color</i-button>
         <Color v-for="(color, index) in colors" :key="index" :color="color" :index="index"></Color>
+      </i-column>
+    </i-row>
+
+    <i-row>
+      <i-column>
+        <h6>From Inputs</h6>
+        <div v-for="(color, index) in fromInputs" :key="index" :color="color" :index="index">
+          {{ color.hex }}
+        </div>
       </i-column>
     </i-row>
   </i-container>
@@ -39,6 +47,7 @@ export default {
     ...mapGetters({
       bg: 'palette/bg',
       colors: 'palette/colors',
+      fromInputs: 'palette/fromInputs',
       scale: 'palette/scale'
     })
   },
