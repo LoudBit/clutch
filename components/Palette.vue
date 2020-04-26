@@ -8,6 +8,7 @@
       </i-column>
     </i-row>
 
+    <!--
     <i-row>
       <i-column>
         <h6>Colors</h6>
@@ -15,13 +16,12 @@
         <Color v-for="(color, index) in colors" :key="index" :color="color" :index="index"></Color>
       </i-column>
     </i-row>
+    -->
 
     <i-row>
       <i-column>
         <h6>From Inputs</h6>
-        <div v-for="(color, index) in fromInputs" :key="index" :color="color" :index="index">
-          {{ color.hex }}
-        </div>
+        <ColorInput v-for="(color, index) in inputs" :key="index" :color="color" :index="index"></ColorInput>
       </i-column>
     </i-row>
   </i-container>
@@ -30,15 +30,16 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import BG from '~/components/BG'
-import Color from '~/components/Color'
+// import Color from '~/components/Color'
+import ColorInput from '~/components/ColorInput'
 
 export default {
-  components: { BG, Color },
+  components: { BG, ColorInput },
   computed: {
     ...mapGetters({
       bg: 'palette/bg',
       colors: 'palette/colors',
-      fromInputs: 'palette/fromInputs',
+      inputs: 'palette/fromInputs',
       scale: 'palette/scale'
     })
   },

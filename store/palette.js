@@ -94,5 +94,15 @@ export const mutations = {
   },
   removeColor(state, ndx) {
     state.colors.splice(ndx, 1)
+  },
+
+  updateInput(state, { input, index }) {
+    state.inputs = [...state.inputs.slice(0, index), input, ...state.inputs.slice(index + 1)]
+  },
+  addInput(state) {
+    // state.inputs = [...state.inputs, Color.random()]
+  },
+  removeInput(state, ndx) {
+    state.inputs.splice(ndx, 1)
   }
 }
