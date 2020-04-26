@@ -10,15 +10,6 @@
 
     <i-row>
       <i-column>
-        <h1>Scale</h1>
-        <div v-for="(color, index) in scale" :key="index" :color="color" :index="index">
-          {{ color.hex }}
-        </div>
-      </i-column>
-    </i-row>
-
-    <i-row>
-      <i-column>
         <h6>Colors</h6>
         <i-button size="sm" variant="dark" @click="addColor">Add Color</i-button>
         <Color v-for="(color, index) in colors" :key="index" :color="color" :index="index"></Color>

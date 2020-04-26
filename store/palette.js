@@ -17,24 +17,17 @@ function applyUiStyles(color) {
 export const state = () => ({
   background: Color.random(),
   inputs: [
-    // { type: 'color', from: 'fromHex', value: '#000000' },
+    { type: 'color', from: 'fromHex', value: '#000000' },
     {
       type: 'scale',
       start: { type: 'color', from: 'fromHex', value: '#003366' },
       stop: { type: 'color', from: 'fromHex', value: '#336699' },
       steps: 3,
       space: 'lch'
-    }
-    // { type: 'color', from: 'fromHex', value: '#ffffff' }
+    },
+    { type: 'color', from: 'fromHex', value: '#ffffff' }
   ],
-  colors: [],
-  scale: {
-    type: 'scale',
-    start: Color.fromHex('#333333'),
-    stop: Color.fromHex('#999999'),
-    steps: 1,
-    space: 'rgb'
-  }
+  colors: []
 })
 
 export const getters = {
@@ -44,15 +37,11 @@ export const getters = {
   fromInputs(state) {
     const colours = []
     state.inputs.forEach((input) => {
-      console.debug(`🔊 input:`, input)
       if (input.type === 'color') {
-        console.info('💁 color!')
         const color = Color[input.from](input.value)
         applyUiStyles(color)
         colours.push(color)
       } else if (input.type === 'scale') {
-        console.info('💁 scale!')
-        console.debug(`🔊 input.start:`, input.start)
         const config = {
           type: 'scale',
           start: Color[input.start.from](input.start.value),
@@ -62,12 +51,10 @@ export const getters = {
         }
 
         let scale = Scale(config)
-        console.debug(`🔊 scale:`, scale)
         scale = scale.map((color) => applyUiStyles(color))
         colours.push(...scale)
       }
     })
-    console.debug(`🔊 colours:`, colours)
     return colours
   },
 
