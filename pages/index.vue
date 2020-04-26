@@ -21,7 +21,8 @@ export default {
   },
   computed: mapGetters({
     bg: 'palette/bg',
-    colors: 'palette/colors'
+    // colors: 'palette/colors'
+    colors: 'palette/fromInputs'
   })
 }
 </script>

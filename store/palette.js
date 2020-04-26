@@ -6,9 +6,9 @@ function applyUiStyles(color) {
   const margin = ' ' + pad * -1 + 'em'
   color.style = {
     background: color.hex,
-    bottom: `${color.lch.l}%`,
-    left: `${(color.lch.h / 360) * 100}%`,
-    padding: `${1 + color.lch.c / 50}em`,
+    bottom: `${Math.abs(color.lch.l).toFixed(4)}%`,
+    left: `${Math.abs((color.lch.h / 360) * 100).toFixed(3)}%`,
+    padding: `${Math.abs(1 + color.lch.c / 50).toFixed(3)}em`,
     margin: '0 0' + margin + margin
   }
   return color
@@ -17,15 +17,15 @@ function applyUiStyles(color) {
 export const state = () => ({
   background: Color.random(),
   inputs: [
-    { type: 'color', from: 'fromHex', value: '#000000' },
+    // { type: 'color', from: 'fromHex', value: '#000000' },
     {
       type: 'scale',
-      start: { type: 'color', from: 'fromHex', value: '#333333' },
-      stop: { type: 'color', from: 'fromHex', value: '#999999' },
-      steps: 1,
-      space: 'rgb'
-    },
-    { type: 'color', from: 'fromHex', value: '#ffffff' }
+      start: { type: 'color', from: 'fromHex', value: '#003366' },
+      stop: { type: 'color', from: 'fromHex', value: '#336699' },
+      steps: 3,
+      space: 'lch'
+    }
+    // { type: 'color', from: 'fromHex', value: '#ffffff' }
   ],
   colors: [],
   scale: {
@@ -61,11 +61,9 @@ export const getters = {
           space: input.space
         }
 
-        const scale = Scale(config)
+        let scale = Scale(config)
         console.debug(`🔊 scale:`, scale)
-        scale.forEach((color) => {
-          applyUiStyles(color)
-        })
+        scale = scale.map((color) => applyUiStyles(color))
         colours.push(...scale)
       }
     })
