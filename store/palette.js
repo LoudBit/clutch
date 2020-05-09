@@ -1,18 +1,5 @@
+import chroma from 'chroma-js'
 import Color from '~/lib/color'
-import Scale from '~/lib/scale'
-
-function applyUiStyles(color) {
-  const pad = 1 + color.lch.c / 50
-  const margin = ' ' + pad * -1 + 'em'
-  color.style = {
-    background: color.hex,
-    bottom: `${Math.abs(color.lch.l).toFixed(4)}%`,
-    left: `${Math.abs((color.lch.h / 360) * 100).toFixed(3)}%`,
-    padding: `${Math.abs(1 + color.lch.c / 50).toFixed(3)}em`,
-    margin: '0 0' + margin + margin
-  }
-  return color
-}
 
 export const state = () => ({
   background: Color.random(),
@@ -34,28 +21,23 @@ export const getters = {
   bg(state) {
     return state.background
   },
+  // TODO: getter for ui styles? a separate array to
   fromInputs(state) {
     const colours = []
     state.inputs.forEach((input) => {
+      console.debug(`🔊 input:`, input)
+      // debugger
       if (input.type === 'color') {
-        const color = Color[input.from](input.value)
-        applyUiStyles(color)
-        colours.push(color)
+        // const color = Color[input.from](input.value)
+        // applyUiStyles(color)
+        // colours.push(color)
       } else if (input.type === 'scale') {
-        const config = {
-          type: 'scale',
-          start: Color[input.start.from](input.start.value),
-          stop: Color[input.stop.from](input.stop.value),
-          steps: input.steps,
-          space: input.space
-        }
-
-        let scale = Scale(config)
-        scale = scale.map((color) => applyUiStyles(color))
+        const scale = chroma.scale([input.start.value, input.stop.value]).colors(input.steps, null)
         colours.push(...scale)
       }
     })
     return colours
+    // return colours
   },
 
   colors(state) {
@@ -72,10 +54,6 @@ export const getters = {
       return color
     })
     return colours
-  },
-  // TODO: move this
-  scale(state) {
-    return Scale(state.scale)
   }
 }
 
@@ -97,7 +75,7 @@ export const mutations = {
   },
 
   updateInput(state, { input, index }) {
-    state.inputs = [...state.inputs.slice(0, index), input, ...state.inputs.slice(index + 1)]
+    // state.inputs = [...state.inputs.slice(0, index), input, ...state.inputs.slice(index + 1)]
   },
   addInput(state) {
     // state.inputs = [...state.inputs, Color.random()]

@@ -5,7 +5,7 @@
     </i-layout-aside>
     <i-layout-content>
       <div class="color-wrapper">
-        <div v-for="(color, index) in colors" :key="index" :style="color.style" class="color"></div>
+        <ColorDot v-for="(color, index) in colors" :key="index" :color="color"></ColorDot>
       </div>
     </i-layout-content>
   </i-layout>
@@ -13,17 +13,21 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import ColorDot from '~/components/ColorDot.vue'
 import Palette from '~/components/Palette.vue'
 
 export default {
   components: {
+    ColorDot,
     Palette
   },
-  computed: mapGetters({
-    bg: 'palette/bg',
-    // colors: 'palette/colors'
-    colors: 'palette/fromInputs'
-  })
+  computed: {
+    ...mapGetters({
+      bg: 'palette/bg',
+      // colors: 'palette/colors'
+      colors: 'palette/fromInputs'
+    })
+  }
 }
 </script>
 
@@ -68,18 +72,5 @@ export default {
 .color-wrapper {
   position: relative;
   height: 100%;
-}
-
-.color {
-  box-sizing: border-box;
-  height: 24px;
-  width: 24px;
-  border-radius: 96px;
-  position: absolute;
-}
-
-.color code {
-  background: transparent;
-  color: #fff;
 }
 </style>
