@@ -11,7 +11,7 @@ export const state = () => ({
       start: { type: 'color', from: 'fromHex', value: '#003366' },
       stop: { type: 'color', from: 'fromHex', value: '#336699' },
       steps: 3,
-      space: 'lch'
+      mode: 'rgb'
     }
   ],
   colors: []
@@ -35,7 +35,11 @@ export const getters = {
         // applyUiStyles(color)
         // colours.push(color)
       } else if (input.type === 'scale') {
-        const scale = chroma.scale(input.colors).colors(input.steps, null)
+        const scale = chroma
+          .scale(input.colors)
+          .mode(input.mode)
+          .colors(input.steps, null)
+        // const scale = chroma.scale(input.colors).classes(input.steps)
         colours.push(...scale)
       }
     })
@@ -77,6 +81,7 @@ export const mutations = {
   },
 
   updateInput(state, { input, index }) {
+    console.info('➿', 'updateInput', input, index)
     const newInput = { ...state.inputs[index], ...input }
     state.inputs = [...state.inputs.slice(0, index), newInput, ...state.inputs.slice(index + 1)]
   },
