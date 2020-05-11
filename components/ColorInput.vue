@@ -11,7 +11,7 @@
         </i-column>
       </i-row>
       -->
-      <i-row v-for="(color, i) in input.colors" :key="i">
+      <i-row v-for="(color, i) in input.colors" :key="i" :style="colorStyles[i]">
         <i-column>
           <i-input size="sm" :value="color" @input="updateColor($event, i)" />
         </i-column>
@@ -58,6 +58,11 @@ export default {
     }
   },
   computed: {
+    colorStyles() {
+      return this.input.colors.map((color) => {
+        return { borderLeft: `4px solid ${color}` }
+      })
+    },
     mode: {
       get() {
         return this.input.mode

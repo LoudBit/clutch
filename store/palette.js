@@ -8,11 +8,9 @@ export const state = () => ({
   inputs: [
     {
       type: 'scale',
-      colors: ['#003366', '#cc99ff'],
-      start: { type: 'color', from: 'fromHex', value: '#003366' },
-      stop: { type: 'color', from: 'fromHex', value: '#336699' },
+      colors: [chroma.random().hex(), chroma.random().hex()],
       steps: 3,
-      mode: 'rgb'
+      mode: 'lch'
     }
   ],
   colors: []
