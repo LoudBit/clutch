@@ -23,19 +23,23 @@
           <i-button size="sm" @click="removeInput(index)">Remove</i-button>
         </i-column>
       </i-row>
-      <i-row>
+
+      <i-row v-for="(color, i) in input.colors" :key="i">
         <i-column>
-          <small><b>Colors:</b> {{ input.colors }}</small>
+          <i-input :value="color" @input="updateColor($event.target.value, i)" />
         </i-column>
-        <i-column> </i-column>
-        <i-column> </i-column>
+        <i-column>
+          <i-button size="sm" @click="removeInput(index)">Remove</i-button>
+        </i-column>
+      </i-row>
+      <i-row>
+        <i-button size="sm" @click="addColor()">Add Color</i-button>
       </i-row>
       <i-row>
         <i-column>
-          <input v-model.number="steps" type="number" min="2" max="32" step="1" />
+          <i-input v-model.number="steps" type="number" min="2" max="32" step="1" />
         </i-column>
         <i-column>
-          <small><b>Mode:</b> {{ input.mode }}</small>
           <i-select v-model="mode">
             <i-select-option value="rgb" label="RGB" />
             <i-select-option value="hsl" label="HSL" />
@@ -50,6 +54,7 @@
 </template>
 
 <script>
+import chroma from 'chroma-js'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -86,6 +91,22 @@ export default {
     }
   },
   methods: {
+    addColor() {
+      const color = chroma.random()
+      const colors = [...this.input.colors, color.hex()]
+      const input = { colors }
+      const index = this.index
+      this.$store.commit('palette/updateInput', { input, index })
+    },
+    updateColor(color, i) {
+      if (chroma.valid(color)) {
+        const colors = [...this.input.colors]
+        colors[i] = color
+        const input = { colors }
+        const index = this.index
+        this.$store.commit('palette/updateInput', { input, index })
+      }
+    },
     ...mapMutations({
       removeInput: 'palette/removeInput'
     })
