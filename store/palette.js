@@ -2,6 +2,7 @@ import chroma from 'chroma-js'
 import Color from '~/lib/color'
 
 export const state = () => ({
+  // TODO: use chroma instead of my color lib
   background: Color.random(),
   // TODO: random scale by default
   inputs: [

@@ -1,20 +1,7 @@
 <template>
   <div class="ColorInput">
-    <p>
-      <small><b>Type:</b> {{ input.type }}</small>
-      <br />
-      <small><b>Colors:</b> {{ input.colors }}</small>
-      <br />
-      <small><b>Start:</b> {{ input.start }}</small>
-      <br />
-      <small><b>Stop:</b> {{ input.stop }}</small>
-      <br />
-      <small><b>Steps:</b> {{ input.steps }}</small>
-      <br />
-      <small><b>Mode:</b> {{ input.mode }}</small>
-      <br />
-    </p>
     <i-container>
+      <!--
       <i-row>
         <i-column>
           <small><b>Type:</b> {{ input.type }}</small>
@@ -23,17 +10,19 @@
           <i-button size="sm" @click="removeInput(index)">Remove</i-button>
         </i-column>
       </i-row>
-
+      -->
       <i-row v-for="(color, i) in input.colors" :key="i">
         <i-column>
-          <i-input :value="color" @input="updateColor($event.target.value, i)" />
+          <i-input size="sm" :value="color" @input="updateColor($event, i)" />
         </i-column>
         <i-column>
-          <i-button size="sm" @click="removeInput(index)">Remove</i-button>
+          <i-button size="sm" @click="removeColor(i)">Remove Color</i-button>
         </i-column>
       </i-row>
       <i-row>
-        <i-button size="sm" @click="addColor()">Add Color</i-button>
+        <i-column>
+          <i-button size="sm" @click="addColor()">Add Color</i-button>
+        </i-column>
       </i-row>
       <i-row>
         <i-column>
@@ -94,6 +83,13 @@ export default {
     addColor() {
       const color = chroma.random()
       const colors = [...this.input.colors, color.hex()]
+      const input = { colors }
+      const index = this.index
+      this.$store.commit('palette/updateInput', { input, index })
+    },
+    removeColor(ndx) {
+      const colors = [...this.input.colors]
+      colors.splice(ndx, 1)
       const input = { colors }
       const index = this.index
       this.$store.commit('palette/updateInput', { input, index })

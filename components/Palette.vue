@@ -13,6 +13,14 @@
         <ColorInput v-for="(input, index) in inputs" :key="index" :input="input" :index="index"></ColorInput>
       </i-column>
     </i-row>
+    <i-row>
+      <i-column>
+        <h6>Colors</h6>
+        <div v-for="(color, index) in fromInputs" :key="index">
+          {{ color }}
+        </div>
+      </i-column>
+    </i-row>
   </i-container>
 </template>
 
@@ -26,8 +34,9 @@ export default {
   computed: {
     ...mapGetters({
       bg: 'palette/bg',
-      colors: 'palette/colors',
+      colors: 'palette/colors', // TODO: remove
       inputs: 'palette/rawInputs',
+      fromInputs: 'palette/fromInputs', // TODO: rename
       scale: 'palette/scale'
     })
   },
