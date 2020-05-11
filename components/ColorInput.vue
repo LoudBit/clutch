@@ -26,10 +26,10 @@
       </i-row>
       <i-row>
         <i-column>
-          <i-input v-model.number="steps" type="number" min="2" max="32" step="1" />
+          <i-input v-model.number="steps" size="sm" type="number" min="2" max="32" step="1" />
         </i-column>
         <i-column>
-          <i-select v-model="mode">
+          <i-select v-model="mode" size="sm">
             <i-select-option value="rgb" label="RGB" />
             <i-select-option value="hsl" label="HSL" />
             <i-select-option value="lab" label="LAB" />
@@ -114,3 +114,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.ColorInput {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+.ColorInput + .ColorInput {
+  margin-top: 8px;
+}
+</style>

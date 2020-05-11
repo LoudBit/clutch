@@ -11,6 +11,7 @@
       <i-column>
         <h6>From Inputs</h6>
         <ColorInput v-for="(input, index) in inputs" :key="index" :input="input" :index="index"></ColorInput>
+        <i-button size="sm" variant="dark" @click="addInput">Add Input</i-button>
       </i-column>
     </i-row>
     <i-row>
@@ -43,7 +44,7 @@ export default {
   methods: {
     ...mapMutations({
       randomize: 'palette/randomize',
-      addColor: 'palette/addColor'
+      addInput: 'palette/addInput'
     })
   }
 }

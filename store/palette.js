@@ -1,18 +1,19 @@
 import chroma from 'chroma-js'
 import Color from '~/lib/color'
 
+function Input() {
+  return {
+    type: 'scale',
+    colors: [chroma.random().hex(), chroma.random().hex()],
+    steps: 3,
+    mode: 'lch'
+  }
+}
+
 export const state = () => ({
   // TODO: use chroma instead of my color lib
   background: Color.random(),
-  // TODO: random scale by default
-  inputs: [
-    {
-      type: 'scale',
-      colors: [chroma.random().hex(), chroma.random().hex()],
-      steps: 3,
-      mode: 'lch'
-    }
-  ],
+  inputs: [new Input()],
   colors: []
 })
 
@@ -80,12 +81,11 @@ export const mutations = {
   },
 
   updateInput(state, { input, index }) {
-    console.info('➿', 'updateInput', input, index)
     const newInput = { ...state.inputs[index], ...input }
     state.inputs = [...state.inputs.slice(0, index), newInput, ...state.inputs.slice(index + 1)]
   },
   addInput(state) {
-    // state.inputs = [...state.inputs, Color.random()]
+    state.inputs = [...state.inputs, new Input()]
   },
   removeInput(state, ndx) {
     state.inputs.splice(ndx, 1)
