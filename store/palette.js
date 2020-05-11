@@ -3,16 +3,16 @@ import Color from '~/lib/color'
 
 export const state = () => ({
   background: Color.random(),
+  // TODO: random scale by default
   inputs: [
-    { type: 'color', from: 'fromHex', value: '#000000' },
     {
       type: 'scale',
+      colors: ['#003366', '#cc99ff'],
       start: { type: 'color', from: 'fromHex', value: '#003366' },
       stop: { type: 'color', from: 'fromHex', value: '#336699' },
       steps: 3,
       space: 'lch'
-    },
-    { type: 'color', from: 'fromHex', value: '#ffffff' }
+    }
   ],
   colors: []
 })
@@ -21,23 +21,25 @@ export const getters = {
   bg(state) {
     return state.background
   },
-  // TODO: getter for ui styles? a separate array to
+
+  rawInputs(state) {
+    return state.inputs
+  },
+
   fromInputs(state) {
+    console.info('💁 fromInputs')
     const colours = []
     state.inputs.forEach((input) => {
-      console.debug(`🔊 input:`, input)
-      // debugger
       if (input.type === 'color') {
         // const color = Color[input.from](input.value)
         // applyUiStyles(color)
         // colours.push(color)
       } else if (input.type === 'scale') {
-        const scale = chroma.scale([input.start.value, input.stop.value]).colors(input.steps, null)
+        const scale = chroma.scale(input.colors).colors(input.steps, null)
         colours.push(...scale)
       }
     })
     return colours
-    // return colours
   },
 
   colors(state) {
@@ -75,7 +77,8 @@ export const mutations = {
   },
 
   updateInput(state, { input, index }) {
-    // state.inputs = [...state.inputs.slice(0, index), input, ...state.inputs.slice(index + 1)]
+    const newInput = { ...state.inputs[index], ...input }
+    state.inputs = [...state.inputs.slice(0, index), newInput, ...state.inputs.slice(index + 1)]
   },
   addInput(state) {
     // state.inputs = [...state.inputs, Color.random()]

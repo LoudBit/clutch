@@ -7,21 +7,10 @@
         <i-button size="sm" variant="dark" @click="randomize">Randomize</i-button>
       </i-column>
     </i-row>
-
-    <!--
-    <i-row>
-      <i-column>
-        <h6>Colors</h6>
-        <i-button size="sm" variant="dark" @click="addColor">Add Color</i-button>
-        <Color v-for="(color, index) in colors" :key="index" :color="color" :index="index"></Color>
-      </i-column>
-    </i-row>
-    -->
-
     <i-row>
       <i-column>
         <h6>From Inputs</h6>
-        <ColorInput v-for="(color, index) in inputs" :key="index" :color="color" :index="index"></ColorInput>
+        <ColorInput v-for="(input, index) in inputs" :key="index" :input="input" :index="index"></ColorInput>
       </i-column>
     </i-row>
   </i-container>
@@ -30,7 +19,6 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import BG from '~/components/BG'
-// import Color from '~/components/Color'
 import ColorInput from '~/components/ColorInput'
 
 export default {
@@ -39,7 +27,7 @@ export default {
     ...mapGetters({
       bg: 'palette/bg',
       colors: 'palette/colors',
-      inputs: 'palette/fromInputs',
+      inputs: 'palette/rawInputs',
       scale: 'palette/scale'
     })
   },
