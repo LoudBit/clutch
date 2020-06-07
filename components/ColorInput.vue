@@ -11,25 +11,30 @@
         </i-column>
       </i-row>
       -->
+      <i-row>
+        <i-column>
+          <i-checkbox v-model="hidden">Hidden</i-checkbox>
+        </i-column>
+      </i-row>
       <i-row v-for="(color, i) in input.colors" :key="i" :style="colorStyles[i]">
         <i-column>
-          <i-input size="sm" :value="color" @input="updateColor($event, i)" />
+          <i-input size="sm" variant="dark" :value="color" @input="updateColor($event, i)" />
         </i-column>
         <i-column>
-          <i-button size="sm" @click="removeColor(i)">Remove Color</i-button>
-        </i-column>
-      </i-row>
-      <i-row>
-        <i-column>
-          <i-button size="sm" @click="addColor()">Add Color</i-button>
+          <i-button size="sm" variant="dark" @click="removeColor(i)">Remove Color</i-button>
         </i-column>
       </i-row>
       <i-row>
         <i-column>
-          <i-input v-model.number="steps" size="sm" type="number" min="2" max="32" step="1" />
+          <i-button size="sm" variant="dark" @click="addColor()">Add Color</i-button>
+        </i-column>
+      </i-row>
+      <i-row>
+        <i-column>
+          <i-input v-model.number="steps" size="sm" variant="dark" type="number" min="2" max="32" step="1" />
         </i-column>
         <i-column>
-          <i-select v-model="mode" size="sm">
+          <i-select v-model="mode" size="sm" variant="dark">
             <i-select-option value="rgb" label="RGB" />
             <i-select-option value="hsl" label="HSL" />
             <i-select-option value="lab" label="LAB" />
@@ -62,6 +67,16 @@ export default {
       return this.input.colors.map((color) => {
         return { borderLeft: `4px solid ${color}` }
       })
+    },
+    hidden: {
+      get() {
+        return this.input.hidden
+      },
+      set(hidden) {
+        const input = { hidden }
+        const index = this.index
+        this.$store.commit('palette/updateInput', { input, index })
+      }
     },
     mode: {
       get() {

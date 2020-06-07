@@ -1,19 +1,21 @@
 import chroma from 'chroma-js'
 import Color from '~/lib/color'
 
+// TODO: add support to name inputs
 function Input() {
   return {
     type: 'scale',
     colors: [chroma.random().hex(), chroma.random().hex()],
     steps: 3,
-    mode: 'lch'
+    mode: 'lch',
+    hidden: false
   }
 }
 
 export const state = () => ({
   // TODO: use chroma instead of my color lib
   background: Color.random(),
-  inputs: [new Input()],
+  inputs: [new Input()], // NOTE: proper default
   colors: []
 })
 
@@ -34,7 +36,7 @@ export const getters = {
         // const color = Color[input.from](input.value)
         // applyUiStyles(color)
         // colours.push(color)
-      } else if (input.type === 'scale') {
+      } else if (input.type === 'scale' && !input.hidden) {
         const scale = chroma
           .scale(input.colors)
           .mode(input.mode)

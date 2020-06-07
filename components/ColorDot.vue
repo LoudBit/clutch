@@ -1,5 +1,5 @@
 <template>
-  <div class="color" :style="style"></div>
+  <div class="color" :style="style" :title="color.hex()"></div>
 </template>
 
 <script>
