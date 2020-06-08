@@ -2,9 +2,7 @@
   <i-container>
     <i-row>
       <i-column>
-        <h6>Background Color</h6>
         <BG :color="bg"></BG>
-        <i-button size="sm" variant="dark" @click="randomize">Randomize</i-button>
       </i-column>
     </i-row>
     <i-row>

@@ -1,5 +1,5 @@
 <template>
-  <i-layout :style="{ backgroundColor: bg.hex }" vertical>
+  <i-layout :style="{ backgroundColor: bg }" vertical>
     <i-layout-aside>
       <Palette></Palette>
     </i-layout-aside>
