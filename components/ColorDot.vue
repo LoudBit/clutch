@@ -1,5 +1,5 @@
 <template>
-  <div class="color" :style="style" :title="color.hex()"></div>
+  <div class="color" :style="style" :title="title"></div>
 </template>
 
 <script>
@@ -11,6 +11,10 @@ export default {
     }
   },
   computed: {
+    title() {
+      const [l, c, h] = this.color.lch()
+      return `${this.color.hex()}\nL: ${l.toFixed(3)}, C: ${c.toFixed(3)}, h: ${h.toFixed(3)}`
+    },
     style() {
       const pad = 1 + this.color.lch()[1] / 50
       const margin = ' ' + pad * -1 + 'em'

@@ -30,7 +30,7 @@ export default {
       },
       set(value) {
         if (chroma.valid(value)) {
-          this.$store.commit('palette/updateBG', chroma(value).hex())
+          this.$store.commit('palette/updateBG', value)
         }
       }
     }

@@ -1,19 +1,12 @@
 <template>
   <div class="ColorInput">
     <i-container>
-      <!--
-      <i-row>
-        <i-column>
-          <small><b>Type:</b> {{ input.type }}</small>
-        </i-column>
-        <i-column>
-          <i-button size="sm" @click="removeInput(index)">Remove</i-button>
-        </i-column>
-      </i-row>
-      -->
       <i-row>
         <i-column>
           <i-checkbox v-model="hidden">Hidden</i-checkbox>
+        </i-column>
+        <i-column>
+          <i-button size="sm" variant="dark" @click="addColor()">Add Color</i-button>
         </i-column>
       </i-row>
       <i-row v-for="(color, i) in input.colors" :key="i" :style="colorStyles[i]">
@@ -22,11 +15,6 @@
         </i-column>
         <i-column>
           <i-button size="sm" variant="dark" @click="removeColor(i)">Remove Color</i-button>
-        </i-column>
-      </i-row>
-      <i-row>
-        <i-column>
-          <i-button size="sm" variant="dark" @click="addColor()">Add Color</i-button>
         </i-column>
       </i-row>
       <i-row>
