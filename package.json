@@ -24,10 +24,12 @@
   },
   "dependencies": {
     "chroma-js": "^2.1.0",
-    "nuxt": "2.12.2"
+    "lodash": "^4.17.15",
+    "nuxt": "2.12.2",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
-    "@inkline/inkline": "^1.18.2",
+    "@inkline/inkline": "^2.1.4",
     "@nuxtjs/eslint-config": "^2.0.2",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/style-resources": "^1.0.0",
