@@ -2,6 +2,14 @@
   <nuxt />
 </template>
 
+<script>
+export default {
+  created() {
+    this.$inkline.config.variant = 'dark'
+  }
+}
+</script>
+
 <style>
 html,
 body,

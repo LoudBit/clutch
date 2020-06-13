@@ -8,8 +8,16 @@
     <i-row>
       <i-column>
         <h6>From Inputs</h6>
-        <ColorInput v-for="(input, index) in inputs" :key="index" :input="input" :index="index"></ColorInput>
-        <i-button size="sm" variant="dark" @click="addInput">Add Input</i-button>
+        <PaletteInput
+          v-for="(input, index) in rawInputs"
+          :key="`input-${input.id}`"
+          :input="input"
+          :index="index"
+        ></PaletteInput>
+        <i-button size="sm" title="Add Input" @click="addInput">
+          <i-icon icon="plus" />
+          &nbsp; Add Input
+        </i-button>
       </i-column>
     </i-row>
     <i-row>
@@ -26,16 +34,15 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import BG from '~/components/BG'
-import ColorInput from '~/components/ColorInput'
+import PaletteInput from '~/components/PaletteInput'
 
 export default {
-  components: { BG, ColorInput },
+  components: { BG, PaletteInput },
   computed: {
     ...mapGetters({
       bg: 'palette/bg',
-      colors: 'palette/colors', // TODO: remove
-      inputs: 'palette/rawInputs',
-      fromInputs: 'palette/fromInputs', // TODO: rename
+      rawInputs: 'palette/rawInputs',
+      fromInputs: 'palette/fromInputs',
       scale: 'palette/scale'
     })
   },

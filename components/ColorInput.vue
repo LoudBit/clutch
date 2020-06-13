@@ -1,129 +1,92 @@
 <template>
-  <div class="ColorInput">
-    <i-container>
-      <i-row>
-        <i-column>
-          <i-checkbox v-model="hidden">Hidden</i-checkbox>
-        </i-column>
-        <i-column>
-          <i-button size="sm" variant="dark" @click="addColor()">Add Color</i-button>
-        </i-column>
-      </i-row>
-      <i-row v-for="(color, i) in input.colors" :key="i" :style="colorStyles[i]">
-        <i-column>
-          <i-input size="sm" variant="dark" :value="color" @input="updateColor($event, i)" />
-        </i-column>
-        <i-column>
-          <i-button size="sm" variant="dark" @click="removeColor(i)">Remove Color</i-button>
-        </i-column>
-      </i-row>
-      <i-row>
-        <i-column>
-          <i-input v-model.number="steps" size="sm" variant="dark" type="number" min="2" max="32" step="1" />
-        </i-column>
-        <i-column>
-          <i-select v-model="mode" size="sm" variant="dark">
-            <i-select-option value="rgb" label="RGB" />
-            <i-select-option value="hsl" label="HSL" />
-            <i-select-option value="lab" label="LAB" />
-            <i-select-option value="lrgb" label="Linear RGB" />
-            <i-select-option value="lch" label="LCh" />
-          </i-select>
-        </i-column>
-      </i-row>
-    </i-container>
+  <div class="ColorInput" :style="colorStyles">
+    <i-row>
+      <i-column xs="5">
+        <i-select v-model="mode" size="sm">
+          <i-select-option value="rgb" label="RGB" />
+          <i-select-option value="lch" label="LCh" />
+        </i-select>
+      </i-column>
+      <i-column xs="5">
+        <i-input v-model="hex" size="sm" />
+      </i-column>
+      <i-column xs="2" class="_text-right">
+        <i-button circle size="sm" title="Remove Color" @click="removeColor(colorIndex)">
+          <i-icon icon="minus" />
+        </i-button>
+      </i-column>
+    </i-row>
+    <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
+    <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
   </div>
 </template>
 
 <script>
-import chroma from 'chroma-js'
-import { mapMutations } from 'vuex'
+import RgbInput from '~/components/RgbInput'
+import LchInput from '~/components/LchInput'
 
 export default {
+  components: {
+    LchInput,
+    RgbInput
+  },
+
   props: {
-    input: {
-      type: Object,
-      required: true
-    },
-    index: {
-      type: Number,
-      required: true
+    colorId: { type: String, required: true },
+    colorIndex: { type: Number, required: true },
+    inputIndex: { type: Number, required: true },
+    input: { type: Object, required: true }
+  },
+
+  data() {
+    return {
+      mode: 'lch'
     }
   },
+
   computed: {
     colorStyles() {
-      return this.input.colors.map((color) => {
-        return { borderLeft: `4px solid ${color}` }
-      })
+      return { borderLeft: `4px solid ${this.input.colors[this.colorIndex].hex}` }
     },
-    hidden: {
+    hex: {
       get() {
-        return this.input.hidden
+        return this.input.colors[this.colorIndex].hex
       },
-      set(hidden) {
-        const input = { hidden }
-        const index = this.index
-        this.$store.commit('palette/updateInput', { input, index })
-      }
-    },
-    mode: {
-      get() {
-        return this.input.mode
-      },
-      set(mode) {
-        const input = { mode }
-        const index = this.index
-        this.$store.commit('palette/updateInput', { input, index })
-      }
-    },
-    steps: {
-      get() {
-        return this.input.steps
-      },
-      set(steps) {
-        const input = { steps }
-        const index = this.index
-        this.$store.commit('palette/updateInput', { input, index })
+      set(hex) {
+        this.$store.dispatch('palette/updateColor', {
+          inputId: this.input.id,
+          colorId: this.colorId,
+          mode: 'hex',
+          value: hex
+        })
       }
     }
   },
+
   methods: {
-    addColor() {
-      const color = chroma.random()
-      const colors = [...this.input.colors, color.hex()]
-      const input = { colors }
-      const index = this.index
-      this.$store.commit('palette/updateInput', { input, index })
-    },
-    removeColor(ndx) {
-      const colors = [...this.input.colors]
-      colors.splice(ndx, 1)
-      const input = { colors }
-      const index = this.index
-      this.$store.commit('palette/updateInput', { input, index })
-    },
-    updateColor(color, i) {
-      if (chroma.valid(color)) {
-        const colors = [...this.input.colors]
-        colors[i] = color
-        const input = { colors }
-        const index = this.index
-        this.$store.commit('palette/updateInput', { input, index })
-      }
-    },
-    ...mapMutations({
-      removeInput: 'palette/removeInput'
-    })
+    removeColor(index) {
+      this.$store.dispatch('palette/removeColor', { inputIndex: this.inputIndex, colorIndex: this.colorIndex })
+    }
   }
 }
 </script>
 
 <style>
 .ColorInput {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 8px;
+  padding: 0 15px;
+  margin: 20px -15px;
+  position: relative;
 }
-.ColorInput + .ColorInput {
-  margin-top: 8px;
+.ColorInput::after {
+  display: block;
+  content: '';
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: absolute;
+  bottom: -10px;
+  left: -5px;
+}
+.ColorInput .dropdown.select input {
+  border: 1px solid red;
 }
 </style>
