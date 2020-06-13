@@ -45,6 +45,10 @@ export const getters = {
     return state.background
   },
 
+  colorById: (state) => (id) => {
+    return state.colors.find((color) => color.id === id)
+  },
+
   rawInputs(state) {
     return state.inputs
   },
@@ -120,6 +124,7 @@ export const actions = {
 }
 
 // TODO: convert mutations to use IDs instead of indexes
+// TODO: remove Input
 export const mutations = {
   randomize(state) {
     state.background = chroma.random().hex()
