@@ -1,5 +1,6 @@
 <template>
-  <div class="ColorInput" :style="colorStyles">
+  <div class="ColorInput">
+    <div class="colorFlair" :style="colorStyles"></div>
     <i-row>
       <i-column xs="5">
         <i-select v-model="mode" size="sm">
@@ -46,7 +47,7 @@ export default {
 
   computed: {
     colorStyles() {
-      return { borderLeft: `4px solid ${this.input.colors[this.colorIndex].hex}` }
+      return { borderLeft: `5px solid ${this.input.colors[this.colorIndex].hex}` }
     },
     hex: {
       get() {
@@ -73,20 +74,12 @@ export default {
 
 <style>
 .ColorInput {
-  padding: 0 15px;
-  margin: 20px -15px;
   position: relative;
+  margin-left: 10px;
 }
-.ColorInput::after {
-  display: block;
-  content: '';
-  width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.colorFlair {
   position: absolute;
-  bottom: -10px;
-  left: -5px;
-}
-.ColorInput .dropdown.select input {
-  border: 1px solid red;
+  height: 100%;
+  left: -15px;
 }
 </style>
