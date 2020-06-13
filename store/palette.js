@@ -122,7 +122,7 @@ export const actions = {
 // TODO: convert mutations to use IDs instead of indexes
 export const mutations = {
   randomize(state) {
-    state.background = chroma.random()
+    state.background = chroma.random().hex()
   },
   updateBG(state, bg) {
     state.background = bg

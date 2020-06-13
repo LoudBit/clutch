@@ -1,15 +1,10 @@
 <template>
-  <div>
-    <h6>Background Color</h6>
-    <i-row>
-      <i-column>
-        <i-input v-model="hex" size="sm" />
-      </i-column>
-      <i-column>
-        <i-button size="sm" @click="randomize">Randomize</i-button>
-      </i-column>
-    </i-row>
-  </div>
+  <i-form-group>
+    <i-form-label>Background Color</i-form-label>
+    <i-input v-model="hex" size="sm">
+      <i-button slot="append" size="sm" @click="randomize">Randomize</i-button>
+    </i-input>
+  </i-form-group>
 </template>
 
 <script>
