@@ -2,7 +2,7 @@ import chroma from 'chroma-js'
 import cloneDeep from 'lodash/cloneDeep'
 import { v4 as uuidv4 } from 'uuid'
 
-function createColor(color) {
+export function createColor(color) {
   return {
     id: color.id || uuidv4(),
     hex: color.hex(),

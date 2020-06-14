@@ -38,7 +38,7 @@
 <script>
 import chroma from 'chroma-js'
 import { mapMutations } from 'vuex'
-import { extract } from '~/store/palette'
+import { createColor } from '~/store/palette'
 // import ColorInput from '~/components/ColorInput'
 
 export default {
@@ -94,7 +94,7 @@ export default {
     addColor() {
       // TODO: move this logic to the store
       const color = chroma.random()
-      const colors = [...this.input.colors, extract(color)]
+      const colors = [...this.input.colors, createColor(color)]
       const input = { colors }
       const index = this.index
       this.$store.commit('palette/updateInput', { input, index })
