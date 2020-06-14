@@ -91,16 +91,16 @@ export const actions = {
   },
   updateLch({ commit }, data) {
     const color = chroma.lch(data.lch)
-
+    // TODO: this should be abstracted
     const def = {
-      hes: color.hex(),
+      hex: color.hex(),
       lch: data.lch,
       rgb: color.rgb()
     }
 
     if (chroma.valid(color)) {
       const colors = [...data.input.colors]
-      colors[data.colorIndex] = def
+      colors[data.colorIndex] = { ...colors[data.colorIndex], ...def }
       const input = { colors }
       commit('updateInput', { input, index: data.inputIndex })
     }
@@ -109,14 +109,14 @@ export const actions = {
     const color = chroma.rgb(data.rgb)
 
     const def = {
-      hes: color.hex(),
+      hex: color.hex(),
       lch: color.lch(),
       rgb: data.rgb
     }
 
     if (chroma.valid(color)) {
       const colors = [...data.input.colors]
-      colors[data.colorIndex] = def
+      colors[data.colorIndex] = { ...colors[data.colorIndex], ...def }
       const input = { colors }
       commit('updateInput', { input, index: data.inputIndex })
     }
