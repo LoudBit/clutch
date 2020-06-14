@@ -50,7 +50,7 @@ export const getters = {
   },
 
   rawInputs(state) {
-    return state.inputs
+    return cloneDeep(state.inputs)
   },
 
   fromInputs(state) {

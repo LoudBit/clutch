@@ -21,17 +21,6 @@
         </template>
       </i-column>
     </i-row>
-    <!-- <i-row>
-      <i-column>
-        <h6>Palette</h6>
-        <PaletteInput
-          v-for="(input, index) in rawInputs"
-          :key="`input-${input.id}`"
-          :input="input"
-          :index="index"
-        ></PaletteInput>
-      </i-column>
-    </i-row> -->
     <i-row>
       <i-column>
         <i-button size="sm" title="Add Input" @click="addInput">
