@@ -4,6 +4,9 @@
   "description": "color palette generator",
   "author": "Mr. Darcy Murphy",
   "private": true,
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
