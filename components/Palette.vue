@@ -5,9 +5,18 @@
         <BG :color="bg"></BG>
       </div>
     </div>
+
     <div class="ui row">
       <div class="ui column">
         <h6>Palette</h6>
+        <button class="ui button" title="Add Input" @click="addInput">
+          &nbsp; Add Input
+        </button>
+      </div>
+    </div>
+
+    <div class="ui row">
+      <div class="ui column">
         <template v-for="(input, index) in rawInputs">
           <PaletteInput :key="`input-${input.id}`" :input="input" :index="index"></PaletteInput>
           <ColorInput
@@ -19,14 +28,6 @@
             :input="input"
           ></ColorInput>
         </template>
-      </div>
-    </div>
-    <div class="ui row">
-      <div class="ui column">
-        <i-button size="sm" title="Add Input" @click="addInput">
-          <i-icon icon="plus" />
-          &nbsp; Add Input
-        </i-button>
       </div>
     </div>
     <div class="ui row">
