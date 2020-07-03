@@ -1,15 +1,15 @@
 <template>
-  <i-row>
-    <i-column>
+  <div class="ui-row">
+    <div class="ui-column ui-padded">
       <i-input :value="l" size="sm" type="number" min="0" max="100" step="0.1" @change="changeL" />
-    </i-column>
-    <i-column>
+    </div>
+    <div class="ui-column ui-padded">
       <i-input :value="c" size="sm" type="number" min="0" max="100" step="0.1" @change="changeC" />
-    </i-column>
-    <i-column>
+    </div>
+    <div class="ui-column ui-padded">
       <i-input :value="h" size="sm" type="number" min="0" max="360" step="1" @change="changeH" />
-    </i-column>
-  </i-row>
+    </div>
+  </div>
 </template>
 
 <script>

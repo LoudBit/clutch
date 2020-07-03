@@ -53,6 +53,6 @@ export default {
   },
 
   styleResources: {
-    scss: []
+    scss: ['@/assets/ui.scss']
   }
 }

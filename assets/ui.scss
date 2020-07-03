@@ -1,0 +1,22 @@
+
+.ui-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+
+.ui-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.ui-column.ui-padded {
+  padding: 0 2px;
+}
+.ui-column.ui-padded:first-child { padding-left: 0; }
+.ui-column.ui-padded:last-child { padding-right: 0; }
+
+
+
+// TODO: layout with aside
