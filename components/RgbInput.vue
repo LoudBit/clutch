@@ -1,15 +1,15 @@
 <template>
-  <i-row>
-    <i-column>
+  <div class="ui row padded">
+    <div class="ui column padded x-33">
       <i-input v-model.number="r" size="sm" type="number" min="0" max="255" step="1" />
-    </i-column>
-    <i-column>
+    </div>
+    <div class="ui column padded">
       <i-input v-model.number="g" size="sm" type="number" min="0" max="255" step="1" />
-    </i-column>
-    <i-column>
+    </div>
+    <div class="ui column padded">
       <i-input v-model.number="b" size="sm" type="number" min="0" max="255" step="1" />
-    </i-column>
-  </i-row>
+    </div>
+  </div>
 </template>
 
 <script>

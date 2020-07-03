@@ -1,12 +1,12 @@
 <template>
-  <div class="ui-row">
-    <div class="ui-column ui-padded">
+  <div class="ui row padded">
+    <div class="ui column padded x-33">
       <i-input :value="l" size="sm" type="number" min="0" max="100" step="0.1" @change="changeL" />
     </div>
-    <div class="ui-column ui-padded">
+    <div class="ui column padded x-33">
       <i-input :value="c" size="sm" type="number" min="0" max="100" step="0.1" @change="changeC" />
     </div>
-    <div class="ui-column ui-padded">
+    <div class="ui column padded x-33">
       <i-input :value="h" size="sm" type="number" min="0" max="360" step="1" @change="changeH" />
     </div>
   </div>

@@ -1,12 +1,12 @@
 <template>
-  <i-row>
-    <i-column xs="3">
+  <div class="ui row">
+    <div class="ui column" xs="3">
       <i-form-group size="sm">
         <i-form-label>Steps</i-form-label>
         <i-input v-model.number="steps" type="number" min="2" max="32" step="1" />
       </i-form-group>
-    </i-column>
-    <i-column xs="5">
+    </div>
+    <div class="ui column" xs="5">
       <i-form-group size="sm">
         <i-form-label>Mode</i-form-label>
         <i-select v-model="mode" size="sm">
@@ -17,22 +17,22 @@
           <i-select-option value="lch" label="LCh" />
         </i-select>
       </i-form-group>
-    </i-column>
-    <i-column xs="2">
+    </div>
+    <div class="ui column" xs="2">
       <i-form-group size="sm">
         <i-form-label></i-form-label>
         <i-checkbox-button v-model="hidden" size="sm" title="Toggle Visibility">
           <span :style="isHiddenStyles">👁</span>
         </i-checkbox-button>
       </i-form-group>
-    </i-column>
-    <i-column xs="2">
+    </div>
+    <div class="ui column" xs="2">
       <br />
       <i-button circle size="sm" title="Add Color" @click="addColor()">
         <i-icon icon="plus" />
       </i-button>
-    </i-column>
-  </i-row>
+    </div>
+  </div>
 </template>
 
 <script>

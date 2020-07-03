@@ -1,36 +1,36 @@
 <template>
   <div :style="colorStyles" class="Color">
     <i-container>
-      <i-row>
-        <i-column>
+      <div class="ui row">
+        <div class="ui column">
           <input v-model="hex" />
-        </i-column>
-        <i-column>
+        </div>
+        <div class="ui column">
           <i-button size="sm" @click="removeColor(index)">Remove</i-button>
-        </i-column>
-      </i-row>
-      <i-row>
-        <i-column>
+        </div>
+      </div>
+      <div class="ui row">
+        <div class="ui column">
           <input v-model="r" type="number" step="1" min="0" max="255" />
-        </i-column>
-        <i-column>
+        </div>
+        <div class="ui column">
           <input v-model.number="g" type="number" step="1" min="0" max="255" />
-        </i-column>
-        <i-column>
+        </div>
+        <div class="ui column">
           <input v-model.number="b" type="number" step="1" min="0" max="255" />
-        </i-column>
-      </i-row>
-      <i-row>
-        <i-column>
+        </div>
+      </div>
+      <div class="ui row">
+        <div class="ui column">
           <input v-model.number="l" type="number" min="0" max="100" step="0.001" />
-        </i-column>
-        <i-column>
+        </div>
+        <div class="ui column">
           <input v-model.number="c" type="number" min="0" max="100" step="0.001" />
-        </i-column>
-        <i-column>
+        </div>
+        <div class="ui column">
           <input v-model.number="h" type="number" min="0" max="360" step="1" />
-        </i-column>
-      </i-row>
+        </div>
+      </div>
     </i-container>
   </div>
 </template>

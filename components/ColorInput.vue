@@ -1,22 +1,22 @@
 <template>
   <div class="ColorInput">
     <div class="colorFlair" :style="colorStyles"></div>
-    <i-row>
-      <i-column xs="5">
+    <div class="ui row padded">
+      <div class="ui column">
         <i-select v-model="mode" size="sm">
           <i-select-option value="rgb" label="RGB" />
           <i-select-option value="lch" label="LCh" />
         </i-select>
-      </i-column>
-      <i-column xs="5">
+      </div>
+      <div class="ui column">
         <i-input v-model="hex" size="sm" />
-      </i-column>
-      <i-column xs="2" class="_text-right">
+      </div>
+      <div class="ui column ui-text-right">
         <i-button circle size="sm" title="Remove Color" @click="removeColor(colorIndex)">
           <i-icon icon="minus" />
         </i-button>
-      </i-column>
-    </i-row>
+      </div>
+    </div>
     <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
     <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
   </div>

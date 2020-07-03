@@ -1,22 +1,38 @@
+// TODO: layout with aside
 
-.ui-row {
+.ui { box-sizing: border-box; }
+
+.ui.row {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  // align-items: stretch
+  padding: 0 !important;  // NOTE: for overriding inkline
+  margin: 0 !important;  // NOTE: for overriding inkline
 }
+// .ui.row.padded:first-child { padding-top: 0; }
+// .ui.row.padded:last-child { padding-bottom: 0; }
+// .ui.row.padded + .ui.row.padded { padding: 2px 0; }
 
 
-.ui-column {
+.ui.column {
   display: flex;
   flex-direction: column;
+  flex-shrink: 1;
+  padding: 0 !important;  // NOTE: for overriding inkline
+  margin: 0 !important;  // NOTE: for overriding inkline
+}
+// .ui.column.padded:first-child { padding-left: 0; }
+// .ui.column.padded:last-child { padding-right: 0; }
+// .ui.column.padded + .ui.column.padded { padding: 0 2px; }
+
+
+.ui-text-right {
+  text-align: right;
 }
 
-.ui-column.ui-padded {
-  padding: 0 2px;
-}
-.ui-column.ui-padded:first-child { padding-left: 0; }
-.ui-column.ui-padded:last-child { padding-right: 0; }
 
 
-
-// TODO: layout with aside
+.x-25 { width: 25% }
+.x-33 { width: 33.333% }
+.x-66 { width: 66.666% }
+.x-75 { width: 75% }

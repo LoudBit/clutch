@@ -1,12 +1,12 @@
 <template>
   <i-container>
-    <i-row>
-      <i-column>
+    <div class="ui row">
+      <div class="ui column">
         <BG :color="bg"></BG>
-      </i-column>
-    </i-row>
-    <i-row>
-      <i-column>
+      </div>
+    </div>
+    <div class="ui row">
+      <div class="ui column">
         <h6>Palette</h6>
         <template v-for="(input, index) in rawInputs">
           <PaletteInput :key="`input-${input.id}`" :input="input" :index="index"></PaletteInput>
@@ -19,24 +19,25 @@
             :input="input"
           ></ColorInput>
         </template>
-      </i-column>
-    </i-row>
-    <i-row>
-      <i-column>
+      </div>
+    </div>
+    <div class="ui row">
+      <div class="ui column">
         <i-button size="sm" title="Add Input" @click="addInput">
           <i-icon icon="plus" />
           &nbsp; Add Input
         </i-button>
-      </i-column>
-    </i-row>
-    <i-row>
-      <i-column>
+      </div>
+    </div>
+    <div class="ui row">
+      <div class="ui column">
+        <!-- IDEA: This could be a table [ swatch | hex | is an input ] -->
         <h6>Colors</h6>
         <div v-for="(color, index) in fromInputs" :key="index">
           {{ color }}
         </div>
-      </i-column>
-    </i-row>
+      </div>
+    </div>
   </i-container>
 </template>
 
