@@ -1,5 +1,5 @@
 <template>
-  <i-container>
+  <div>
     <div class="ui row">
       <div class="ui column">
         <BG :color="bg"></BG>
@@ -30,6 +30,7 @@
         </template>
       </div>
     </div>
+
     <div class="ui row">
       <div class="ui column">
         <!-- IDEA: This could be a table [ swatch | hex | is an input ] -->
@@ -39,7 +40,7 @@
         </div>
       </div>
     </div>
-  </i-container>
+  </div>
 </template>
 
 <script>
