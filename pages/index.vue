@@ -1,5 +1,4 @@
 <template>
-  <!-- use main -->
   <main class="ui layout row" :style="{ backgroundColor: bg }">
     <div class="ui layout aside">
       <Palette></Palette>
@@ -39,6 +38,7 @@ export default {
 
 .ui.layout.aside {
   background: rgba(#292929, 0.8);
+  background-image: url('~assets/img/aside-bg.png');
   max-width: 320px;
   z-index: 1;
 }

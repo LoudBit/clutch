@@ -33,14 +33,18 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
 }
 
 .ui.button {
-  background: rgba(black, 0.5) linear-gradient(rgba(black, 0), rgba(black, 0.1));
   border: none;
+  background: rgba(#292929, 0.5) linear-gradient(rgba(#292929, 0), rgba(#292929, 0.1));
   border-radius: 3px;
   color: rgba(white, 0.8);
-  box-shadow: inset 0 -1px 1px rgba(black, 0.5), inset 0 1px 1px rgba(white, 0.2);
+  box-shadow: inset 0 -1px 0px rgba(black, 0.2), inset 0 1px 0px rgba(white, 0.1);
   padding: 3px;
 }
 
+.ui.button:active {
+  background: rgba(#292929, 0.5) linear-gradient(rgba(#292929, 0.1), rgba(#292929, 0));
+  box-shadow: inset 0 -1px 0px rgba(white, 0.1), inset 0 1px 0px rgba(black, 0.2);
+}
 
 .x-25 { width: 25% }
 .x-33 { width: 33.333% }
