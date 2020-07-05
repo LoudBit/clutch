@@ -28,6 +28,7 @@ export default {
     }
   },
 
+  // TODO: use the same pattern as LchInput -- but which one is correct?
   watch: {
     r(r, oldR) {
       const rgb = this.input.colors[this.colorIndex].rgb

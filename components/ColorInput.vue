@@ -9,7 +9,6 @@
         </select>
       </div>
       <div class="ui column">
-        <input v-model="hex" type="color" />
         <input v-model="hex" type="text" />
       </div>
       <div class="ui column ui-text-right">

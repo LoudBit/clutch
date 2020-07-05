@@ -8,7 +8,7 @@
 
     <div class="ui row">
       <div class="ui column">
-        <h6>Palette</h6>
+        <h1>Palette</h1>
         <button class="ui button" title="Add Input" @click="addInput">
           &nbsp; Add Input
         </button>
@@ -34,7 +34,7 @@
     <div class="ui row">
       <div class="ui column">
         <!-- IDEA: This could be a table [ swatch | hex | is an input ] -->
-        <h6>Colors</h6>
+        <h1>Colors</h1>
         <div v-for="(color, index) in fromInputs" :key="index">
           {{ color }}
         </div>
