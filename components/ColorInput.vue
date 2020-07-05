@@ -3,18 +3,20 @@
     <div class="colorFlair" :style="colorStyles"></div>
     <div class="ui row padded">
       <div class="ui column">
-        <i-select v-model="mode" size="sm">
-          <i-select-option value="rgb" label="RGB" />
-          <i-select-option value="lch" label="LCh" />
-        </i-select>
+        <select v-model="mode">
+          <option value="rgb" label="RGB" />
+          <option value="lch" label="LCh" />
+        </select>
       </div>
       <div class="ui column">
-        <i-input v-model="hex" size="sm" />
+        <input v-model="hex" type="color" />
+        <input v-model="hex" type="text" />
       </div>
       <div class="ui column ui-text-right">
-        <i-button circle size="sm" title="Remove Color" @click="removeColor(colorIndex)">
-          <i-icon icon="minus" />
-        </i-button>
+        <button circle size="sm" title="Remove Color" @click="removeColor(colorIndex)">
+          <!-- <i-icon icon="minus" /> -->
+          -
+        </button>
       </div>
     </div>
     <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>

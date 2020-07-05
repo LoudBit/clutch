@@ -1,37 +1,35 @@
 <template>
   <div :style="colorStyles" class="Color">
-    <i-container>
-      <div class="ui row">
-        <div class="ui column">
-          <input v-model="hex" />
-        </div>
-        <div class="ui column">
-          <i-button size="sm" @click="removeColor(index)">Remove</i-button>
-        </div>
+    <div class="ui row">
+      <div class="ui column">
+        <input v-model="hex" />
       </div>
-      <div class="ui row">
-        <div class="ui column">
-          <input v-model="r" type="number" step="1" min="0" max="255" />
-        </div>
-        <div class="ui column">
-          <input v-model.number="g" type="number" step="1" min="0" max="255" />
-        </div>
-        <div class="ui column">
-          <input v-model.number="b" type="number" step="1" min="0" max="255" />
-        </div>
+      <div class="ui column">
+        <button @click="removeColor(index)">Remove</button>
       </div>
-      <div class="ui row">
-        <div class="ui column">
-          <input v-model.number="l" type="number" min="0" max="100" step="0.001" />
-        </div>
-        <div class="ui column">
-          <input v-model.number="c" type="number" min="0" max="100" step="0.001" />
-        </div>
-        <div class="ui column">
-          <input v-model.number="h" type="number" min="0" max="360" step="1" />
-        </div>
+    </div>
+    <div class="ui row">
+      <div class="ui column">
+        <input v-model="r" type="number" step="1" min="0" max="255" />
       </div>
-    </i-container>
+      <div class="ui column">
+        <input v-model.number="g" type="number" step="1" min="0" max="255" />
+      </div>
+      <div class="ui column">
+        <input v-model.number="b" type="number" step="1" min="0" max="255" />
+      </div>
+    </div>
+    <div class="ui row">
+      <div class="ui column">
+        <input v-model.number="l" type="number" min="0" max="100" step="0.001" />
+      </div>
+      <div class="ui column">
+        <input v-model.number="c" type="number" min="0" max="100" step="0.001" />
+      </div>
+      <div class="ui column">
+        <input v-model.number="h" type="number" min="0" max="360" step="1" />
+      </div>
+    </div>
   </div>
 </template>
 

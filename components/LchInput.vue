@@ -1,13 +1,13 @@
 <template>
   <div class="ui row padded">
     <div class="ui column padded x-33">
-      <i-input :value="l" size="sm" type="number" min="0" max="100" step="0.1" @change="changeL" />
+      <input :value="l" size="sm" type="number" min="0" max="100" step="0.1" @change="changeL" />
     </div>
     <div class="ui column padded x-33">
-      <i-input :value="c" size="sm" type="number" min="0" max="100" step="0.1" @change="changeC" />
+      <input :value="c" size="sm" type="number" min="0" max="100" step="0.1" @change="changeC" />
     </div>
     <div class="ui column padded x-33">
-      <i-input :value="h" size="sm" type="number" min="0" max="360" step="1" @change="changeH" />
+      <input :value="h" size="sm" type="number" min="0" max="360" step="1" @change="changeH" />
     </div>
   </div>
 </template>
@@ -34,8 +34,8 @@ export default {
   },
 
   methods: {
-    changeL(l) {
-      l = parseFloat(l)
+    changeL(event) {
+      const l = parseFloat(event.target.value)
       const lch = this.input.colors[this.colorIndex].lch
       this.$store.dispatch('palette/updateLch', {
         colorIndex: this.colorIndex,
@@ -44,8 +44,8 @@ export default {
         lch: [l, lch[1], lch[2]]
       })
     },
-    changeC(c) {
-      c = parseFloat(c)
+    changeC(event) {
+      const c = parseFloat(event.target.value)
       const lch = this.input.colors[this.colorIndex].lch
       this.$store.dispatch('palette/updateLch', {
         colorIndex: this.colorIndex,
@@ -54,8 +54,8 @@ export default {
         lch: [lch[0], c, lch[2]]
       })
     },
-    changeH(h) {
-      h = parseFloat(h)
+    changeH(event) {
+      const h = parseFloat(event.target.value)
       const lch = this.input.colors[this.colorIndex].lch
       this.$store.dispatch('palette/updateLch', {
         colorIndex: this.colorIndex,

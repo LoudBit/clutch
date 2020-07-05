@@ -1,10 +1,9 @@
 <template>
-  <i-form-group>
-    <i-form-label>Background Color</i-form-label>
-    <i-input v-model="hex" size="sm">
-      <i-button slot="append" size="sm" @click="randomize">Randomize</i-button>
-    </i-input>
-  </i-form-group>
+  <div>
+    <label>Background Color</label>
+    <input v-model="hex" size="sm" />
+    <button slot="append" size="sm" @click="randomize">Randomize</button>
+  </div>
 </template>
 
 <script>

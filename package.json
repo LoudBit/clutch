@@ -30,7 +30,6 @@
     "lodash": "^4.17.15",
     "nuxt": "2.12.2",
     "uuid": "^8.1.0",
-    "@inkline/inkline": "^2.1.4",
     "@nuxtjs/style-resources": "^1.0.0"
   },
   "devDependencies": {

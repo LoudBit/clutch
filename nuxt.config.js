@@ -26,7 +26,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/inkline'],
+  plugins: [],
   /*
    ** Nuxt.js dev-modules
    */
@@ -53,6 +53,6 @@ export default {
   },
 
   styleResources: {
-    scss: ['@/assets/ui.scss']
+    scss: ['@/assets/scss/ui.scss']
   }
 }

@@ -1,36 +1,37 @@
 <template>
   <div class="ui row">
-    <div class="ui column" xs="3">
-      <i-form-group size="sm">
-        <i-form-label>Steps</i-form-label>
-        <i-input v-model.number="steps" type="number" min="2" max="32" step="1" />
-      </i-form-group>
+    <div class="ui column">
+      <div>
+        <label>Steps</label>
+        <input v-model.number="steps" type="number" min="2" max="32" step="1" />
+      </div>
     </div>
-    <div class="ui column" xs="5">
-      <i-form-group size="sm">
-        <i-form-label>Mode</i-form-label>
-        <i-select v-model="mode" size="sm">
-          <i-select-option value="rgb" label="RGB" />
-          <i-select-option value="hsl" label="HSL" />
-          <i-select-option value="lab" label="LAB" />
-          <i-select-option value="lrgb" label="Linear RGB" />
-          <i-select-option value="lch" label="LCh" />
-        </i-select>
-      </i-form-group>
+    <div class="ui column">
+      <div>
+        <label>Mode</label>
+        <select v-model="mode" size="sm">
+          <option value="rgb" label="RGB" />
+          <option value="hsl" label="HSL" />
+          <option value="lab" label="LAB" />
+          <option value="lrgb" label="Linear RGB" />
+          <option value="lch" label="LCh" />
+        </select>
+      </div>
     </div>
-    <div class="ui column" xs="2">
-      <i-form-group size="sm">
-        <i-form-label></i-form-label>
-        <i-checkbox-button v-model="hidden" size="sm" title="Toggle Visibility">
-          <span :style="isHiddenStyles">👁</span>
-        </i-checkbox-button>
-      </i-form-group>
+    <div class="ui column">
+      <div>
+        <label></label>
+        <!-- TODO: change this to 'visible' -->
+        <input v-model="hidden" type="checkbox" name="Visibility" title="Toggle Visibility" />
+        <span :style="isHiddenStyles">👁</span>
+      </div>
     </div>
-    <div class="ui column" xs="2">
+    <div class="ui column">
       <br />
-      <i-button circle size="sm" title="Add Color" @click="addColor()">
-        <i-icon icon="plus" />
-      </i-button>
+      <button circle size="sm" title="Add Color" @click="addColor()">
+        <!-- <i-icon icon="plus" /> -->
+        +
+      </button>
     </div>
   </div>
 </template>

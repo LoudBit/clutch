@@ -5,7 +5,7 @@
 <script>
 export default {
   created() {
-    this.$inkline.config.variant = 'dark'
+    // this.$inkline.config.variant = 'dark'
   }
 }
 </script>

@@ -18,5 +18,7 @@ $heading-line-height: $heading-font-size * 1.3333; // 32px
 $subheading-line-height: $copy-line-height * 1;       // 21px
 $input-line-height: $small-font-size * 2;        // 24px
 
+@import "./normalize";
 @import "./layout";
 @import "./forms";
+@import "./typography";
