@@ -27,10 +27,10 @@
       </div>
     </div>
     <div class="ui column">
+      <font-awesome-icon icon="plus" size="sm"></font-awesome-icon>
       <br />
-      <button circle size="sm" title="Add Color" @click="addColor()">
-        <!-- <i-icon icon="plus" /> -->
-        +
+      <button title="Add Color" @click="addColor()">
+        <font-awesome-icon icon="plus" size="sm"></font-awesome-icon>
       </button>
     </div>
   </div>
