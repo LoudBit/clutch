@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div class="ui row">
-      <div class="ui column">
-        <BG :color="bg"></BG>
-      </div>
-    </div>
+    <BG :color="bg"></BG>
 
     <div class="ui row">
       <div class="ui column">

@@ -4,13 +4,22 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
 }
 .ui { box-sizing: border-box; }
 
-.ui.row {
-  display: flex;
-  flex-direction: row;
-  // align-items: stretch
-  padding: 0 !important;  // NOTE: for overriding inkline
-  margin: 0 !important;  // NOTE: for overriding inkline
+.ui.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 8px;
 }
+.ui.grid.with-margins { margin: 8px; }
+
+// .ui.row {
+//   display: flex;
+//   flex-direction: row;
+//   align-items: stretch;
+//   padding: 0;
+//   margin: 0;
+// }
+// .ui.row.with-margins { margin: 0 8px; }
+// .ui.row.with-gutters:last-child { padding-top: 0; }
 // .ui.row.padded:first-child { padding-top: 0; }
 // .ui.row.padded:last-child { padding-bottom: 0; }
 // .ui.row.padded + .ui.row.padded { padding: 2px 0; }
@@ -20,15 +29,15 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
   display: flex;
   flex-direction: column;
   flex-shrink: 1;
-  padding: 0 !important;  // NOTE: for overriding inkline
-  margin: 0 !important;  // NOTE: for overriding inkline
+  padding: 0;
+  margin: 0;
 }
-// .ui.column.padded:first-child { padding-left: 0; }
-// .ui.column.padded:last-child { padding-right: 0; }
-// .ui.column.padded + .ui.column.padded { padding: 0 2px; }
+.ui.column.padded:first-child { padding-left: 0; }
+.ui.column.padded:last-child { padding-right: 0; }
+.ui.column.padded + .ui.column.padded { padding: 0 4px; }
 
 
-.ui-text-right {
+.text-right {
   text-align: right;
 }
 
@@ -36,6 +45,7 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
 .x-33 { width: 33.333% }
 .x-66 { width: 66.666% }
 .x-75 { width: 75% }
+
 
 
 // TODO: Forms

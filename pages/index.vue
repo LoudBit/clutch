@@ -42,6 +42,7 @@ export default {
   color: #d0d0d0;
   max-width: 320px;
   z-index: 1;
+  padding: 8px;
 }
 
 .ui.layout.content {

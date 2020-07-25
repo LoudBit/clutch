@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="ui grid">
     <label>Background Color</label>
-    <input v-model="hex" size="sm" />
-    <button slot="append" size="sm" @click="randomize">Randomize</button>
+    <button class="ui small" @click="randomize">Randomize</button>
+    <input v-model="hex" type="text" size="sm" />
   </div>
 </template>
 
