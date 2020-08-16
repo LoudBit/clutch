@@ -3,8 +3,12 @@
     <BG :color="bg"></BG>
 
     <div class="heading-grid">
-      <h1 class="ui h1 grid-area-label">Palette</h1>
-      <button class="ui button grid-area-button" title="Add Input" @click="addInput">Add</button>
+      <div class="grid-area-label">
+        <h1 class="ui h1">Palette</h1>
+      </div>
+      <div class="grid-area-button">
+        <button class="ui small x-100" title="Add Input" @click="addInput">Add</button>
+      </div>
     </div>
 
     <div class="ui row">

@@ -1,11 +1,15 @@
 <template>
   <div class="palette-input-grid">
     <div class="grid-area-delete">
-      <button class="ui button" title="Delete Input">Delete</button>
+      <button class="ui x-100" title="Delete Input">Delete</button>
     </div>
     <div class="grid-area-visibility">
-      <button v-if="hidden" class="ui button" title="Show Colors" @click="toggleVisibility()">Show</button>
-      <button v-if="!hidden" class="ui button" title="Hide Colors" @click="toggleVisibility()">Hide</button>
+      <button v-if="hidden" class="ui x-100" title="Show Colors" @click="toggleVisibility()">
+        Show
+      </button>
+      <button v-if="!hidden" class="ui x-100" title="Hide Colors" @click="toggleVisibility()">
+        Hide
+      </button>
     </div>
     <div class="grid-area-steps">
       <label>Steps</label>
