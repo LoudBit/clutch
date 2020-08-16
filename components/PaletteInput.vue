@@ -30,11 +30,9 @@
         <font-awesome-icon icon="angle-down" />
       </div>
     </div>
-    <!-- <div class="">
-      <button title="Add Color" @click="addColor()">
-        <font-awesome-icon icon="plus" />
-      </button>
-    </div> -->
+    <div class="">
+      <button class="ui" title="Add Color" @click="addColor()"><font-awesome-icon icon="plus" /> Add</button>
+    </div>
   </div>
 </template>
 

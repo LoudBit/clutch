@@ -1,25 +1,34 @@
 <template>
   <div class="ColorInput">
-    <div class="colorFlair" :style="colorStyles"></div>
-    <div class="ui row padded">
-      <div class="ui column">
-        <div class="ui select">
-          <select v-model="mode">
-            <option value="rgb" label="RGB" />
-            <option value="lch" label="LCh" />
-          </select>
+    <div class="color-input-grid">
+      <div>
+        <button class="ui x-100">
           <font-awesome-icon icon="angle-down" />
-        </div>
+        </button>
       </div>
-      <div class="ui column">
+      <div>
+        <div class="color-swatch" :style="colorStyles"></div>
+      </div>
+      <div class="grid-area-input">
         <input v-model="hex" type="text" />
-      </div>
-      <div class="ui column ui-text-right">
-        <button circle size="sm" title="Remove Color" @click="removeColor(colorIndex)"></button>
       </div>
     </div>
     <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
     <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
+    <div class="color-input-options-grid">
+      <div class="ui select grid-area-input">
+        <select v-model="mode">
+          <option value="rgb" label="RGB" />
+          <option value="lch" label="LCh" />
+        </select>
+        <font-awesome-icon icon="angle-down" />
+      </div>
+      <div class="ui-text-right grid-area-button">
+        <button class="ui x-100" title="Remove Color" @click="removeColor(colorIndex)">
+          Delete
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -48,7 +57,7 @@ export default {
 
   computed: {
     colorStyles() {
-      return { borderLeft: `5px solid ${this.input.colors[this.colorIndex].hex}` }
+      return { backgroundColor: this.input.colors[this.colorIndex].hex }
     },
     hex: {
       get() {
@@ -73,14 +82,31 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .ColorInput {
   position: relative;
-  margin-left: 10px;
 }
-.colorFlair {
-  position: absolute;
-  height: 100%;
-  left: -15px;
+.color-swatch {
+  height: 32px;
+  width: 100%;
+  border: 1px solid rgba(black, 0.3);
+  border-radius: 3px;
+}
+
+.color-input-grid {
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: 'button swatch input input input input input input ';
+}
+
+.color-input-options-grid {
+  margin-top: 8px;
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: 'input input input button';
 }
 </style>

@@ -24,6 +24,9 @@
             :input="input"
           ></ColorInput>
         </template>
+        <!-- <div>
+          <button class="ui" title="Add Color" @click="addColor()"><font-awesome-icon icon="plus" /> Add</button>
+        </div> -->
       </div>
     </div>
 
@@ -40,10 +43,12 @@
 </template>
 
 <script>
+// import chroma from 'chroma-js'
 import { mapGetters, mapMutations } from 'vuex'
 import BG from '~/components/BG'
 import PaletteInput from '~/components/PaletteInput'
 import ColorInput from '~/components/ColorInput'
+// import { createColor } from '~/store/palette'
 
 export default {
   components: { BG, PaletteInput, ColorInput },
@@ -56,6 +61,14 @@ export default {
     })
   },
   methods: {
+    // addColor() {
+    //   // TODO: move this logic to the store
+    //   const color = chroma.random()
+    //   const colors = [...this.input.colors, createColor(color)]
+    //   const input = { colors }
+    //   const index = this.index
+    //   this.$store.commit('palette/updateInput', { input, index })
+    // },
     ...mapMutations({
       randomize: 'palette/randomize',
       addInput: 'palette/addInput'
