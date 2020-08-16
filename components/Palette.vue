@@ -2,13 +2,9 @@
   <div>
     <BG :color="bg"></BG>
 
-    <div class="ui row">
-      <div class="ui column">
-        <h1>Palette</h1>
-        <button class="ui button" title="Add Input" @click="addInput">
-          &nbsp; Add Input
-        </button>
-      </div>
+    <div class="heading-grid">
+      <h1 class="ui h1 grid-area-label">Palette</h1>
+      <button class="ui button grid-area-button" title="Add Input" @click="addInput">Add</button>
     </div>
 
     <div class="ui row">
@@ -63,3 +59,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.heading-grid {
+  margin-top: 32px;
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: 'label label label label label label button button';
+}
+
+.heading-grid h1 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+}
+</style>

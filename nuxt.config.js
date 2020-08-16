@@ -54,5 +54,6 @@ export default {
 
   styleResources: {
     scss: ['@/assets/scss/ui.scss']
-  }
+  },
+  css: ['@fortawesome/fontawesome-svg-core/styles.css']
 }

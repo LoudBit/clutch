@@ -1,8 +1,9 @@
 <template>
-  <div class="ui grid">
-    <label>Background Color</label>
-    <button class="ui small" @click="randomize">Randomize</button>
-    <input v-model="hex" type="text" size="sm" />
+  <div class="bg-color-grid">
+    <label class="grid-area-label">Background Color</label>
+    <button class="grid-area-button ui small" @click="randomize">Random</button>
+    <div class="ui swatch grid-area-swatch" :style="{ backgroundColor: hex }"></div>
+    <input v-model="hex" class="grid-area-input" type="text" size="sm" />
   </div>
 </template>
 
@@ -36,3 +37,16 @@ export default {
   }
 }
 </script>
+
+<style>
+.bg-color-grid {
+  display: grid;
+  gap: 8px 8px;
+  justify-items: stretch;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    'label label label label label label button button'
+    '. swatch input input input input input input ';
+}
+</style>

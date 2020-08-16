@@ -12,10 +12,7 @@
         <input v-model="hex" type="text" />
       </div>
       <div class="ui column ui-text-right">
-        <button circle size="sm" title="Remove Color" @click="removeColor(colorIndex)">
-          <!-- <i-icon icon="minus" /> -->
-          -
-        </button>
+        <button circle size="sm" title="Remove Color" @click="removeColor(colorIndex)"></button>
       </div>
     </div>
     <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>

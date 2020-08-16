@@ -1,38 +1,31 @@
 <template>
-  <div class="ui row">
-    <div class="ui column">
-      <div>
-        <label>Steps</label>
-        <input v-model.number="steps" type="number" min="2" max="32" step="1" />
-      </div>
+  <div class="palette-input-grid">
+    <div class="grid-area-delete">
+      <button class="ui button" title="Delete Input">Delete</button>
     </div>
-    <div class="ui column">
-      <div>
-        <label>Mode</label>
-        <select v-model="mode" size="sm">
-          <option value="rgb" label="RGB" />
-          <option value="hsl" label="HSL" />
-          <option value="lab" label="LAB" />
-          <option value="lrgb" label="Linear RGB" />
-          <option value="lch" label="LCh" />
-        </select>
-      </div>
+    <div class="grid-area-visibility">
+      <button v-if="hidden" class="ui button" title="Show Colors" @click="toggleVisibility()">Show</button>
+      <button v-if="!hidden" class="ui button" title="Hide Colors" @click="toggleVisibility()">Hide</button>
     </div>
-    <div class="ui column">
-      <div>
-        <label></label>
-        <!-- TODO: change this to 'visible' -->
-        <input v-model="hidden" type="checkbox" name="Visibility" title="Toggle Visibility" />
-        <span :style="isHiddenStyles">👁</span>
-      </div>
+    <div class="grid-area-steps">
+      <label>Steps</label>
+      <input v-model.number="steps" type="number" min="2" max="32" step="1" />
     </div>
-    <div class="ui column">
-      <font-awesome-icon icon="plus" size="sm"></font-awesome-icon>
-      <br />
+    <div class="grid-area-blend">
+      <label>Blend</label>
+      <select v-model="mode" size="sm">
+        <option value="rgb" label="RGB" />
+        <option value="hsl" label="HSL" />
+        <option value="lab" label="LAB" />
+        <option value="lrgb" label="Linear RGB" />
+        <option value="lch" label="LCh" />
+      </select>
+    </div>
+    <!-- <div class="">
       <button title="Add Color" @click="addColor()">
-        <font-awesome-icon icon="plus" size="sm"></font-awesome-icon>
+        <font-awesome-icon icon="plus" />
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -40,12 +33,8 @@
 import chroma from 'chroma-js'
 import { mapMutations } from 'vuex'
 import { createColor } from '~/store/palette'
-// import ColorInput from '~/components/ColorInput'
 
 export default {
-  // components: {
-  //   ColorInput
-  // },
   props: {
     input: {
       type: Object,
@@ -92,6 +81,9 @@ export default {
     }
   },
   methods: {
+    toggleVisibility() {
+      this.hidden = !this.hidden
+    },
     addColor() {
       // TODO: move this logic to the store
       const color = chroma.random()
@@ -113,3 +105,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.palette-input-grid {
+  margin-top: 8px;
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: 'delete visibility steps blend';
+}
+</style>
