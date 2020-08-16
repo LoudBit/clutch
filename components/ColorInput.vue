@@ -3,10 +3,13 @@
     <div class="colorFlair" :style="colorStyles"></div>
     <div class="ui row padded">
       <div class="ui column">
-        <select v-model="mode">
-          <option value="rgb" label="RGB" />
-          <option value="lch" label="LCh" />
-        </select>
+        <div class="ui select">
+          <select v-model="mode">
+            <option value="rgb" label="RGB" />
+            <option value="lch" label="LCh" />
+          </select>
+          <font-awesome-icon icon="angle-down" />
+        </div>
       </div>
       <div class="ui column">
         <input v-model="hex" type="text" />

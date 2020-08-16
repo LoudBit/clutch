@@ -17,13 +17,16 @@
     </div>
     <div class="grid-area-blend">
       <label>Blend</label>
-      <select v-model="mode" size="sm">
-        <option value="rgb" label="RGB" />
-        <option value="hsl" label="HSL" />
-        <option value="lab" label="LAB" />
-        <option value="lrgb" label="Linear RGB" />
-        <option value="lch" label="LCh" />
-      </select>
+      <div class="ui select">
+        <select v-model="mode" class="ui">
+          <option value="rgb" label="RGB" />
+          <option value="hsl" label="HSL" />
+          <option value="lab" label="LAB" />
+          <option value="lrgb" label="Linear RGB" />
+          <option value="lch" label="LCh" />
+        </select>
+        <font-awesome-icon icon="angle-down" />
+      </div>
     </div>
     <!-- <div class="">
       <button title="Add Color" @click="addColor()">
@@ -112,7 +115,8 @@ export default {
 
 <style lang="scss">
 .palette-input-grid {
-  margin-top: 8px;
+  margin-top: 16px;
+  margin-bottom: 8px;
   display: grid;
   gap: 8px 8px;
   grid-template-columns: repeat(4, 1fr);

@@ -16,15 +16,6 @@ textarea {
   width: 100%;
 }
 
-// .form-input {
-//   margin: ($copy-line-height/4) ($copy-line-height/2);
-// }
-
-// .form-input.shaded {
-//   background: rgba(0, 0, 0, 0.2);
-//   padding: ($copy-line-height/4) ($copy-line-height/4);
-// }
-
 input[type="number"],
 input[type="text"],
 textarea {
@@ -40,6 +31,10 @@ textarea {
   text-align: right;
   line-height: 24px;
   padding: 0 8px;
+
+  &:hover {
+    border-color: rgba(black, 0.5);
+  }
 }
 
 .ui.swatch {
