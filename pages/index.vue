@@ -43,6 +43,7 @@ export default {
   max-width: 320px;
   z-index: 1;
   padding: 8px;
+  overflow-y: auto;
 }
 
 .ui.layout.content {

@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="">
-      <button class="ui" title="Add Color" @click="addColor()"><font-awesome-icon icon="plus" /> Add</button>
+      <button class="ui x-100" title="Add Color" @click="addColor()"><font-awesome-icon icon="plus" /> Add</button>
     </div>
   </div>
 </template>
