@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { createRGBGradients } from '~/lib/color/gradients'
+
 export default {
   props: {
     colorIndex: { type: Number, required: true },
@@ -46,9 +48,19 @@ export default {
     }
   },
 
-  // TODO: use the same pattern as LchInput -- but which one is correct? - LCH!
+  computed: {
+    gradients() {
+      const grads = createRGBGradients(this.r, this.g, this.b)
+      console.debug(`🔊 grads:`, grads)
+      return createRGBGradients(this.r, this.g, this.b)
+    }
+  },
+
   methods: {
     changeR(event) {
+      const grads = createRGBGradients(this.r, this.g, this.b)
+      console.debug(`🔊 grads:`, grads)
+
       const r = parseInt(event.target.value, 10)
       const rgb = this.input.colors[this.colorIndex].rgb
       this.$store.dispatch('palette/updateRgb', {
