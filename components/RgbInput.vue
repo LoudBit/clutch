@@ -5,7 +5,7 @@
         <div class="text-center">
           <label>R</label>
         </div>
-        <input :value="r" type="range" min="0" max="255" step="1" @input="changeR" />
+        <input :value="r" type="range" min="0" max="255" step="1" :style="gradients.r" @input="changeR" />
       </div>
       <input :value="r" type="number" min="0" max="255" step="1" @change="changeR" />
     </div>
@@ -14,7 +14,7 @@
         <div class="text-center">
           <label>G</label>
         </div>
-        <input :value="g" type="range" min="0" max="255" step="1" @input="changeG" />
+        <input :value="g" type="range" min="0" max="255" step="1" :style="gradients.g" @input="changeG" />
       </div>
       <input :value="g" type="number" min="0" max="255" step="1" @change="changeG" />
     </div>
@@ -23,7 +23,7 @@
         <div class="text-center">
           <label>B</label>
         </div>
-        <input :value="b" type="range" min="0" max="255" step="1" @input="changeB" />
+        <input :value="b" type="range" min="0" max="255" step="1" :style="gradients.b" @input="changeB" />
       </div>
       <input :value="b" type="number" min="0" max="255" step="1" @change="changeB" />
     </div>
@@ -50,44 +50,39 @@ export default {
 
   computed: {
     gradients() {
-      const grads = createRGBGradients(this.r, this.g, this.b)
-      console.debug(`🔊 grads:`, grads)
       return createRGBGradients(this.r, this.g, this.b)
     }
   },
 
   methods: {
     changeR(event) {
-      const grads = createRGBGradients(this.r, this.g, this.b)
-      console.debug(`🔊 grads:`, grads)
-
-      const r = parseInt(event.target.value, 10)
+      this.r = parseInt(event.target.value, 10)
       const rgb = this.input.colors[this.colorIndex].rgb
       this.$store.dispatch('palette/updateRgb', {
         colorIndex: this.colorIndex,
         input: this.input,
         inputIndex: this.inputIndex,
-        rgb: [r, rgb[1], rgb[2]]
+        rgb: [this.r, rgb[1], rgb[2]]
       })
     },
     changeG(event) {
-      const g = parseInt(event.target.value, 10)
+      this.g = parseInt(event.target.value, 10)
       const rgb = this.input.colors[this.colorIndex].rgb
       this.$store.dispatch('palette/updateRgb', {
         colorIndex: this.colorIndex,
         input: this.input,
         inputIndex: this.inputIndex,
-        rgb: [rgb[0], g, rgb[2]]
+        rgb: [rgb[0], this.g, rgb[2]]
       })
     },
     changeB(event) {
-      const b = parseInt(event.target.value, 10)
+      this.b = parseInt(event.target.value, 10)
       const rgb = this.input.colors[this.colorIndex].rgb
       this.$store.dispatch('palette/updateRgb', {
         colorIndex: this.colorIndex,
         input: this.input,
         inputIndex: this.inputIndex,
-        rgb: [rgb[0], rgb[1], b]
+        rgb: [rgb[0], rgb[1], this.b]
       })
     }
   }

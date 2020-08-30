@@ -96,11 +96,12 @@ export default {
 }
 .slider-inner-grid {
   background: rgba(black, 0.2);
-
+  align-items: center;
   display: grid;
   gap: 8px 8px;
   grid-template-columns: 1fr 6fr;
   grid-template-rows: none;
+  padding: 0 8px 0 0;
 
   label {
     line-height: 32px;
