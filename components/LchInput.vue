@@ -1,13 +1,31 @@
 <template>
-  <div class="ui row padded">
-    <div class="ui column padded x-33">
-      <input :value="l" size="sm" type="number" min="0" max="100" step="0.1" @change="changeL" />
+  <div class="">
+    <div class="slider-outer-grid">
+      <div class="ui slider slider-inner-grid">
+        <div class="text-center">
+          <label>L</label>
+        </div>
+        <input :value="l" type="range" min="0" max="100" step="0.1" @input="changeL" />
+      </div>
+      <input :value="l" type="number" min="0" max="100" step="0.1" @change="changeL" />
     </div>
-    <div class="ui column padded x-33">
-      <input :value="c" size="sm" type="number" min="0" max="100" step="0.1" @change="changeC" />
+    <div class="slider-outer-grid">
+      <div class="ui slider slider-inner-grid">
+        <div class="text-center">
+          <label>C</label>
+        </div>
+        <input :value="c" type="range" min="0" max="100" step="0.1" @input="changeC" />
+      </div>
+      <input :value="c" type="number" min="0" max="100" step="0.1" @change="changeC" />
     </div>
-    <div class="ui column padded x-33">
-      <input :value="h" size="sm" type="number" min="0" max="360" step="1" @change="changeH" />
+    <div class="slider-outer-grid">
+      <div class="ui slider slider-inner-grid">
+        <div class="text-center">
+          <label>h</label>
+        </div>
+        <input :value="h" type="range" min="0" max="360" step="1" @input="changeH" />
+      </div>
+      <input :value="h" type="number" min="0" max="360" step="1" @change="changeH" />
     </div>
   </div>
 </template>
@@ -67,3 +85,25 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.slider-outer-grid {
+  margin-top: 8px;
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: auto;
+}
+.slider-inner-grid {
+  background: rgba(black, 0.2);
+
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: none;
+
+  label {
+    line-height: 32px;
+  }
+}
+</style>

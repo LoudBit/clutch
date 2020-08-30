@@ -10,33 +10,17 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
 }
 
 // This sucks, what's better?
-.grid-area-label {
-  grid-area: label;
-}
-.grid-area-button {
-  grid-area: button;
-}
-.grid-area-swatch {
-  grid-area: swatch;
-}
-.grid-area-input {
-  grid-area: input;
-}
-.grid-area-delete {
-  grid-area: delete;
-}
-.grid-area-mode {
-  grid-area: mode;
-}
-.grid-area-visibility {
-  grid-area: visibility;
-}
-.grid-area-steps {
-  grid-area: steps;
-}
-.grid-area-blend {
-  grid-area: blend;
-}
+.grid-area-blend { grid-area: blend; }
+.grid-area-button { grid-area: button; }
+.grid-area-delete { grid-area: delete; }
+.grid-area-input { grid-area: input; }
+.grid-area-label { grid-area: label; }
+.grid-area-mode { grid-area: mode; }
+.grid-area-slider { grid-area: slider; }
+.grid-area-steps { grid-area: steps; }
+.grid-area-swatch { grid-area: swatch; }
+.grid-area-visibility { grid-area: visibility; }
+
 
 br.ui { line-height: 24px; }
 
