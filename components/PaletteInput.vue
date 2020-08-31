@@ -30,7 +30,7 @@
         <font-awesome-icon icon="angle-down" />
       </div>
     </div>
-    <div class="">
+    <div>
       <button class="ui x-100" title="Add Color" @click="addColor()"><font-awesome-icon icon="plus" /> Add</button>
     </div>
   </div>

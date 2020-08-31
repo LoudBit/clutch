@@ -2,7 +2,7 @@
   <div class="ColorInput">
     <div class="color-input-grid">
       <div>
-        <button class="ui x-100">
+        <button class="ui x-100" @click="toggleOpen">
           <font-awesome-icon icon="angle-down" />
         </button>
       </div>
@@ -13,20 +13,23 @@
         <input v-model="hex" type="text" />
       </div>
     </div>
-    <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
-    <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
-    <div class="color-input-options-grid">
-      <div class="ui select grid-area-input">
-        <select v-model="mode">
-          <option value="rgb" label="RGB" />
-          <option value="lch" label="LCh" />
-        </select>
-        <font-awesome-icon icon="angle-down" />
-      </div>
-      <div class="ui-text-right grid-area-button">
-        <button class="ui x-100" title="Remove Color" @click="removeColor(colorIndex)">
-          Delete
-        </button>
+
+    <div v-if="open" class="color-input--knobs">
+      <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
+      <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
+      <div class="color-input-options-grid">
+        <div class="ui select grid-area-input">
+          <select v-model="mode">
+            <option value="rgb" label="RGB" />
+            <option value="lch" label="LCh" />
+          </select>
+          <font-awesome-icon icon="angle-down" />
+        </div>
+        <div class="ui-text-right grid-area-button">
+          <button class="ui x-100" title="Remove Color" @click="removeColor(colorIndex)">
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -51,7 +54,8 @@ export default {
 
   data() {
     return {
-      mode: 'lch'
+      mode: 'lch',
+      open: false
     }
   },
 
@@ -77,6 +81,9 @@ export default {
   methods: {
     removeColor(index) {
       this.$store.dispatch('palette/removeColor', { inputIndex: this.inputIndex, colorIndex: this.colorIndex })
+    },
+    toggleOpen() {
+      this.open = !this.open
     }
   }
 }
@@ -85,7 +92,9 @@ export default {
 <style lang="scss">
 .ColorInput {
   position: relative;
+  padding-bottom: 8px;
 }
+
 .color-swatch {
   height: 32px;
   width: 100%;
@@ -108,5 +117,11 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
   grid-template-areas: 'input input input button';
+}
+
+.color-input--knobs {
+  border-bottom: 2px solid rgba(black, 0.1);
+  margin: 0 0 4px;
+  padding: 0 0 12px;
 }
 </style>
