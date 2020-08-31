@@ -5,7 +5,7 @@
         <div class="text-center">
           <label>L</label>
         </div>
-        <input :value="l" type="range" min="0" max="100" step="0.1" @input="changeL" />
+        <input :value="l" type="range" min="0" max="100" step="0.1" :style="gradients.l" @input="changeL" />
       </div>
       <input :value="l" type="number" min="0" max="100" step="0.1" @change="changeL" />
     </div>
@@ -14,7 +14,7 @@
         <div class="text-center">
           <label>C</label>
         </div>
-        <input :value="c" type="range" min="0" max="100" step="0.1" @input="changeC" />
+        <input :value="c" type="range" min="0" max="100" step="0.1" :style="gradients.c" @input="changeC" />
       </div>
       <input :value="c" type="number" min="0" max="100" step="0.1" @change="changeC" />
     </div>
@@ -23,7 +23,7 @@
         <div class="text-center">
           <label>h</label>
         </div>
-        <input :value="h" type="range" min="0" max="360" step="1" @input="changeH" />
+        <input :value="h" type="range" min="0" max="360" step="1" :style="gradients.h" @input="changeH" />
       </div>
       <input :value="h" type="number" min="0" max="360" step="1" @change="changeH" />
     </div>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { createLchGradients } from '~/lib/color/gradients'
+
 export default {
   props: {
     colorIndex: { type: Number, required: true },
@@ -48,6 +50,9 @@ export default {
     h() {
       const h = this.input.colors[this.colorIndex].lch[2].toFixed(1)
       return isNaN(h) ? 0 : h
+    },
+    gradients() {
+      return createLchGradients(this.l, this.c, this.h)
     }
   },
 
