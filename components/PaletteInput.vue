@@ -41,7 +41,7 @@
       :input="input"
     ></ColorInput>
     <div class="ui grid grid--four-column">
-      <button class="ui x-100" title="Add Color" @click="addColor()"><font-awesome-icon icon="plus" /> Add</button>
+      <button class="ui x-100" title="Add Color" @click="addColor()">Add</button>
     </div>
   </div>
 </template>
