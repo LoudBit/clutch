@@ -159,7 +159,7 @@ export const mutations = {
   addInput(state) {
     state.inputs = [...state.inputs, new Input()]
   },
-  removeInput(state, ndx) {
-    state.inputs.splice(ndx, 1)
+  removeInput(state, { index }) {
+    state.inputs.splice(index, 1)
   }
 }

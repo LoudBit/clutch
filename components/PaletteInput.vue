@@ -3,7 +3,7 @@
     <div class="palette-input-grid">
       <div class="grid-area-delete">
         <br class="ui" />
-        <button class="ui x-100" title="Delete Input">Delete</button>
+        <button class="ui x-100" title="Delete Input" @click="removeInput">Delete</button>
       </div>
       <div class="grid-area-visibility">
         <br class="ui" />
@@ -48,7 +48,6 @@
 
 <script>
 import chroma from 'chroma-js'
-import { mapMutations } from 'vuex'
 import { createColor } from '~/store/palette'
 import ColorInput from '~/components/ColorInput'
 
@@ -111,16 +110,9 @@ export default {
       const index = this.index
       this.$store.commit('palette/updateInput', { input, index })
     },
-    removeColor(ndx) {
-      const colors = [...this.input.colors]
-      colors.splice(ndx, 1)
-      const input = { colors }
-      const index = this.index
-      this.$store.commit('palette/updateInput', { input, index })
-    },
-    ...mapMutations({
-      removeInput: 'palette/removeInput'
-    })
+    removeInput(ndx) {
+      this.$store.commit('palette/removeInput', { index: this.index })
+    }
   }
 }
 </script>
