@@ -1,36 +1,46 @@
 <template>
-  <div class="palette-input-grid">
-    <div class="grid-area-delete">
-      <br class="ui" />
-      <button class="ui x-100" title="Delete Input">Delete</button>
-    </div>
-    <div class="grid-area-visibility">
-      <br class="ui" />
-      <button v-if="hidden" class="ui x-100" title="Show Colors" @click="toggleVisibility()">
-        Show
-      </button>
-      <button v-if="!hidden" class="ui x-100" title="Hide Colors" @click="toggleVisibility()">
-        Hide
-      </button>
-    </div>
-    <div class="grid-area-steps">
-      <label>Steps</label>
-      <input v-model.number="steps" type="number" min="2" max="32" step="1" />
-    </div>
-    <div class="grid-area-blend">
-      <label>Blend</label>
-      <div class="ui select">
-        <select v-model="mode" class="ui">
-          <option value="rgb" label="RGB" />
-          <option value="hsl" label="HSL" />
-          <option value="lab" label="LAB" />
-          <option value="lrgb" label="Linear RGB" />
-          <option value="lch" label="LCh" />
-        </select>
-        <font-awesome-icon icon="angle-down" />
+  <div class="PaletteInput">
+    <div class="palette-input-grid">
+      <div class="grid-area-delete">
+        <br class="ui" />
+        <button class="ui x-100" title="Delete Input">Delete</button>
+      </div>
+      <div class="grid-area-visibility">
+        <br class="ui" />
+        <button v-if="hidden" class="ui x-100" title="Show Colors" @click="toggleVisibility()">
+          Show
+        </button>
+        <button v-if="!hidden" class="ui x-100" title="Hide Colors" @click="toggleVisibility()">
+          Hide
+        </button>
+      </div>
+      <div class="grid-area-steps">
+        <label>Steps</label>
+        <input v-model.number="steps" type="number" min="2" max="32" step="1" />
+      </div>
+      <div class="grid-area-blend">
+        <label>Blend</label>
+        <div class="ui select">
+          <select v-model="mode" class="ui">
+            <option value="rgb" label="RGB" />
+            <option value="hsl" label="HSL" />
+            <option value="lab" label="LAB" />
+            <option value="lrgb" label="Linear RGB" />
+            <option value="lch" label="LCh" />
+          </select>
+          <font-awesome-icon icon="angle-down" />
+        </div>
       </div>
     </div>
-    <div>
+    <ColorInput
+      v-for="(color, i) in input.colors"
+      :key="`color-${color.id}`"
+      :color-id="color.id"
+      :input-index="index"
+      :color-index="i"
+      :input="input"
+    ></ColorInput>
+    <div class="ui grid grid--four-column">
       <button class="ui x-100" title="Add Color" @click="addColor()"><font-awesome-icon icon="plus" /> Add</button>
     </div>
   </div>
@@ -40,8 +50,10 @@
 import chroma from 'chroma-js'
 import { mapMutations } from 'vuex'
 import { createColor } from '~/store/palette'
+import ColorInput from '~/components/ColorInput'
 
 export default {
+  components: { ColorInput },
   props: {
     input: {
       type: Object,

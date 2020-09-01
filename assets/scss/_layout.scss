@@ -9,6 +9,11 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
   gap: 8px 8px;
 }
 
+.grid--four-column {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+
 // This sucks, what's better?
 .grid-area-blend { grid-area: blend; }
 .grid-area-button { grid-area: button; }
