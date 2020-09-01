@@ -1,19 +1,12 @@
 <template>
   <div class="ColorInput">
-    <div class="color-input-grid">
-      <div>
-        <button class="ui x-100" @click="toggleOpen">
-          <font-awesome-icon icon="angle-down" />
-        </button>
-      </div>
-      <div>
-        <div class="color-swatch" :style="colorStyles"></div>
-      </div>
-      <div class="grid-area-input">
-        <input v-model="hex" type="text" />
-      </div>
+    <div class="ui grid grid--color-input">
+      <button class="ui" @click="toggleOpen">
+        <font-awesome-icon icon="angle-down" />
+      </button>
+      <div class="color-swatch" :style="colorStyles"></div>
+      <input v-model="hex" type="text" />
     </div>
-
     <div v-if="open" class="color-input--knobs">
       <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
       <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
@@ -100,12 +93,18 @@ export default {
   border-radius: 3px;
 }
 
-.color-input-grid {
-  display: grid;
-  gap: 8px 8px;
-  grid-template-columns: repeat(8, 1fr);
+.grid--color-input {
+  grid-template-columns: repeat(16, 1fr);
   grid-template-rows: auto;
-  grid-template-areas: 'button swatch input input input input input input ';
+}
+.grid--color-input > :nth-child(1) {
+  grid-column: 1 / 3;
+}
+.grid--color-input > :nth-child(2) {
+  grid-column: 3 / 5;
+}
+.grid--color-input > :nth-child(3) {
+  grid-column: 5 / 17;
 }
 
 .color-input-options-grid {
