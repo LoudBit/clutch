@@ -29,7 +29,7 @@ function Input() {
     id: uuidv4(),
     type: 'scale',
     colors,
-    steps: colors.length,
+    steps: Math.max(4, colors.length + 1),
     mode: 'lch',
     hidden: false
   }
