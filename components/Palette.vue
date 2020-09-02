@@ -2,13 +2,9 @@
   <div>
     <BG :color="bg"></BG>
 
-    <div class="heading-grid">
-      <div class="grid-area-label">
-        <h1 class="ui h1">Palette</h1>
-      </div>
-      <div class="grid-area-button">
-        <button class="ui small x-100" title="Add Input" @click="addInput">Add</button>
-      </div>
+    <div class="ui grid grid--heading">
+      <h1 class="ui h1">Palette</h1>
+      <button class="ui small x-100" title="Add Input" @click="addInput">Add Palette</button>
     </div>
 
     <div class="ui row">
@@ -21,7 +17,6 @@
 
     <div class="ui row">
       <div class="ui column">
-        <!-- IDEA: This could be a table [ swatch | hex | is an input ] -->
         <h1>Colors</h1>
         <div v-for="(color, index) in fromInputs" :key="index">
           {{ color }}
@@ -56,18 +51,19 @@ export default {
 </script>
 
 <style lang="scss">
-.heading-grid {
+.grid--heading {
   margin-top: 32px;
-  display: grid;
-  gap: 8px 8px;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: auto;
-  grid-template-areas: 'label label label label label label button button';
 }
 
-.heading-grid h1 {
+.grid--heading h1 {
   font-size: 18px;
   line-height: 24px;
   font-weight: 400;
+  grid-column: 1 / 6;
+}
+
+.grid--heading button {
+  grid-column: 6 / 9;
 }
 </style>

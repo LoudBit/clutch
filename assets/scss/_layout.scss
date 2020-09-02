@@ -9,12 +9,18 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
   gap: 8px 8px;
 }
 
+.grid--two-column {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+}
+
 .grid--four-column {
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
 }
 
 // This sucks, what's better?
+// nth-child selectors
 .grid-area-blend { grid-area: blend; }
 .grid-area-button { grid-area: button; }
 .grid-area-delete { grid-area: delete; }

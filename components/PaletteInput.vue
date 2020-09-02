@@ -1,6 +1,6 @@
 <template>
   <div class="PaletteInput">
-    <div class="palette-input-grid">
+    <div class="ui grid grid--palette-input">
       <div class="grid-area-delete">
         <br class="ui" />
         <button class="ui x-100" title="Delete Input" @click="removeInput">Delete</button>
@@ -40,8 +40,8 @@
       :color-index="i"
       :input="input"
     ></ColorInput>
-    <div class="ui grid grid--four-column">
-      <button class="ui x-100" title="Add Color" @click="addColor()">Add</button>
+    <div class="ui grid grid--add-color">
+      <button class="ui x-100" title="Add Color" @click="addColor()">Add Color</button>
     </div>
   </div>
 </template>
@@ -118,13 +118,18 @@ export default {
 </script>
 
 <style lang="scss">
-.palette-input-grid {
+.grid--palette-input {
   margin-top: 16px;
   margin-bottom: 8px;
-  display: grid;
-  gap: 8px 8px;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
   grid-template-areas: 'delete visibility steps blend';
+}
+
+.grid--add-color {
+  grid-template-columns: repeat(8, 1fr);
+}
+.grid--add-color button {
+  grid-column: 1 / 4;
 }
 </style>
