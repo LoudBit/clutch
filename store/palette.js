@@ -53,6 +53,24 @@ export const getters = {
     return cloneDeep(state.inputs)
   },
 
+  getInputById: (state) => (id) => {
+    return state.inputs.find((input) => input.id === id)
+  },
+
+  getInputColorsById: (state) => (id) => {
+    const input = state.inputs.find((input) => input.id === id)
+    const colours = []
+    if (input.type === 'scale' && !input.hidden) {
+      const c = input.colors.map((color) => chroma.lch(color.lch))
+      const scale = chroma
+        .scale(c)
+        .mode(input.mode)
+        .colors(input.steps, null)
+      colours.push(...scale)
+    }
+    return colours
+  },
+
   fromInputs(state) {
     const colours = []
     state.inputs.forEach((input) => {

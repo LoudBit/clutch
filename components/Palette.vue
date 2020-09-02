@@ -14,15 +14,6 @@
         </template>
       </div>
     </div>
-
-    <div class="ui row">
-      <div class="ui column">
-        <h1>Colors</h1>
-        <div v-for="(color, index) in fromInputs" :key="index">
-          {{ color }}
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

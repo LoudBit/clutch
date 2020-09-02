@@ -43,6 +43,13 @@
     <div class="ui grid grid--add-color">
       <button class="ui x-100" title="Add Color" @click="addColor()">Add Color</button>
     </div>
+    <div>
+      <ul>
+        <li v-for="(color, index) in inputColors" :key="index">
+          {{ color.hex() }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -96,6 +103,10 @@ export default {
         const index = this.index
         this.$store.commit('palette/updateInput', { input, index })
       }
+    },
+    inputColors() {
+      const inputColors = this.$store.getters['palette/getInputColorsById'](this.input.id)
+      return inputColors
     }
   },
   methods: {
