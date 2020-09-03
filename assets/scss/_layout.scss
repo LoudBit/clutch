@@ -9,6 +9,10 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
   gap: 8px 8px;
 }
 
+.ui.grid + .ui.grid {
+  margin-top: 8px;
+}
+
 .grid--two-column {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;

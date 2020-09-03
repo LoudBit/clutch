@@ -43,13 +43,17 @@
     <div class="ui grid grid--add-color">
       <button class="ui x-100" title="Add Color" @click="addColor()">Add Color</button>
     </div>
-    <div>
+    <div class="ui grid grid--palette-swatches">
+      <div v-for="(color, index) in inputColors" :key="index" :style="{ backgroundColor: color.hex() }"></div>
+    </div>
+    <!-- <div class="ui list list--palette-colors">
       <ul>
         <li v-for="(color, index) in inputColors" :key="index">
+          <span class="palette-swatch" :style="{ backgroundColor: color.hex() }"></span>
           {{ color.hex() }}
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -142,5 +146,23 @@ export default {
 }
 .grid--add-color button {
   grid-column: 1 / 4;
+}
+
+.grid--palette-swatches {
+  grid-template-columns: repeat(8, 1fr);
+}
+.grid--palette-swatches > div {
+  height: 32px;
+  width: 100%;
+  border: 1px solid rgba(black, 0.1);
+  border-radius: 2px;
+}
+
+.palette-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(black, 0.1);
+  border-radius: 2px;
 }
 </style>
