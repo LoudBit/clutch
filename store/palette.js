@@ -102,6 +102,7 @@ export const actions = {
         break
     }
   },
+  // TODO: don't delete the last color
   removeColor({ commit, state }, data) {
     const input = cloneDeep(state.inputs[data.inputIndex])
     input.colors.splice(data.colorIndex, 1)

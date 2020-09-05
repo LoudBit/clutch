@@ -11,9 +11,6 @@
       <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
       <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
       <div class="ui grid color-input-options-grid">
-        <button class="ui x-100" title="Remove Color" @click="removeColor(colorIndex)">
-          Delete
-        </button>
         <div class="ui select x-100">
           <select v-model="mode">
             <option value="rgb" label="RGB" />
@@ -21,6 +18,9 @@
           </select>
           <font-awesome-icon icon="angle-down" />
         </div>
+        <button class="ui x-100" title="Remove Color" @click="removeColor(colorIndex)">
+          Delete
+        </button>
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@ export default {
 
 .color-input-options-grid {
   margin-top: 8px;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 3fr 1fr;
 }
 
 .color-input--knobs {
