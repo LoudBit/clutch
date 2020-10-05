@@ -1,11 +1,5 @@
 <template>
   <div class="PaletteInput">
-    <div>
-      <button class="ui" @click="toggleOpen">
-        <font-awesome-icon icon="angle-down" />
-      </button>
-    </div>
-
     <div class="ui grid grid--palette-input">
       <div class="grid-area-delete">
         <br class="ui" />
