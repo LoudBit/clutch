@@ -1,5 +1,11 @@
 <template>
   <div class="PaletteInput">
+    <div>
+      <button class="ui" @click="toggleOpen">
+        <font-awesome-icon icon="angle-down" />
+      </button>
+    </div>
+
     <div class="ui grid grid--palette-input">
       <div class="grid-area-delete">
         <br class="ui" />
@@ -32,6 +38,22 @@
         </div>
       </div>
     </div>
+    <div>
+      <div v-if="gridOrList === 'grid'">
+        <h6>Grid</h6>
+        <div v-for="(color, index) in inputColors" :key="index" class="palette-swatch-cell">
+          <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
+        </div>
+      </div>
+      <ul v-if="gridOrList === 'list'" class="ui list list-tight list--palette-colors">
+        <li v-for="(color, index) in inputColors" :key="index" class="ui grid grid--palette-colors">
+          <div class="palette-swatch-cell">
+            <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
+          </div>
+          <span>{{ color.hex() }}</span>
+        </li>
+      </ul>
+    </div>
     <ColorInput
       v-for="(color, i) in input.colors"
       :key="`color-${color.id}`"
@@ -44,16 +66,6 @@
       <button class="ui x-100" title="Add Color" @click="addColor()">
         <font-awesome-icon icon="plus" />
       </button>
-    </div>
-    <div>
-      <ul class="ui list list-tight list--palette-colors">
-        <li v-for="(color, index) in inputColors" :key="index" class="ui grid grid--palette-colors">
-          <div class="palette-swatch-cell">
-            <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
-          </div>
-          <span>{{ color.hex() }}</span>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
@@ -73,6 +85,11 @@ export default {
     index: {
       type: Number,
       required: true
+    }
+  },
+  data() {
+    return {
+      gridOrList: 'list'
     }
   },
   computed: {
@@ -128,6 +145,9 @@ export default {
     },
     removeInput(ndx) {
       this.$store.commit('palette/removeInput', { index: this.index })
+    },
+    toggleOpen() {
+      this.open = !this.open
     }
   }
 }

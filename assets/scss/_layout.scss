@@ -7,6 +7,8 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
 .ui.grid {
   display: grid;
   gap: 8px 8px;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: auto;
 }
 
 .ui.grid + .ui.grid {
