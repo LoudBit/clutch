@@ -93,18 +93,18 @@ export default {
   border-radius: 3px;
 }
 
-.grid--color-input {
-  grid-template-columns: repeat(16, 1fr);
+.ui.grid.grid--color-input {
+  grid-template-columns: repeat(8, 1fr);
   grid-template-rows: auto;
 }
 .grid--color-input > :nth-child(1) {
-  grid-column: 1 / 3;
+  grid-column: 1 / 2;
 }
 .grid--color-input > :nth-child(2) {
-  grid-column: 3 / 5;
+  grid-column: 2 / 3;
 }
 .grid--color-input > :nth-child(3) {
-  grid-column: 5 / 17;
+  grid-column: 3 / 9;
 }
 
 .color-input-options-grid {

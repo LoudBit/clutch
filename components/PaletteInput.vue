@@ -148,7 +148,7 @@ export default {
 </script>
 
 <style lang="scss">
-.grid--palette-input {
+.ui.grid.grid--palette-input {
   margin-top: 16px;
   margin-bottom: 8px;
   grid-template-columns: repeat(4, 1fr);
