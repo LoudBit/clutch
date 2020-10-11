@@ -33,7 +33,8 @@
     "chroma-js": "^2.1.0",
     "lodash": "^4.17.15",
     "nuxt": "2.12.2",
-    "uuid": "^8.1.0"
+    "uuid": "^8.1.0",
+    "vuedraggable": "^2.24.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.2",
