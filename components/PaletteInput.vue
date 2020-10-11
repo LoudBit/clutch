@@ -149,10 +149,12 @@ export default {
     },
     inputColors: {
       get() {
+        // console.debug(`🔊 y:`, this.input.colors)
         return this.input.colors
       },
-      set(x) {
-        console.debug(`🔊 x:`, x)
+      set(newColors) {
+        // console.debug(`🔊 x:`, x)
+        this.$store.commit('palette/orderColors', { inputId: this.input.id, newColors })
       }
     },
     paletteColors() {

@@ -151,6 +151,17 @@ export const mutations = {
   updateBG(state, bg) {
     state.background = bg
   },
+  orderColors(state, { inputId, newColors }) {
+    let inputIndex = NaN
+    const oldInput = state.inputs.find((input, i) => {
+      if (input.id === inputId) {
+        inputIndex = i
+        return true
+      }
+    })
+    oldInput.colors = newColors
+    state.inputs = [...state.inputs.slice(0, inputIndex), oldInput, ...state.inputs.slice(inputIndex + 1)]
+  },
   updateColor(state, { inputId, colorId, color }) {
     let inputIndex = NaN
     let colorIndex = NaN
