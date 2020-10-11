@@ -40,7 +40,7 @@
     <div v-if="open" class="palette-details ui grid">
       <div class="span-4">
         <ul class="ui list list-tight list--palette-colors">
-          <li v-for="(color, index) in inputColors" :key="index" class="ui grid grid--palette-colors">
+          <li v-for="(color, index) in paletteColors" :key="index" class="ui grid grid--palette-colors">
             <div class="palette-swatch-cell">
               <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
             </div>
@@ -53,7 +53,7 @@
     <div v-if="!open">
       <div class="ui row palette-lines">
         <span
-          v-for="(color, index) in inputColors"
+          v-for="(color, index) in paletteColors"
           :key="index"
           class="palette-line"
           :style="{ backgroundColor: color.hex() }"
@@ -61,14 +61,26 @@
         ></span>
       </div>
     </div>
-    <ColorInput
+
+    <draggable v-model="inputColors" @start="drag = true" @end="drag = false">
+      <ColorInput
+        v-for="(color, i) in inputColors"
+        :key="`color-${color.id}`"
+        :color-id="color.id"
+        :input-index="index"
+        :color-index="i"
+        :input="input"
+      ></ColorInput>
+    </draggable>
+
+    <!-- <ColorInput
       v-for="(color, i) in input.colors"
       :key="`color-${color.id}`"
       :color-id="color.id"
       :input-index="index"
       :color-index="i"
       :input="input"
-    ></ColorInput>
+    ></ColorInput> -->
     <div class="ui grid">
       <button class="ui span-1" title="Add Color" @click="addColor()">
         <font-awesome-icon icon="plus" />
@@ -79,11 +91,13 @@
 
 <script>
 import chroma from 'chroma-js'
+import draggable from 'vuedraggable'
+
 import { createColor } from '~/store/palette'
 import ColorInput from '~/components/ColorInput'
 
 export default {
-  components: { ColorInput },
+  components: { ColorInput, draggable },
   props: {
     input: {
       type: Object,
@@ -133,9 +147,17 @@ export default {
         this.$store.commit('palette/updateInput', { input, index })
       }
     },
-    inputColors() {
-      const inputColors = this.$store.getters['palette/getInputColorsById'](this.input.id)
-      return inputColors
+    inputColors: {
+      get() {
+        return this.input.colors
+      },
+      set(x) {
+        console.debug(`🔊 x:`, x)
+      }
+    },
+    paletteColors() {
+      const paletteColors = this.$store.getters['palette/getInputColorsById'](this.input.id)
+      return paletteColors
     }
   },
   methods: {
