@@ -10,14 +10,21 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: auto;
   counter-reset: dummy;
+  .span-1 { grid-column-end: span 1; }
+  .span-2 { grid-column-end: span 2; }
+  .span-3 { grid-column-end: span 3; }
+  .span-4 { grid-column-end: span 4; }
+  .span-5 { grid-column-end: span 5; }
+  .span-6 { grid-column-end: span 6; }
+  .span-7 { grid-column-end: span 7; }
+  .span-8 { grid-column-end: span 8; }
+}
+.ui.subgrid {
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
 }
 
 .ui.grid + .ui.grid { margin-top: 8px; }
-.ui.grid--two-column { grid-template-columns: repeat(2, 1fr); }
-.ui.grid--four-column { grid-template-columns: repeat(4, 1fr); }
-.ui.grid--eight-column { grid-template-columns: repeat(8, 1fr); }
-.ui.grid--twelve-column { grid-template-columns: repeat(12, 1fr); }
-.ui.grid--sixteen-column { grid-template-columns: repeat(16, 1fr); }
 
 .grid--dummy-item {
   background: rgba(black, 0.25);

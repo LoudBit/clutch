@@ -1,24 +1,29 @@
 <template>
   <div class="PaletteInput">
     <div class="ui grid grid--palette-input">
-      <div class="grid-area-delete">
+      <div class="span-1">
         <br class="ui" />
-        <button class="ui x-100" title="Delete Input" @click="removeInput">Delete</button>
-      </div>
-      <div class="grid-area-visibility">
-        <br class="ui" />
-        <button v-if="hidden" class="ui x-100" title="Show Colors" @click="toggleVisibility()">
-          Show
+        <button v-if="open" class="ui x-100" title="Open Palette Controls" @click="toggleOpen()">
+          <font-awesome-icon icon="angle-up" />
         </button>
+        <button v-if="!open" class="ui x-100" title="Close Palette Controls" @click="toggleOpen()">
+          <font-awesome-icon icon="angle-down" />
+        </button>
+      </div>
+      <div class="span-1">
+        <br class="ui" />
         <button v-if="!hidden" class="ui x-100" title="Hide Colors" @click="toggleVisibility()">
-          Hide
+          <font-awesome-icon icon="eye" />
+        </button>
+        <button v-if="hidden" class="ui x-100" title="Show Colors" @click="toggleVisibility()">
+          <font-awesome-icon icon="eye-slash" />
         </button>
       </div>
-      <div class="grid-area-steps">
+      <div class="span-3">
         <label>Steps</label>
         <input v-model.number="steps" type="number" min="2" max="32" step="1" />
       </div>
-      <div class="grid-area-blend">
+      <div class="span-3">
         <label>Blend</label>
         <div class="ui select">
           <select v-model="mode" class="ui">
@@ -33,20 +38,26 @@
       </div>
     </div>
     <div>
-      <div v-if="gridOrList === 'grid'">
-        <h6>Grid</h6>
-        <div v-for="(color, index) in inputColors" :key="index" class="palette-swatch-cell">
-          <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
-        </div>
+      <div v-if="open">
+        <button class="ui x-100" title="Delete Input" @click="removeInput">Delete</button>
+        <ul class="ui list list-tight list--palette-colors">
+          <li v-for="(color, index) in inputColors" :key="index" class="ui grid grid--palette-colors">
+            <div class="palette-swatch-cell">
+              <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
+            </div>
+            <span>{{ color.hex() }}</span>
+          </li>
+        </ul>
       </div>
-      <ul v-if="gridOrList === 'list'" class="ui list list-tight list--palette-colors">
-        <li v-for="(color, index) in inputColors" :key="index" class="ui grid grid--palette-colors">
-          <div class="palette-swatch-cell">
-            <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
-          </div>
-          <span>{{ color.hex() }}</span>
-        </li>
-      </ul>
+      <div v-if="!open">
+        <span
+          v-for="(color, index) in inputColors"
+          :key="index"
+          class="palette-swatch"
+          :style="{ backgroundColor: color.hex() }"
+          :title="color.hex()"
+        ></span>
+      </div>
     </div>
     <ColorInput
       v-for="(color, i) in input.colors"
@@ -83,7 +94,7 @@ export default {
   },
   data() {
     return {
-      gridOrList: 'list'
+      open: false
     }
   },
   computed: {
@@ -151,9 +162,9 @@ export default {
 .ui.grid.grid--palette-input {
   margin-top: 16px;
   margin-bottom: 8px;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;
-  grid-template-areas: 'delete visibility steps blend';
+  // grid-template-columns: repeat(4, 1fr);
+  // grid-template-rows: auto;
+  // grid-template-areas: 'open visibility steps blend';
 }
 
 .grid--add-color {

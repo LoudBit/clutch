@@ -7,20 +7,22 @@
       <div class="color-swatch" :style="colorStyles"></div>
       <input v-model="hex" type="text" />
     </div>
-    <div v-if="open" class="color-input--knobs">
-      <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
-      <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
-      <div class="ui grid color-input-options-grid">
-        <div class="ui select x-100">
-          <select v-model="mode">
-            <option value="rgb" label="RGB" />
-            <option value="lch" label="LCh" />
-          </select>
-          <font-awesome-icon icon="angle-down" />
+    <div class="ui grid grid--3-1">
+      <div v-if="open" class="color-input--knobs">
+        <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
+        <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
+        <div class="ui">
+          <div class="ui select">
+            <select v-model="mode">
+              <option value="rgb" label="RGB" />
+              <option value="lch" label="LCh" />
+            </select>
+            <font-awesome-icon icon="angle-down" />
+          </div>
+          <button class="ui" title="Remove Color" @click="removeColor(colorIndex)">
+            Delete
+          </button>
         </div>
-        <button class="ui x-100" title="Remove Color" @click="removeColor(colorIndex)">
-          Delete
-        </button>
       </div>
     </div>
   </div>
