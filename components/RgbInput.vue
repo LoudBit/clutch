@@ -1,26 +1,26 @@
 <template>
   <div class="ui grid">
-    <div class="ui slider slider-inner-grid">
+    <div class="ui slider slider-inner-grid span-6">
       <div class="text-center">
         <label>R</label>
       </div>
       <input :value="r" type="range" min="0" max="255" step="1" :style="gradients.r" @input="changeR" />
     </div>
-    <input :value="r" type="number" min="0" max="255" step="1" @change="changeR" />
-    <div class="ui slider slider-inner-grid">
+    <input :value="r" type="number" min="0" max="255" step="1" class="span-2" @change="changeR" />
+    <div class="ui slider slider-inner-grid span-6">
       <div class="text-center">
         <label>G</label>
       </div>
       <input :value="g" type="range" min="0" max="255" step="1" :style="gradients.g" @input="changeG" />
     </div>
-    <input :value="g" type="number" min="0" max="255" step="1" @change="changeG" />
-    <div class="ui slider slider-inner-grid">
+    <input :value="g" type="number" min="0" max="255" step="1" class="span-2" @change="changeG" />
+    <div class="ui slider slider-inner-grid span-6">
       <div class="text-center">
         <label>B</label>
       </div>
       <input :value="b" type="range" min="0" max="255" step="1" :style="gradients.b" @input="changeB" />
     </div>
-    <input :value="b" type="number" min="0" max="255" step="1" @change="changeB" />
+    <input :value="b" type="number" min="0" max="255" step="1" class="span-2" @change="changeB" />
   </div>
 </template>
 
