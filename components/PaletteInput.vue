@@ -37,9 +37,8 @@
         </div>
       </div>
     </div>
-    <div>
-      <div v-if="open">
-        <button class="ui x-100" title="Delete Input" @click="removeInput">Delete</button>
+    <div v-if="open" class="palette-details ui grid">
+      <div class="span-4">
         <ul class="ui list list-tight list--palette-colors">
           <li v-for="(color, index) in inputColors" :key="index" class="ui grid grid--palette-colors">
             <div class="palette-swatch-cell">
@@ -49,11 +48,14 @@
           </li>
         </ul>
       </div>
-      <div v-if="!open">
+      <button class="ui start-7 span-2" title="Delete Input" @click="removeInput">Delete</button>
+    </div>
+    <div v-if="!open">
+      <div class="ui row palette-lines">
         <span
           v-for="(color, index) in inputColors"
           :key="index"
-          class="palette-swatch"
+          class="palette-line"
           :style="{ backgroundColor: color.hex() }"
           :title="color.hex()"
         ></span>
@@ -67,8 +69,8 @@
       :color-index="i"
       :input="input"
     ></ColorInput>
-    <div class="ui grid grid--add-color">
-      <button class="ui x-100" title="Add Color" @click="addColor()">
+    <div class="ui grid">
+      <button class="ui span-1" title="Add Color" @click="addColor()">
         <font-awesome-icon icon="plus" />
       </button>
     </div>
@@ -162,16 +164,6 @@ export default {
 .ui.grid.grid--palette-input {
   margin-top: 16px;
   margin-bottom: 8px;
-  // grid-template-columns: repeat(4, 1fr);
-  // grid-template-rows: auto;
-  // grid-template-areas: 'open visibility steps blend';
-}
-
-.grid--add-color {
-  grid-template-columns: repeat(8, 1fr);
-}
-.grid--add-color button {
-  grid-column: 1 / 2;
 }
 
 .grid--palette-swatches {
@@ -194,6 +186,20 @@ export default {
   border: 1px solid rgba(black, 0.1);
   border-radius: 2px;
   vertical-align: text-bottom;
+}
+
+.palette-details {
+  padding: 0 0 8px;
+}
+
+.palette-lines {
+  margin: -1px 0 7px;
+}
+
+.palette-line {
+  display: inline-block;
+  width: 100%;
+  height: 2px;
 }
 
 .ui.list.list--palette-colors {

@@ -85,7 +85,6 @@ export default {
 <style lang="scss">
 .ColorInput {
   position: relative;
-  padding-bottom: 8px;
 }
 
 .color-swatch {

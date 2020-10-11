@@ -18,6 +18,15 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
   .span-6 { grid-column-end: span 6; }
   .span-7 { grid-column-end: span 7; }
   .span-8 { grid-column-end: span 8; }
+
+  .start-1 { grid-column-start: 1; }
+  .start-2 { grid-column-start: 2; }
+  .start-3 { grid-column-start: 3; }
+  .start-4 { grid-column-start: 4; }
+  .start-5 { grid-column-start: 5; }
+  .start-6 { grid-column-start: 6; }
+  .start-7 { grid-column-start: 7; }
+  .start-8 { grid-column-start: 78; }
 }
 .ui.subgrid {
   grid-template-columns: subgrid;
@@ -60,13 +69,10 @@ article, aside, figcaption, figure, footer, header, main, nav, section {
 
 br.ui { line-height: 24px; }
 
-// TODO: get rid of these
 .ui.row {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  padding: 0;
-  margin: 0;
 }
 .ui.row + .ui.row { margin-top: 8px;}
 .ui.row.with-margins { margin-left: 8px; margin-right: 8px; }
