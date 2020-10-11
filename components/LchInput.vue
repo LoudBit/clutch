@@ -1,32 +1,32 @@
 <template>
-  <div class="ui subgrid">
-    <!-- <div class="slider-outer-grid"> -->
-    <div class="ui slider slider-inner-grid">
-      <div class="text-center">
-        <label>L</label>
+  <div class="">
+    <div class="slider-outer-grid">
+      <div class="ui slider slider-inner-grid">
+        <div class="text-center">
+          <label>L</label>
+        </div>
+        <input :value="l" type="range" min="0" max="100" step="0.1" :style="gradients.l" @input="changeL" />
       </div>
-      <input :value="l" type="range" min="0" max="100" step="0.1" :style="gradients.l" @input="changeL" />
+      <input :value="l" type="number" min="0" max="100" step="0.1" @change="changeL" />
     </div>
-    <input :value="l" type="number" min="0" max="100" step="0.1" @change="changeL" />
-    <!-- </div> -->
-    <!-- <div class="slider-outer-grid"> -->
-    <div class="ui slider slider-inner-grid">
-      <div class="text-center">
-        <label>C</label>
+    <div class="slider-outer-grid">
+      <div class="ui slider slider-inner-grid">
+        <div class="text-center">
+          <label>C</label>
+        </div>
+        <input :value="c" type="range" min="0" max="100" step="0.1" :style="gradients.c" @input="changeC" />
       </div>
-      <input :value="c" type="range" min="0" max="100" step="0.1" :style="gradients.c" @input="changeC" />
+      <input :value="c" type="number" min="0" max="100" step="0.1" @change="changeC" />
     </div>
-    <input :value="c" type="number" min="0" max="100" step="0.1" @change="changeC" />
-    <!-- </div> -->
-    <!-- <div class="slider-outer-grid"> -->
-    <div class="ui slider slider-inner-grid">
-      <div class="text-center">
-        <label>h</label>
+    <div class="slider-outer-grid">
+      <div class="ui slider slider-inner-grid">
+        <div class="text-center">
+          <label>h</label>
+        </div>
+        <input :value="h" type="range" min="0" max="360" step="1" :style="gradients.h" @input="changeH" />
       </div>
-      <input :value="h" type="range" min="0" max="360" step="1" :style="gradients.h" @input="changeH" />
+      <input :value="h" type="number" min="0" max="360" step="1" @change="changeH" />
     </div>
-    <input :value="h" type="number" min="0" max="360" step="1" @change="changeH" />
-    <!-- </div> -->
   </div>
 </template>
 
@@ -92,13 +92,13 @@ export default {
 </script>
 
 <style lang="scss">
-// .slider-outer-grid {
-//   margin-top: 8px;
-//   display: grid;
-//   gap: 8px 8px;
-//   grid-template-columns: 3fr 1fr;
-//   grid-template-rows: auto;
-// }
+.slider-outer-grid {
+  margin-top: 8px;
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: auto;
+}
 .slider-inner-grid {
   background: rgba(black, 0.2);
   align-items: center;
