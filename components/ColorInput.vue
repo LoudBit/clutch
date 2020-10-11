@@ -1,10 +1,10 @@
 <template>
   <div class="ColorInput">
-    <div class="ui grid">
+    <div class="ui grid drag-handle">
       <button class="ui span-1" @click="toggleOpen">
         <font-awesome-icon icon="angle-down" />
       </button>
-      <div class="color-swatch span-1" :style="colorStyles"></div>
+      <div class="color-swatch span-1 " :style="colorStyles"></div>
       <input v-model="hex" type="text" class="span-6" />
     </div>
     <template v-if="open">

@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <draggable v-model="inputColors" @start="drag = true" @end="drag = false">
+    <draggable v-model="inputColors" handle=".drag-handle" @start="drag = true" @end="drag = false">
       <ColorInput
         v-for="(color, i) in inputColors"
         :key="`color-${color.id}`"
@@ -72,15 +72,6 @@
         :input="input"
       ></ColorInput>
     </draggable>
-
-    <!-- <ColorInput
-      v-for="(color, i) in input.colors"
-      :key="`color-${color.id}`"
-      :color-id="color.id"
-      :input-index="index"
-      :color-index="i"
-      :input="input"
-    ></ColorInput> -->
     <div class="ui grid">
       <button class="ui span-1" title="Add Color" @click="addColor()">
         <font-awesome-icon icon="plus" />
@@ -149,11 +140,9 @@ export default {
     },
     inputColors: {
       get() {
-        // console.debug(`🔊 y:`, this.input.colors)
         return this.input.colors
       },
       set(newColors) {
-        // console.debug(`🔊 x:`, x)
         this.$store.commit('palette/orderColors', { inputId: this.input.id, newColors })
       }
     },
