@@ -7,7 +7,7 @@
       <div class="color-swatch span-1" :style="colorStyles"></div>
       <input v-model="hex" type="text" class="span-6" />
     </div>
-    <div v-if="open" class="color-input--knobs">
+    <template v-if="open">
       <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
       <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
       <div class="ui grid">
@@ -22,7 +22,7 @@
           Delete
         </button>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -83,6 +83,7 @@ export default {
 <style lang="scss">
 .ColorInput {
   position: relative;
+  margin: 0 0 8px;
 }
 
 .color-swatch {
