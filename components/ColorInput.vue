@@ -1,24 +1,28 @@
 <template>
   <div class="ColorInput">
-    <div class="colorFlair" :style="colorStyles"></div>
-    <i-row>
-      <i-column xs="5">
-        <i-select v-model="mode" size="sm">
-          <i-select-option value="rgb" label="RGB" />
-          <i-select-option value="lch" label="LCh" />
-        </i-select>
-      </i-column>
-      <i-column xs="5">
-        <i-input v-model="hex" size="sm" />
-      </i-column>
-      <i-column xs="2" class="_text-right">
-        <i-button circle size="sm" title="Remove Color" @click="removeColor(colorIndex)">
-          <i-icon icon="minus" />
-        </i-button>
-      </i-column>
-    </i-row>
-    <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
-    <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
+    <div class="ui grid">
+      <button class="ui span-1" @click="toggleOpen">
+        <font-awesome-icon icon="angle-down" />
+      </button>
+      <div class="color-swatch span-1" :style="colorStyles"></div>
+      <input v-model="hex" type="text" class="span-6" />
+    </div>
+    <template v-if="open">
+      <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
+      <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
+      <div class="ui grid">
+        <div class="ui select span-6">
+          <select v-model="mode">
+            <option value="rgb" label="RGB" />
+            <option value="lch" label="LCh" />
+          </select>
+          <font-awesome-icon icon="angle-down" />
+        </div>
+        <button class="ui span-2" title="Remove Color" @click="removeColor(colorIndex)">
+          Delete
+        </button>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -41,13 +45,14 @@ export default {
 
   data() {
     return {
-      mode: 'lch'
+      mode: 'lch',
+      open: false
     }
   },
 
   computed: {
     colorStyles() {
-      return { borderLeft: `5px solid ${this.input.colors[this.colorIndex].hex}` }
+      return { backgroundColor: this.input.colors[this.colorIndex].hex }
     },
     hex: {
       get() {
@@ -67,19 +72,30 @@ export default {
   methods: {
     removeColor(index) {
       this.$store.dispatch('palette/removeColor', { inputIndex: this.inputIndex, colorIndex: this.colorIndex })
+    },
+    toggleOpen() {
+      this.open = !this.open
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 .ColorInput {
   position: relative;
-  margin-left: 10px;
+  margin: 0 0 8px;
 }
-.colorFlair {
-  position: absolute;
-  height: 100%;
-  left: -15px;
+
+.color-swatch {
+  height: 32px;
+  width: 100%;
+  border: 1px solid rgba(black, 0.3);
+  border-radius: 3px;
+}
+
+.color-input--knobs {
+  border-bottom: 2px solid rgba(black, 0.1);
+  margin: 0 0 6px;
+  padding: 0 0 7px;
 }
 </style>

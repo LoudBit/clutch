@@ -26,12 +26,14 @@
     }
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-solid-svg-icons": "^5.13.1",
+    "@fortawesome/vue-fontawesome": "^0.1.10",
+    "@nuxtjs/style-resources": "^1.0.0",
     "chroma-js": "^2.1.0",
     "lodash": "^4.17.15",
     "nuxt": "2.12.2",
-    "uuid": "^8.1.0",
-    "@inkline/inkline": "^2.1.4",
-    "@nuxtjs/style-resources": "^1.0.0"
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.2",

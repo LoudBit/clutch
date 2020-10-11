@@ -1,18 +1,32 @@
 <template>
-  <i-row>
-    <i-column>
-      <i-input :value="l" size="sm" type="number" min="0" max="100" step="0.1" @change="changeL" />
-    </i-column>
-    <i-column>
-      <i-input :value="c" size="sm" type="number" min="0" max="100" step="0.1" @change="changeC" />
-    </i-column>
-    <i-column>
-      <i-input :value="h" size="sm" type="number" min="0" max="360" step="1" @change="changeH" />
-    </i-column>
-  </i-row>
+  <div class="ui grid">
+    <div class="ui slider slider-inner-grid span-6">
+      <div class="text-center">
+        <label>L</label>
+      </div>
+      <input :value="l" type="range" min="0" max="100" step="0.1" :style="gradients.l" @input="changeL" />
+    </div>
+    <input :value="l" type="number" min="0" max="100" step="0.1" class="span-2" @change="changeL" />
+    <div class="ui slider slider-inner-grid span-6">
+      <div class="text-center">
+        <label>C</label>
+      </div>
+      <input :value="c" type="range" min="0" max="100" step="0.1" :style="gradients.c" @input="changeC" />
+    </div>
+    <input :value="c" type="number" min="0" max="100" step="0.1" class="span-2" @change="changeC" />
+    <div class="ui slider slider-inner-grid span-6">
+      <div class="text-center">
+        <label>h</label>
+      </div>
+      <input :value="h" type="range" min="0" max="360" step="1" :style="gradients.h" @input="changeH" />
+    </div>
+    <input :value="h" type="number" min="0" max="360" step="1" class="span-2" @change="changeH" />
+  </div>
 </template>
 
 <script>
+import { createLchGradients } from '~/lib/color/gradients'
+
 export default {
   props: {
     colorIndex: { type: Number, required: true },
@@ -30,12 +44,15 @@ export default {
     h() {
       const h = this.input.colors[this.colorIndex].lch[2].toFixed(1)
       return isNaN(h) ? 0 : h
+    },
+    gradients() {
+      return createLchGradients(this.l, this.c, this.h)
     }
   },
 
   methods: {
-    changeL(l) {
-      l = parseFloat(l)
+    changeL(event) {
+      const l = parseFloat(event.target.value)
       const lch = this.input.colors[this.colorIndex].lch
       this.$store.dispatch('palette/updateLch', {
         colorIndex: this.colorIndex,
@@ -44,8 +61,8 @@ export default {
         lch: [l, lch[1], lch[2]]
       })
     },
-    changeC(c) {
-      c = parseFloat(c)
+    changeC(event) {
+      const c = parseFloat(event.target.value)
       const lch = this.input.colors[this.colorIndex].lch
       this.$store.dispatch('palette/updateLch', {
         colorIndex: this.colorIndex,
@@ -54,8 +71,8 @@ export default {
         lch: [lch[0], c, lch[2]]
       })
     },
-    changeH(h) {
-      h = parseFloat(h)
+    changeH(event) {
+      const h = parseFloat(event.target.value)
       const lch = this.input.colors[this.colorIndex].lch
       this.$store.dispatch('palette/updateLch', {
         colorIndex: this.colorIndex,
@@ -67,3 +84,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.slider-inner-grid {
+  background: rgba(black, 0.2);
+  border-radius: 2px;
+  align-items: center;
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: none;
+  padding: 0 8px 0 0;
+
+  label {
+    line-height: 32px;
+  }
+}
+</style>

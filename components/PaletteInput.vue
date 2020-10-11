@@ -1,50 +1,89 @@
 <template>
-  <i-row>
-    <i-column xs="3">
-      <i-form-group size="sm">
-        <i-form-label>Steps</i-form-label>
-        <i-input v-model.number="steps" type="number" min="2" max="32" step="1" />
-      </i-form-group>
-    </i-column>
-    <i-column xs="5">
-      <i-form-group size="sm">
-        <i-form-label>Mode</i-form-label>
-        <i-select v-model="mode" size="sm">
-          <i-select-option value="rgb" label="RGB" />
-          <i-select-option value="hsl" label="HSL" />
-          <i-select-option value="lab" label="LAB" />
-          <i-select-option value="lrgb" label="Linear RGB" />
-          <i-select-option value="lch" label="LCh" />
-        </i-select>
-      </i-form-group>
-    </i-column>
-    <i-column xs="2">
-      <i-form-group size="sm">
-        <i-form-label></i-form-label>
-        <i-checkbox-button v-model="hidden" size="sm" title="Toggle Visibility">
-          <span :style="isHiddenStyles">👁</span>
-        </i-checkbox-button>
-      </i-form-group>
-    </i-column>
-    <i-column xs="2">
-      <br />
-      <i-button circle size="sm" title="Add Color" @click="addColor()">
-        <i-icon icon="plus" />
-      </i-button>
-    </i-column>
-  </i-row>
+  <div class="PaletteInput">
+    <div class="ui grid grid--palette-input">
+      <div class="span-1">
+        <br class="ui" />
+        <button v-if="open" class="ui x-100" title="Open Palette Controls" @click="toggleOpen()">
+          <font-awesome-icon icon="angle-up" />
+        </button>
+        <button v-if="!open" class="ui x-100" title="Close Palette Controls" @click="toggleOpen()">
+          <font-awesome-icon icon="angle-down" />
+        </button>
+      </div>
+      <div class="span-1">
+        <br class="ui" />
+        <button v-if="!hidden" class="ui x-100" title="Hide Colors" @click="toggleVisibility()">
+          <font-awesome-icon icon="eye" />
+        </button>
+        <button v-if="hidden" class="ui x-100" title="Show Colors" @click="toggleVisibility()">
+          <font-awesome-icon icon="eye-slash" />
+        </button>
+      </div>
+      <div class="span-3">
+        <label>Steps</label>
+        <input v-model.number="steps" type="number" min="2" max="32" step="1" />
+      </div>
+      <div class="span-3">
+        <label>Blend</label>
+        <div class="ui select">
+          <select v-model="mode" class="ui">
+            <option value="rgb" label="RGB" />
+            <option value="hsl" label="HSL" />
+            <option value="lab" label="LAB" />
+            <option value="lrgb" label="Linear RGB" />
+            <option value="lch" label="LCh" />
+          </select>
+          <font-awesome-icon icon="angle-down" />
+        </div>
+      </div>
+    </div>
+    <div v-if="open" class="palette-details ui grid">
+      <div class="span-4">
+        <ul class="ui list list-tight list--palette-colors">
+          <li v-for="(color, index) in inputColors" :key="index" class="ui grid grid--palette-colors">
+            <div class="palette-swatch-cell">
+              <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
+            </div>
+            <span>{{ color.hex() }}</span>
+          </li>
+        </ul>
+      </div>
+      <button class="ui start-7 span-2" title="Delete Input" @click="removeInput">Delete</button>
+    </div>
+    <div v-if="!open">
+      <div class="ui row palette-lines">
+        <span
+          v-for="(color, index) in inputColors"
+          :key="index"
+          class="palette-line"
+          :style="{ backgroundColor: color.hex() }"
+          :title="color.hex()"
+        ></span>
+      </div>
+    </div>
+    <ColorInput
+      v-for="(color, i) in input.colors"
+      :key="`color-${color.id}`"
+      :color-id="color.id"
+      :input-index="index"
+      :color-index="i"
+      :input="input"
+    ></ColorInput>
+    <div class="ui grid">
+      <button class="ui span-1" title="Add Color" @click="addColor()">
+        <font-awesome-icon icon="plus" />
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
 import chroma from 'chroma-js'
-import { mapMutations } from 'vuex'
 import { createColor } from '~/store/palette'
-// import ColorInput from '~/components/ColorInput'
+import ColorInput from '~/components/ColorInput'
 
 export default {
-  // components: {
-  //   ColorInput
-  // },
+  components: { ColorInput },
   props: {
     input: {
       type: Object,
@@ -53,6 +92,11 @@ export default {
     index: {
       type: Number,
       required: true
+    }
+  },
+  data() {
+    return {
+      open: false
     }
   },
   computed: {
@@ -88,9 +132,16 @@ export default {
         const index = this.index
         this.$store.commit('palette/updateInput', { input, index })
       }
+    },
+    inputColors() {
+      const inputColors = this.$store.getters['palette/getInputColorsById'](this.input.id)
+      return inputColors
     }
   },
   methods: {
+    toggleVisibility() {
+      this.hidden = !this.hidden
+    },
     addColor() {
       // TODO: move this logic to the store
       const color = chroma.random()
@@ -99,16 +150,80 @@ export default {
       const index = this.index
       this.$store.commit('palette/updateInput', { input, index })
     },
-    removeColor(ndx) {
-      const colors = [...this.input.colors]
-      colors.splice(ndx, 1)
-      const input = { colors }
-      const index = this.index
-      this.$store.commit('palette/updateInput', { input, index })
+    removeInput(ndx) {
+      this.$store.commit('palette/removeInput', { index: this.index })
     },
-    ...mapMutations({
-      removeInput: 'palette/removeInput'
-    })
+    toggleOpen() {
+      this.open = !this.open
+    }
   }
 }
 </script>
+
+<style lang="scss">
+.ui.grid.grid--palette-input {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.grid--palette-swatches {
+  grid-template-columns: repeat(8, 1fr);
+}
+.grid--palette-swatches > div {
+  height: 32px;
+  width: 100%;
+  border: 1px solid rgba(black, 0.1);
+  border-radius: 2px;
+}
+
+.palette-swatch-cell {
+  text-align: center;
+}
+.palette-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(black, 0.1);
+  border-radius: 2px;
+  vertical-align: text-bottom;
+}
+
+.palette-details {
+  padding: 0 0 8px;
+}
+
+.palette-lines {
+  margin: -1px 0 7px;
+}
+
+.palette-line {
+  display: inline-block;
+  width: 100%;
+  height: 2px;
+}
+
+.ui.list.list--palette-colors {
+  margin: 8px 0 0 0;
+}
+
+.grid--palette-colors {
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  align-content: center;
+}
+.grid--palette-colors > :nth-child(1) {
+  grid-column: 1 / 2;
+}
+.grid--palette-colors > :nth-child(2) {
+  grid-column: 2 / 4;
+}
+.grid--palette-colors > :nth-child(3) {
+  grid-column: 4 / 5;
+}
+.grid--palette-colors > :nth-child(4) {
+  grid-column: 5 / 6;
+}
+.grid--palette-colors > :nth-child(5) {
+  grid-column: 6 / 7;
+}
+</style>

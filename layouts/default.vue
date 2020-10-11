@@ -3,11 +3,7 @@
 </template>
 
 <script>
-export default {
-  created() {
-    this.$inkline.config.variant = 'dark'
-  }
-}
+export default {}
 </script>
 
 <style>

@@ -1,14 +1,14 @@
 <template>
-  <i-layout :style="{ backgroundColor: bg }" vertical>
-    <i-layout-aside>
+  <main class="ui layout row" :style="{ backgroundColor: bg }">
+    <div class="ui layout aside">
       <Palette></Palette>
-    </i-layout-aside>
-    <i-layout-content>
+    </div>
+    <div class="ui layout content">
       <div class="color-wrapper">
         <ColorDot v-for="(color, index) in colors" :key="index" :color="color"></ColorDot>
       </div>
-    </i-layout-content>
-  </i-layout>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -31,45 +31,29 @@ export default {
 </script>
 
 <style lang="scss">
-#__layout,
-#__layout > main {
+.ui.layout {
   min-height: 100vh;
   max-height: 100vh;
 }
 
-.layout-aside {
-  z-index: 1;
-}
-
-.layout-aside-children {
+.ui.layout.aside {
   background: rgba(#292929, 0.8);
+  background-image: url('~assets/img/aside-bg.png');
   color: #d0d0d0;
-  overflow-y: auto;
   max-width: 320px;
+  z-index: 1;
+  padding: 8px;
+  overflow-y: auto;
 }
 
-.layout-aside-children input {
-  background: rgba(#121212, 0.2);
-  border: 1px solid rgba(#121212, 0.8);
-  border-radius: 2px;
-  color: #d0d0d0;
-  width: 100%;
-  padding: 4px 8px;
-  font-size: 14px;
-}
-
-.row {
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-.col,
-.column {
-  padding-left: 8px;
-  padding-right: 8px;
+.ui.layout.content {
+  flex-grow: 1;
 }
 
 .color-wrapper {
   position: relative;
+  padding: 32px;
   height: 100%;
+  width: 100%;
 }
 </style>

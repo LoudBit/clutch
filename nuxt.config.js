@@ -26,7 +26,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/inkline'],
+  plugins: ['~/plugins/fontawesome.js'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -53,6 +53,7 @@ export default {
   },
 
   styleResources: {
-    scss: []
-  }
+    scss: ['@/assets/scss/ui.scss']
+  },
+  css: ['@fortawesome/fontawesome-svg-core/styles.css']
 }

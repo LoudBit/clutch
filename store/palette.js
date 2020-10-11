@@ -29,7 +29,7 @@ function Input() {
     id: uuidv4(),
     type: 'scale',
     colors,
-    steps: colors.length,
+    steps: Math.max(4, colors.length + 1),
     mode: 'lch',
     hidden: false
   }
@@ -51,6 +51,24 @@ export const getters = {
 
   rawInputs(state) {
     return cloneDeep(state.inputs)
+  },
+
+  getInputById: (state) => (id) => {
+    return state.inputs.find((input) => input.id === id)
+  },
+
+  getInputColorsById: (state) => (id) => {
+    const input = state.inputs.find((input) => input.id === id)
+    const colours = []
+    if (input.type === 'scale' && !input.hidden) {
+      const c = input.colors.map((color) => chroma.lch(color.lch))
+      const scale = chroma
+        .scale(c)
+        .mode(input.mode)
+        .colors(input.steps, null)
+      colours.push(...scale)
+    }
+    return colours
   },
 
   fromInputs(state) {
@@ -84,6 +102,7 @@ export const actions = {
         break
     }
   },
+  // TODO: don't delete the last color
   removeColor({ commit, state }, data) {
     const input = cloneDeep(state.inputs[data.inputIndex])
     input.colors.splice(data.colorIndex, 1)
@@ -159,7 +178,7 @@ export const mutations = {
   addInput(state) {
     state.inputs = [...state.inputs, new Input()]
   },
-  removeInput(state, ndx) {
-    state.inputs.splice(ndx, 1)
+  removeInput(state, { index }) {
+    state.inputs.splice(index, 1)
   }
 }

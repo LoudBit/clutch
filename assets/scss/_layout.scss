@@ -1,0 +1,117 @@
+article, aside, figcaption, figure, footer, header, main, nav, section {
+  display: block;
+}
+.ui, .ui * { box-sizing: border-box; }
+
+// grid is not a semantic construct and doesn't need to be
+.ui.grid {
+  display: grid;
+  gap: 8px 8px;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: auto;
+  counter-reset: dummy;
+  .span-1 { grid-column-end: span 1; }
+  .span-2 { grid-column-end: span 2; }
+  .span-3 { grid-column-end: span 3; }
+  .span-4 { grid-column-end: span 4; }
+  .span-5 { grid-column-end: span 5; }
+  .span-6 { grid-column-end: span 6; }
+  .span-7 { grid-column-end: span 7; }
+  .span-8 { grid-column-end: span 8; }
+
+  .start-1 { grid-column-start: 1; }
+  .start-2 { grid-column-start: 2; }
+  .start-3 { grid-column-start: 3; }
+  .start-4 { grid-column-start: 4; }
+  .start-5 { grid-column-start: 5; }
+  .start-6 { grid-column-start: 6; }
+  .start-7 { grid-column-start: 7; }
+  .start-8 { grid-column-start: 78; }
+}
+.ui.subgrid {
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+}
+
+.ui.grid + .ui.grid { margin-top: 8px; }
+
+.grid--dummy-item {
+  background: rgba(black, 0.25);
+  color: rgba(white, 0.25);
+  font-size: 12px;
+  line-height: 30px;
+  padding: 0 8px;
+  text-align: center;
+  position: relative;
+  display: block;
+}
+.grid--dummy-item::before {
+  counter-increment: dummy;
+  content: counter(dummy);
+  display: block;
+  position: relative;
+}
+
+
+// This sucks, what's better?
+// nth-child selectors
+.grid-area-blend { grid-area: blend; }
+.grid-area-button { grid-area: button; }
+.grid-area-delete { grid-area: delete; }
+.grid-area-input { grid-area: input; }
+.grid-area-label { grid-area: label; }
+.grid-area-mode { grid-area: mode; }
+.grid-area-slider { grid-area: slider; }
+.grid-area-steps { grid-area: steps; }
+.grid-area-swatch { grid-area: swatch; }
+.grid-area-visibility { grid-area: visibility; }
+
+
+br.ui { line-height: 24px; }
+
+.ui.row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+.ui.row + .ui.row { margin-top: 8px;}
+.ui.row.with-margins { margin-left: 8px; margin-right: 8px; }
+.ui.row.with-gutters .column { margin-left: 4px; margin-right: 4px; }
+.ui.row.with-gutters .column:first-child { margin-left: 0; }
+.ui.row.with-gutters .column:last-child { margin-right: 0; }
+
+.ui.column {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 1;
+  padding: 0;
+  margin: 0;
+}
+.ui.column.padded:first-child { padding-left: 0; }
+.ui.column.padded:last-child { padding-right: 0; }
+.ui.column.padded + .ui.column.padded { padding: 0 4px; }
+
+
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.x-25 { width: 25% }
+.x-33 { width: 33.333% }
+.x-66 { width: 66.666% }
+.x-75 { width: 75% }
+.x-100 { width: 100%; }
+
+
+
+// TODO: Forms
+// .layout-aside-children input {
+//   background: rgba(#121212, 0.2);
+//   border: 1px solid rgba(#121212, 0.8);
+//   border-radius: 2px;
+//   color: #d0d0d0;
+//   width: 100%;
+//   padding: 4px 8px;
+//   font-size: 14px;
+// }
