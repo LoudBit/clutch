@@ -1,8 +1,7 @@
 <template>
   <div class="PaletteInput">
     <div class="ui grid grid--palette-input">
-      <div class="span-1">
-        <br class="ui" />
+      <div class="ui span-1 column flex-end">
         <button v-if="open" class="ui x-100" title="Open Palette Controls" @click="toggleOpen()">
           <font-awesome-icon icon="angle-up" />
         </button>
@@ -10,8 +9,7 @@
           <font-awesome-icon icon="angle-down" />
         </button>
       </div>
-      <div class="span-1">
-        <br class="ui" />
+      <div class="ui span-1 column flex-end">
         <button v-if="!hidden" class="ui x-100" title="Hide Colors" @click="toggleVisibility()">
           <font-awesome-icon icon="eye" />
         </button>
@@ -19,11 +17,11 @@
           <font-awesome-icon icon="eye-slash" />
         </button>
       </div>
-      <div class="span-3">
+      <div class="ui span-3 column flex-end">
         <label>Steps</label>
         <input v-model.number="steps" type="number" min="2" max="32" step="1" />
       </div>
-      <div class="span-3">
+      <div class="ui span-3 column flex-end">
         <label>Blend</label>
         <div class="ui select">
           <select v-model="mode" class="ui">
@@ -36,6 +34,15 @@
           <font-awesome-icon icon="angle-down" />
         </div>
       </div>
+    </div>
+    <div class="ui row palette-lines">
+      <span
+        v-for="(color, index) in paletteColors"
+        :key="index"
+        class="palette-line"
+        :style="{ backgroundColor: color.hex() }"
+        :title="color.hex()"
+      ></span>
     </div>
     <div v-if="open" class="palette-details ui grid">
       <div class="span-4">
@@ -50,17 +57,7 @@
       </div>
       <button class="ui start-7 span-2" title="Delete Input" @click="removeInput">Delete</button>
     </div>
-    <div v-if="!open">
-      <div class="ui row palette-lines">
-        <span
-          v-for="(color, index) in paletteColors"
-          :key="index"
-          class="palette-line"
-          :style="{ backgroundColor: color.hex() }"
-          :title="color.hex()"
-        ></span>
-      </div>
-    </div>
+    <div v-if="!open"></div>
 
     <draggable v-model="inputColors" handle=".drag-handle" @start="drag = true" @end="drag = false">
       <ColorInput
@@ -207,6 +204,9 @@ export default {
 
 .palette-lines {
   margin: -1px 0 7px;
+}
+.palette-lines:empty {
+  padding: 2px 0 0;
 }
 
 .palette-line {

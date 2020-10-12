@@ -91,6 +91,7 @@ br.ui { line-height: 24px; }
 .ui.column.padded:last-child { padding-right: 0; }
 .ui.column.padded + .ui.column.padded { padding: 0 4px; }
 
+.ui.flex-end { justify-content: flex-end; }
 
 
 .text-left { text-align: left; }
