@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      bg: 'palette/bg',
+      bg: 'bg/bg',
       colors: 'palette/fromInputs'
     })
   }

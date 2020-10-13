@@ -25,14 +25,14 @@ export default {
       },
       set(value) {
         if (chroma.valid(value)) {
-          this.$store.commit('palette/updateBG', value)
+          this.$store.commit('bg/update', value)
         }
       }
     }
   },
   methods: {
     ...mapMutations({
-      randomize: 'palette/randomize'
+      randomize: 'bg/randomize'
     })
   }
 }

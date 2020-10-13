@@ -20,7 +20,7 @@ export default {
   components: { BG, PaletteInput },
   computed: {
     ...mapGetters({
-      bg: 'palette/bg',
+      bg: 'bg/bg',
       rawInputs: 'palette/rawInputs',
       fromInputs: 'palette/fromInputs',
       scale: 'palette/scale'
