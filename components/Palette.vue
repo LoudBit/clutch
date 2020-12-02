@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BG :color="bg"></BG>
+    <BG></BG>
     <hr class="ui" />
     <div class="ui grid grid--heading">
       <h1 class="ui h1">Palette</h1>
@@ -21,7 +21,6 @@ export default {
   components: { BG, PaletteInput },
   computed: {
     ...mapGetters({
-      bg: 'bg/bg',
       rawInputs: 'palette/rawInputs',
       fromInputs: 'palette/fromInputs',
       scale: 'palette/scale'

@@ -1,7 +1,9 @@
 import chroma from 'chroma-js'
 
+import { createColor } from '~/store/palette'
+
 export const state = () => ({
-  background: chroma.random().hex()
+  background: createColor(chroma.random())
 })
 
 export const getters = {
@@ -14,9 +16,9 @@ export const actions = {}
 
 export const mutations = {
   randomize(state) {
-    state.background = chroma.random().hex()
+    state.background = createColor(chroma.random())
   },
   update(state, bg) {
-    state.background = bg
+    state.background = createColor(chroma(bg))
   }
 }

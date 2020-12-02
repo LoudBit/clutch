@@ -10,7 +10,7 @@
       <input id="bg" v-model="hex" class="span-6" type="text" size="sm" />
     </div>
     <template v-if="open">
-      <!-- <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput> -->
+      <Lch2 v-if="mode === 'lch'" :l="l" @changeL="changeL"></Lch2>
       <!-- <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput> -->
       <div class="ui grid">
         <div class="ui select span-6">
@@ -31,25 +31,33 @@
 
 <script>
 import chroma from 'chroma-js'
-import { mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
+
+import Lch2 from '~/components/Lch2'
 
 export default {
-  props: {
-    color: {
-      type: String,
-      required: true
-    }
+  components: {
+    Lch2
   },
+
   data() {
     return {
       mode: 'lch',
       open: false
     }
   },
+
   computed: {
+    ...mapGetters({
+      bg: 'bg/bg'
+    }),
+    l() {
+      return this.bg.lch[0]
+    },
     hex: {
       get() {
-        return this.color
+        console.debug(`🔊 this.bg.lch:`, this.bg.lch[0])
+        return this.bg.hex
       },
       set(value) {
         if (chroma.valid(value)) {
@@ -62,6 +70,15 @@ export default {
     ...mapMutations({
       randomize: 'bg/randomize'
     }),
+    changeL(l) {
+      console.debug(`🔊 l:`, l)
+      // this.$store.dispatch('palette/updateLch', {
+      //   colorIndex: this.colorIndex,
+      //   input: this.input,
+      //   inputIndex: this.inputIndex,
+      //   lch: [l, lch[1], lch[2]]
+      // })
+    },
     toggleOpen() {
       this.open = !this.open
     }
