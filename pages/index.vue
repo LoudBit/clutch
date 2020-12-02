@@ -37,8 +37,8 @@ export default {
 }
 
 .ui.layout.aside {
-  background: rgba(#292929, 0.8);
-  background-image: url('~assets/img/aside-bg.png');
+  background: rgba(black, 0.65);
+  // background-image: url('~assets/img/aside-bg.png');
   color: #d0d0d0;
   max-width: 320px;
   z-index: 1;

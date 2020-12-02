@@ -98,13 +98,19 @@ br.ui { line-height: 24px; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 
+.ui.block { display: bock; }
+
 .x-25 { width: 25% }
 .x-33 { width: 33.333% }
 .x-66 { width: 66.666% }
 .x-75 { width: 75% }
 .x-100 { width: 100%; }
 
-
+hr.ui {
+  border: none;
+  border-bottom: 2px solid rgba(black, 0.1);
+  margin: 15px 0;
+}
 
 // TODO: Forms
 // .layout-aside-children input {

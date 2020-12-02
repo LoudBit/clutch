@@ -1,9 +1,31 @@
 <template>
-  <div class="bg-color-grid">
-    <label class="grid-area-label">Background Color</label>
-    <button class="grid-area-button ui small" @click="randomize">Random</button>
-    <div class="ui swatch grid-area-swatch" :style="{ backgroundColor: hex }"></div>
-    <input v-model="hex" class="grid-area-input" type="text" size="sm" />
+  <div class="BG">
+    <div class="ui grid">
+      <label class="ui span-8 block" for="bg">Background Color</label>
+      <!-- <button class="ui small span-2" @click="randomize">Random</button> -->
+      <button class="ui span-1" @click="toggleOpen">
+        <font-awesome-icon icon="angle-down" />
+      </button>
+      <div class="ui swatch span-1" :style="{ backgroundColor: hex }"></div>
+      <input id="bg" v-model="hex" class="span-6" type="text" size="sm" />
+    </div>
+    <template v-if="open">
+      <!-- <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput> -->
+      <!-- <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput> -->
+      <div class="ui grid">
+        <div class="ui select span-6">
+          <select v-model="mode">
+            <option value="rgb" label="RGB" />
+            <option value="lch" label="LCh" />
+          </select>
+          <font-awesome-icon icon="angle-down" />
+        </div>
+        <button class="ui span-2" @click="randomize">Random</button>
+        <!-- <button class="ui span-2" title="Remove Color" @click="removeColor(colorIndex)">
+          Delete
+        </button> -->
+      </div>
+    </template>
   </div>
 </template>
 
@@ -16,6 +38,12 @@ export default {
     color: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      mode: 'lch',
+      open: false
     }
   },
   computed: {
@@ -33,20 +61,10 @@ export default {
   methods: {
     ...mapMutations({
       randomize: 'bg/randomize'
-    })
+    }),
+    toggleOpen() {
+      this.open = !this.open
+    }
   }
 }
 </script>
-
-<style>
-.bg-color-grid {
-  display: grid;
-  gap: 8px 8px;
-  justify-items: stretch;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: auto;
-  grid-template-areas:
-    'label label label label label label button button'
-    '. swatch input input input input input input ';
-}
-</style>
