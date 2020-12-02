@@ -106,13 +106,13 @@ export const actions = {
   updateLch({ commit }, data) {
     const color = chroma.lch(data.lch)
 
-    const def = {
-      hex: color.hex(),
-      lch: data.lch,
-      rgb: color.rgb()
-    }
-
     if (chroma.valid(color)) {
+      const def = {
+        hex: color.hex(),
+        lch: data.lch,
+        rgb: color.rgb()
+      }
+
       const colors = [...data.input.colors]
       colors[data.colorIndex] = { ...colors[data.colorIndex], ...def }
       const input = { colors }
@@ -122,13 +122,12 @@ export const actions = {
   updateRgb({ commit }, data) {
     const color = chroma.rgb(data.rgb)
 
-    const def = {
-      hex: color.hex(),
-      lch: color.lch(),
-      rgb: data.rgb
-    }
-
     if (chroma.valid(color)) {
+      const def = {
+        hex: color.hex(),
+        lch: color.lch(),
+        rgb: data.rgb
+      }
       const colors = [...data.input.colors]
       colors[data.colorIndex] = { ...colors[data.colorIndex], ...def }
       const input = { colors }

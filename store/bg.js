@@ -20,5 +20,8 @@ export const mutations = {
   },
   update(state, bg) {
     state.background = createColor(chroma(bg))
+  },
+  updateLch(state, lch) {
+    state.background = createColor(chroma.lch(lch[0], lch[1], lch[2]))
   }
 }

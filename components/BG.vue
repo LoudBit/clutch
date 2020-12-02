@@ -2,7 +2,6 @@
   <div class="BG">
     <div class="ui grid">
       <label class="ui span-8 block" for="bg">Background Color</label>
-      <!-- <button class="ui small span-2" @click="randomize">Random</button> -->
       <button class="ui span-1" @click="toggleOpen">
         <font-awesome-icon icon="angle-down" />
       </button>
@@ -10,7 +9,7 @@
       <input id="bg" v-model="hex" class="span-6" type="text" size="sm" />
     </div>
     <template v-if="open">
-      <Lch2 v-if="mode === 'lch'" :l="l" @changeL="changeL"></Lch2>
+      <Lch2 v-if="mode === 'lch'" :l="l" :c="c" :h="h" @l="setL" @c="setC" @h="setH"></Lch2>
       <!-- <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput> -->
       <div class="ui grid">
         <div class="ui select span-6">
@@ -21,9 +20,6 @@
           <font-awesome-icon icon="angle-down" />
         </div>
         <button class="ui span-2" @click="randomize">Random</button>
-        <!-- <button class="ui span-2" title="Remove Color" @click="removeColor(colorIndex)">
-          Delete
-        </button> -->
       </div>
     </template>
   </div>
@@ -54,9 +50,14 @@ export default {
     l() {
       return this.bg.lch[0]
     },
+    c() {
+      return this.bg.lch[1]
+    },
+    h() {
+      return this.bg.lch[2]
+    },
     hex: {
       get() {
-        console.debug(`🔊 this.bg.lch:`, this.bg.lch[0])
         return this.bg.hex
       },
       set(value) {
@@ -70,14 +71,14 @@ export default {
     ...mapMutations({
       randomize: 'bg/randomize'
     }),
-    changeL(l) {
-      console.debug(`🔊 l:`, l)
-      // this.$store.dispatch('palette/updateLch', {
-      //   colorIndex: this.colorIndex,
-      //   input: this.input,
-      //   inputIndex: this.inputIndex,
-      //   lch: [l, lch[1], lch[2]]
-      // })
+    setL(l) {
+      this.$store.commit('bg/updateLch', [l, this.bg.lch[1], this.bg.lch[2]])
+    },
+    setC(c) {
+      this.$store.commit('bg/updateLch', [this.bg.lch[0], c, this.bg.lch[2]])
+    },
+    setH(h) {
+      this.$store.commit('bg/updateLch', [this.bg.lch[0], this.bg.lch[1], h])
     },
     toggleOpen() {
       this.open = !this.open
