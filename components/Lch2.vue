@@ -18,9 +18,9 @@
       <div class="text-center">
         <label>h</label>
       </div>
-      <input :value="h" type="range" min="0" max="360" step="1" :style="gradients.h" @input="changeH" />
+      <input :value="h" type="range" min="0" max="360" step="0.1" :style="gradients.h" @input="changeH" />
     </div>
-    <input :value="h" type="number" min="0" max="360" step="1" class="span-2" @change="changeH" />
+    <input :value="h" type="number" min="0" max="359" step="0.1" class="span-2" @change="changeH" />
   </div>
 </template>
 

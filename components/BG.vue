@@ -6,11 +6,11 @@
         <font-awesome-icon icon="angle-down" />
       </button>
       <div class="ui swatch span-1" :style="{ backgroundColor: hex }"></div>
-      <input id="bg" v-model="hex" class="span-6" type="text" size="sm" />
+      <input id="bg" v-model.lazy="hex" class="span-6" type="text" size="sm" />
     </div>
     <template v-if="open">
       <Lch2 v-if="mode === 'lch'" :l="l" :c="c" :h="h" @l="setL" @c="setC" @h="setH"></Lch2>
-      <!-- <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput> -->
+      <Rgb2 v-if="mode === 'rgb'" :r="r" :g="g" :b="b" @r="setR" @g="setG" @b="setB"></Rgb2>
       <div class="ui grid">
         <div class="ui select span-6">
           <select v-model="mode">
@@ -30,10 +30,12 @@ import chroma from 'chroma-js'
 import { mapGetters, mapMutations } from 'vuex'
 
 import Lch2 from '~/components/Lch2'
+import Rgb2 from '~/components/Rgb2'
 
 export default {
   components: {
-    Lch2
+    Lch2,
+    Rgb2
   },
 
   data() {
@@ -55,6 +57,15 @@ export default {
     },
     h() {
       return this.bg.lch[2]
+    },
+    r() {
+      return this.bg.rgb[0]
+    },
+    g() {
+      return this.bg.rgb[1]
+    },
+    b() {
+      return this.bg.rgb[2]
     },
     hex: {
       get() {
@@ -79,6 +90,15 @@ export default {
     },
     setH(h) {
       this.$store.commit('bg/updateLch', [this.bg.lch[0], this.bg.lch[1], h])
+    },
+    setR(l) {
+      this.$store.commit('bg/updateRGB', [l, this.bg.rgb[1], this.bg.rgb[2]])
+    },
+    setG(c) {
+      this.$store.commit('bg/updateRGB', [this.bg.rgb[0], c, this.bg.rgb[2]])
+    },
+    setB(h) {
+      this.$store.commit('bg/updateRGB', [this.bg.rgb[0], this.bg.rgb[1], h])
     },
     toggleOpen() {
       this.open = !this.open
