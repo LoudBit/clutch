@@ -8,8 +8,8 @@
       <input v-model="hex" type="text" class="span-6" />
     </div>
     <template v-if="open">
-      <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
       <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
+      <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
       <div class="ui grid">
         <div class="ui select span-6">
           <select v-model="mode">

@@ -1,5 +1,5 @@
 <template>
-  <main class="ui layout row" :style="{ backgroundColor: bg }">
+  <main class="ui layout row" :style="{ backgroundColor: bg.hex }">
     <div class="ui layout aside">
       <Palette></Palette>
     </div>
@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      bg: 'palette/bg',
+      bg: 'bg/bg',
       colors: 'palette/fromInputs'
     })
   }
@@ -37,7 +37,7 @@ export default {
 }
 
 .ui.layout.aside {
-  background: rgba(#292929, 0.8);
+  background: rgba(black, 0.65);
   background-image: url('~assets/img/aside-bg.png');
   color: #d0d0d0;
   max-width: 320px;

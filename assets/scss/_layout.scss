@@ -91,11 +91,14 @@ br.ui { line-height: 24px; }
 .ui.column.padded:last-child { padding-right: 0; }
 .ui.column.padded + .ui.column.padded { padding: 0 4px; }
 
+.ui.flex-end { justify-content: flex-end; }
 
 
 .text-left { text-align: left; }
 .text-center { text-align: center; }
 .text-right { text-align: right; }
+
+.ui.block { display: bock; }
 
 .x-25 { width: 25% }
 .x-33 { width: 33.333% }
@@ -103,7 +106,11 @@ br.ui { line-height: 24px; }
 .x-75 { width: 75% }
 .x-100 { width: 100%; }
 
-
+hr.ui {
+  border: none;
+  border-bottom: 2px solid rgba(black, 0.1);
+  margin: 15px 0;
+}
 
 // TODO: Forms
 // .layout-aside-children input {
