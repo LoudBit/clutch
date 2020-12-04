@@ -1,6 +1,7 @@
 <template>
   <div>
-    <BG :color="bg"></BG>
+    <BG></BG>
+    <hr class="ui" />
     <div class="ui grid grid--heading">
       <h1 class="ui h1">Palette</h1>
       <button class="ui small x-100" title="Add Input" @click="addInput">Add Palette</button>
@@ -20,7 +21,6 @@ export default {
   components: { BG, PaletteInput },
   computed: {
     ...mapGetters({
-      bg: 'palette/bg',
       rawInputs: 'palette/rawInputs',
       fromInputs: 'palette/fromInputs',
       scale: 'palette/scale'

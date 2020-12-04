@@ -36,15 +36,10 @@ function Input() {
 }
 
 export const state = () => ({
-  background: chroma.random().hex(),
   inputs: [new Input()]
 })
 
 export const getters = {
-  bg(state) {
-    return state.background
-  },
-
   colorById: (state) => (id) => {
     return state.colors.find((color) => color.id === id)
   },
@@ -90,7 +85,7 @@ export const getters = {
 // TODO: create actions for updating any of the attributes on an input
 // TODO: convert actions to use IDs instead of indexes
 export const actions = {
-  updateColor({ commit, state }, data) {
+  updateColor({ commit }, data) {
     switch (data.mode) {
       case 'hex':
         if (data.value.length >= 6 && chroma.valid(data.value)) {
@@ -110,14 +105,14 @@ export const actions = {
   },
   updateLch({ commit }, data) {
     const color = chroma.lch(data.lch)
-    // TODO: this should be abstracted
-    const def = {
-      hex: color.hex(),
-      lch: data.lch,
-      rgb: color.rgb()
-    }
 
     if (chroma.valid(color)) {
+      const def = {
+        hex: color.hex(),
+        lch: data.lch,
+        rgb: color.rgb()
+      }
+
       const colors = [...data.input.colors]
       colors[data.colorIndex] = { ...colors[data.colorIndex], ...def }
       const input = { colors }
@@ -127,13 +122,12 @@ export const actions = {
   updateRgb({ commit }, data) {
     const color = chroma.rgb(data.rgb)
 
-    const def = {
-      hex: color.hex(),
-      lch: color.lch(),
-      rgb: data.rgb
-    }
-
     if (chroma.valid(color)) {
+      const def = {
+        hex: color.hex(),
+        lch: color.lch(),
+        rgb: data.rgb
+      }
       const colors = [...data.input.colors]
       colors[data.colorIndex] = { ...colors[data.colorIndex], ...def }
       const input = { colors }
@@ -145,12 +139,6 @@ export const actions = {
 // TODO: convert mutations to use IDs instead of indexes
 // TODO: remove Input
 export const mutations = {
-  randomize(state) {
-    state.background = chroma.random().hex()
-  },
-  updateBG(state, bg) {
-    state.background = bg
-  },
   orderColors(state, { inputId, newColors }) {
     let inputIndex = NaN
     const oldInput = state.inputs.find((input, i) => {
