@@ -8,8 +8,8 @@
       <input v-model="hex" type="text" class="span-6" />
     </div>
     <template v-if="open">
-      <LchInput v-if="mode === 'lch'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></LchInput>
-      <RgbInput v-if="mode === 'rgb'" :input-index="inputIndex" :color-index="colorIndex" :input="input"></RgbInput>
+      <Lch2 v-if="mode === 'lch'" :l="l" :c="c" :h="h" @l="setL" @c="setC" @h="setH"></Lch2>
+      <Rgb2 v-if="mode === 'rgb'" :r="r" :g="g" :b="b" @r="setR" @g="setG" @b="setB"></Rgb2>
       <div class="ui grid">
         <div class="ui select span-6">
           <select v-model="mode">
@@ -27,13 +27,13 @@
 </template>
 
 <script>
-import RgbInput from '~/components/RgbInput'
-import LchInput from '~/components/LchInput'
+import Rgb2 from '~/components/Rgb2'
+import Lch2 from '~/components/Lch2'
 
 export default {
   components: {
-    LchInput,
-    RgbInput
+    Lch2,
+    Rgb2
   },
 
   props: {
@@ -51,12 +51,33 @@ export default {
   },
 
   computed: {
+    color() {
+      return this.input.colors[this.colorIndex]
+    },
+    l() {
+      return this.color.lch[0]
+    },
+    c() {
+      return this.color.lch[1]
+    },
+    h() {
+      return this.color.lch[2]
+    },
+    r() {
+      return this.color.rgb[0]
+    },
+    g() {
+      return this.color.rgb[1]
+    },
+    b() {
+      return this.color.rgb[2]
+    },
     colorStyles() {
       return { backgroundColor: this.input.colors[this.colorIndex].hex }
     },
     hex: {
       get() {
-        return this.input.colors[this.colorIndex].hex
+        return this.color.hex
       },
       set(hex) {
         this.$store.dispatch('palette/updateColor', {
@@ -73,6 +94,61 @@ export default {
     removeColor(index) {
       this.$store.dispatch('palette/removeColor', { inputIndex: this.inputIndex, colorIndex: this.colorIndex })
     },
+    setL(l) {
+      const lch = this.color.lch
+      this.$store.dispatch('palette/updateLch', {
+        colorIndex: this.colorIndex,
+        input: this.input,
+        inputIndex: this.inputIndex,
+        lch: [l, lch[1], lch[2]]
+      })
+    },
+    setC(c) {
+      const lch = this.color.lch
+      this.$store.dispatch('palette/updateLch', {
+        colorIndex: this.colorIndex,
+        input: this.input,
+        inputIndex: this.inputIndex,
+        lch: [lch[0], c, lch[2]]
+      })
+    },
+    setH(h) {
+      const lch = this.color.lch
+      this.$store.dispatch('palette/updateLch', {
+        colorIndex: this.colorIndex,
+        input: this.input,
+        inputIndex: this.inputIndex,
+        lch: [lch[0], lch[1], h]
+      })
+    },
+    setR(r) {
+      const rgb = this.color.rgb
+      this.$store.dispatch('palette/updateRgb', {
+        colorIndex: this.colorIndex,
+        input: this.input,
+        inputIndex: this.inputIndex,
+        rgb: [r, rgb[1], rgb[2]]
+      })
+    },
+    setG(g) {
+      const rgb = this.color.rgb
+      this.$store.dispatch('palette/updateRgb', {
+        colorIndex: this.colorIndex,
+        input: this.input,
+        inputIndex: this.inputIndex,
+        rgb: [rgb[0], g, rgb[2]]
+      })
+    },
+    setB(b) {
+      const rgb = this.color.rgb
+      this.$store.dispatch('palette/updateRgb', {
+        colorIndex: this.colorIndex,
+        input: this.input,
+        inputIndex: this.inputIndex,
+        rgb: [rgb[0], rgb[1], b]
+      })
+    },
+
     toggleOpen() {
       this.open = !this.open
     }

@@ -78,6 +78,7 @@ export default {
       }
     }
   },
+
   methods: {
     ...mapMutations({
       randomize: 'bg/randomize'
@@ -91,14 +92,14 @@ export default {
     setH(h) {
       this.$store.commit('bg/updateLch', [this.bg.lch[0], this.bg.lch[1], h])
     },
-    setR(l) {
-      this.$store.commit('bg/updateRGB', [l, this.bg.rgb[1], this.bg.rgb[2]])
+    setR(r) {
+      this.$store.commit('bg/updateRGB', [r, this.bg.rgb[1], this.bg.rgb[2]])
     },
-    setG(c) {
-      this.$store.commit('bg/updateRGB', [this.bg.rgb[0], c, this.bg.rgb[2]])
+    setG(g) {
+      this.$store.commit('bg/updateRGB', [this.bg.rgb[0], g, this.bg.rgb[2]])
     },
-    setB(h) {
-      this.$store.commit('bg/updateRGB', [this.bg.rgb[0], this.bg.rgb[1], h])
+    setB(b) {
+      this.$store.commit('bg/updateRGB', [this.bg.rgb[0], this.bg.rgb[1], b])
     },
     toggleOpen() {
       this.open = !this.open
