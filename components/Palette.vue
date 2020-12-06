@@ -4,10 +4,10 @@
     <hr class="ui" />
     <div class="ui grid grid--heading">
       <h1 class="ui h1">Palette</h1>
-      <button class="ui small x-100" title="Add Input" @click="addInput">Add Palette</button>
+      <button class="ui small x-100" title="Add Input" @click="addInput">Add Color Set</button>
     </div>
     <template v-for="(input, index) in rawInputs">
-      <PaletteInput :key="`input-${input.id}`" :input="input" :index="index"></PaletteInput>
+      <ColorSet :key="`input-${input.id}`" :input="input" :index="index"></ColorSet>
     </template>
   </div>
 </template>
@@ -15,10 +15,10 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import BG from '~/components/BG'
-import PaletteInput from '~/components/PaletteInput'
+import ColorSet from '~/components/ColorSet'
 
 export default {
-  components: { BG, PaletteInput },
+  components: { BG, ColorSet },
   computed: {
     ...mapGetters({
       rawInputs: 'palette/rawInputs',

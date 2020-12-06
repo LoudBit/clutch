@@ -1,5 +1,5 @@
 <template>
-  <div class="PaletteInput">
+  <div class="ColorSet">
     <div class="ui grid grid--palette-input">
       <div class="ui span-1 column flex-end">
         <button v-if="open" class="ui x-100" title="Open Palette Controls" @click="toggleOpen()">
@@ -44,36 +44,27 @@
         :title="color.hex()"
       ></span>
     </div>
-    <div v-if="open" class="palette-details ui grid">
-      <div class="span-4">
-        <ul class="ui list list-tight list--palette-colors">
-          <li v-for="(color, index) in paletteColors" :key="index" class="ui grid grid--palette-colors">
-            <div class="palette-swatch-cell">
-              <span class="palette-swatch" :style="{ backgroundColor: color.hex() }" :title="color.hex()"></span>
-            </div>
-            <span>{{ color.hex() }}</span>
-          </li>
-        </ul>
-      </div>
-      <button class="ui start-7 span-2" title="Delete Input" @click="removeInput">Delete</button>
-    </div>
-    <div v-if="!open"></div>
 
-    <draggable v-model="inputColors" handle=".drag-handle" @start="drag = true" @end="drag = false">
-      <ColorInput
-        v-for="(color, i) in inputColors"
-        :key="`color-${color.id}`"
-        :color-id="color.id"
-        :input-index="index"
-        :color-index="i"
-        :input="input"
-      ></ColorInput>
-    </draggable>
-    <div class="ui grid">
-      <button class="ui span-1" title="Add Color" @click="addColor()">
-        <font-awesome-icon icon="plus" />
-      </button>
+    <div v-if="open" class="palette-details">
+      <draggable v-model="inputColors" handle=".drag-handle" @start="drag = true" @end="drag = false">
+        <ColorInput
+          v-for="(color, i) in inputColors"
+          :key="`color-${color.id}`"
+          :color-id="color.id"
+          :input-index="index"
+          :color-index="i"
+          :input="input"
+        ></ColorInput>
+      </draggable>
+      <div class="ui grid">
+        <button class="ui span-1" title="Add Color" @click="addColor()">
+          <font-awesome-icon icon="plus" />
+        </button>
+        <button class="ui start-6 span-3" title="Delete Input" @click="removeInput">Delete Set</button>
+      </div>
     </div>
+
+    <!-- <div v-if="!open"></div> -->
   </div>
 </template>
 

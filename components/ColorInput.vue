@@ -11,14 +11,14 @@
       <Lch2 v-if="mode === 'lch'" :l="l" :c="c" :h="h" @l="setL" @c="setC" @h="setH"></Lch2>
       <Rgb2 v-if="mode === 'rgb'" :r="r" :g="g" :b="b" @r="setR" @g="setG" @b="setB"></Rgb2>
       <div class="ui grid">
-        <div class="ui select span-6">
+        <div class="ui select span-4">
           <select v-model="mode">
             <option value="rgb" label="RGB" />
             <option value="lch" label="LCh" />
           </select>
           <font-awesome-icon icon="angle-down" />
         </div>
-        <button class="ui span-2" title="Remove Color" @click="removeColor(colorIndex)">
+        <button class="ui start-7 span-2" title="Remove Color" @click="removeColor(colorIndex)">
           Delete
         </button>
       </div>
