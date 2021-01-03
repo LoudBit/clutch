@@ -20,23 +20,29 @@ export function extract(color) {
 }
 
 // TODO: add support to name inputs
-// TODO: Find a way to extract a JSON version of a chroma color and use that in the colors array
 // NOTE: the only way to ensure the integrity of the interface is to track the exact input values
-function Input() {
-  const colors = [createColor(chroma.random()), createColor(chroma.random())]
+function Input(options) {
+  options = options || {}
+
+  const colors =
+    options.random === false
+      ? [createColor(chroma.rgb(255, 0, 0)), createColor(chroma.rgb(0, 255, 0)), createColor(chroma.rgb(0, 0, 255))]
+      : [createColor(chroma.random()), createColor(chroma.random())]
+
+  const steps = options.random === false ? colors.length : Math.max(4, colors.length + 1)
 
   return {
-    id: uuidv4(),
-    type: 'scale',
     colors,
-    steps: Math.max(4, colors.length + 1),
-    mode: 'lch',
-    hidden: false
+    hidden: options.hidden || false,
+    id: uuidv4(),
+    mode: options.mode || 'lch',
+    steps,
+    type: options.type || 'scale'
   }
 }
 
 export const state = () => ({
-  inputs: [new Input()]
+  inputs: [new Input({ random: false })]
 })
 
 export const getters = {
