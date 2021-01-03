@@ -6,7 +6,7 @@
         <font-awesome-icon icon="angle-down" />
       </button>
       <div class="ui swatch span-1" :style="{ backgroundColor: hex }"></div>
-      <input id="bg" v-model.lazy="hex" class="span-6" type="text" size="sm" />
+      <input id="bg" v-model.lazy="hex" class="span-6" type="text" />
     </div>
     <template v-if="open">
       <Lch2 v-if="mode === 'lch'" :l="l" :c="c" :h="h" @l="setL" @c="setC" @h="setH"></Lch2>
