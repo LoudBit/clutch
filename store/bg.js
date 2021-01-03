@@ -3,7 +3,8 @@ import chroma from 'chroma-js'
 import { createColor } from '~/store/palette'
 
 export const state = () => ({
-  background: createColor(chroma.random())
+  // background: createColor(chroma.random()) // original, random
+  background: createColor(chroma('#000')) // cymk, black
 })
 
 export const getters = {
