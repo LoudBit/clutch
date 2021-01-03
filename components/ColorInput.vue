@@ -1,10 +1,10 @@
 <template>
   <div class="ColorInput">
-    <div class="ui grid drag-handle">
-      <button class="ui span-1" @click="toggleOpen">
+    <div class="ui grid">
+      <button class="ui span-1 drag-handle" @click="toggleOpen">
         <font-awesome-icon icon="angle-down" />
       </button>
-      <div class="color-swatch span-1 " :style="colorStyles"></div>
+      <div class="color-swatch span-1 drag-handle" :style="colorStyles"></div>
       <input v-model="hex" type="text" class="span-6" />
     </div>
     <template v-if="open">
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import chroma from 'chroma-js'
 import Rgb2 from '~/components/Rgb2'
 import Lch2 from '~/components/Lch2'
 
@@ -79,13 +80,16 @@ export default {
       get() {
         return this.color.hex
       },
-      set(hex) {
-        this.$store.dispatch('palette/updateColor', {
-          inputId: this.input.id,
-          colorId: this.colorId,
-          mode: 'hex',
-          value: hex
-        })
+      set(value) {
+        // TODO: Error States
+        if (chroma.valid(value)) {
+          this.$store.dispatch('palette/updateColor', {
+            inputId: this.input.id,
+            colorId: this.colorId,
+            mode: 'hex',
+            value
+          })
+        }
       }
     }
   },
@@ -148,7 +152,6 @@ export default {
         rgb: [rgb[0], rgb[1], b]
       })
     },
-
     toggleOpen() {
       this.open = !this.open
     }
