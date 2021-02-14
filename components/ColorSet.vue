@@ -37,8 +37,8 @@
     </div>
     <div class="ui row palette-lines">
       <span
-        v-for="(color, index) in paletteColors"
-        :key="index"
+        v-for="(color, iColor) in paletteColors"
+        :key="iColor"
         class="palette-line"
         :style="{ backgroundColor: color.hex() }"
         :title="color.hex()"
