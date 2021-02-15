@@ -11,9 +11,9 @@
       <div class="text-center">
         <label>C</label>
       </div>
-      <input :value="c" type="range" min="0" max="100" step="0.1" :style="gradients.c" @input="changeC" />
+      <input :value="c" type="range" min="0" max="150" step="0.1" :style="gradients.c" @input="changeC" />
     </div>
-    <input :value="c" type="number" min="0" max="100" step="0.1" class="span-2" @change="changeC" />
+    <input :value="c" type="number" min="0" max="150" step="0.1" class="span-2" @change="changeC" />
     <div class="ui slider slider-inner-grid span-6">
       <div class="text-center">
         <label>h</label>

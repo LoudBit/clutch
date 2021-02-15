@@ -24,7 +24,7 @@
         <input v-model.number="l" type="number" min="0" max="100" step="0.001" />
       </div>
       <div class="ui column">
-        <input v-model.number="c" type="number" min="0" max="100" step="0.001" />
+        <input v-model.number="c" type="number" min="0" max="150" step="0.001" />
       </div>
       <div class="ui column">
         <input v-model.number="h" type="number" min="0" max="360" step="1" />
