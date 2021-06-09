@@ -17,7 +17,8 @@
     "test:unit": "cross-env TEST=unit ava --config unit.config.js",
     "test:e2e": "cross-env TEST=e2e ava --config e2e.config.js",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "heroku-postbuild": "npm run build"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint"
