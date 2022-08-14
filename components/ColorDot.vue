@@ -7,8 +7,8 @@ export default {
   props: {
     color: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     title() {
@@ -22,12 +22,12 @@ export default {
         background: this.color.hex(),
         bottom: `${Math.abs(this.color.lch()[0]).toFixed(4)}%`,
         left: `${Math.abs((this.color.lch()[2] / 360) * 100).toFixed(6)}%`,
-        // padding: `${Math.abs(1 + this.color.lch()[1] / 50).toFixed(6)}em`,
+        padding: `${Math.abs(1 + this.color.lch()[1] / 50).toFixed(6)}em`,
         padding: `1.5em`,
-        margin: '0 0' + margin + margin
+        margin: '0 0' + margin + margin,
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

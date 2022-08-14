@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BG></BG>
+    <!-- <BG></BG> -->
     <hr class="ui" />
     <div class="ui grid grid--heading">
       <h1 class="ui h1">Palette</h1>
@@ -23,15 +23,15 @@ export default {
     ...mapGetters({
       rawInputs: 'palette/rawInputs',
       fromInputs: 'palette/fromInputs',
-      scale: 'palette/scale'
-    })
+      scale: 'palette/scale',
+    }),
   },
   methods: {
     ...mapMutations({
       randomize: 'palette/randomize',
-      addInput: 'palette/addInput'
-    })
-  }
+      addInput: 'palette/addInput',
+    }),
+  },
 }
 </script>
 
