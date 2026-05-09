@@ -50,7 +50,7 @@ export default {
     loaders: {
       scss: {
         sassOptions: {
-          silenceDeprecations: ['import']
+          silenceDeprecations: ['import', 'legacy-js-api']
         }
       }
     },
