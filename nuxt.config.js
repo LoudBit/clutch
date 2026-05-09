@@ -47,6 +47,13 @@ export default {
    ** Build configuration
    */
   build: {
+    loaders: {
+      scss: {
+        sassOptions: {
+          silenceDeprecations: ['import', 'legacy-js-api']
+        }
+      }
+    },
     /*
      ** You can extend webpack config here
      */
